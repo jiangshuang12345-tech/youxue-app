@@ -63,6 +63,7 @@ const pages = [homePage, lessonsPage, validityPage, ledgerPage, ordersPage, orde
 let ledgerTab = "all";
 let incomeFilter = "all";
 let orderTab = "all";
+let activeOrder = null;
 
 function renderLessonCards() {
   lessonList.innerHTML = lessonData
@@ -125,11 +126,16 @@ function renderOrders() {
     <div class="order-total"><small>实付</small><strong>¥ ${order.paid}</strong><i>查看详情 ›</i></div>
   </button>`).join("") || '<p class="empty-state">当前状态下暂无订单</p>';
   document.querySelector("#orderResultCount").textContent = `${filtered.length} 笔订单`;
+  document.querySelectorAll("[data-order-tab]").forEach((button) => {
+    const tab = button.dataset.orderTab;
+    button.querySelector("b").textContent = tab === "all" ? orderData.length : orderData.filter((order) => order.status === tab).length;
+  });
 }
 
 function showOrderDetail(order) {
+  activeOrder = order;
   document.querySelector("#detailOrderNumber").textContent = `订单号 ${order.id}`;
-  document.querySelector("#orderDetailContent").innerHTML = `<aside class="order-status-panel"><span>当前状态</span><strong>${order.statusText}</strong><p>订单状态及支付信息已同步</p><div class="order-avatar">${order.avatar}</div><h2>${order.user}</h2></aside>
+  document.querySelector("#orderDetailContent").innerHTML = `<aside class="order-status-panel"><span>当前状态</span><strong>${order.statusText}</strong><p>订单状态及支付信息已同步</p>${order.status === "pending" ? '<button class="cancel-order-button" type="button" id="cancelOrder">取消订单</button>' : ""}<div class="order-avatar">${order.avatar}</div><h2>${order.user}</h2></aside>
     <div class="order-detail-main"><section><span class="section-label">购买内容</span><h2>${order.title}</h2><div class="detail-product"><div><small>商品名称</small><strong>${order.product}</strong></div><b>× ${order.qty}</b></div></section>
     <section class="detail-money"><div><span>商品金额</span><strong>¥ ${order.price}</strong></div><div><span>实付金额</span><strong>¥ ${order.paid}</strong></div></section>
     <section><span class="section-label">订单信息</span><dl class="order-info"><div><dt>订单编号</dt><dd>${order.id}</dd></div><div><dt>下单时间</dt><dd>${order.created}</dd></div><div><dt>支付时间</dt><dd>${order.paidAt}</dd></div></dl></section></div>`;
@@ -178,6 +184,13 @@ document.querySelectorAll("[data-order-tab]").forEach((button) => button.addEven
   renderOrders();
 }));
 ordersList.addEventListener("click", (event) => { const card = event.target.closest("[data-order-id]"); if (card) showOrderDetail(orderData.find((item) => item.id === card.dataset.orderId)); });
+document.querySelector("#orderDetailContent").addEventListener("click", (event) => { if (event.target.closest("#cancelOrder")) document.querySelector("#cancelModal").hidden = false; });
+document.querySelector("#keepOrder").addEventListener("click", () => { document.querySelector("#cancelModal").hidden = true; });
+document.querySelector("#confirmCancel").addEventListener("click", () => {
+  if (!activeOrder || activeOrder.status !== "pending") return;
+  activeOrder.status = "canceled"; activeOrder.statusText = "已取消";
+  document.querySelector("#cancelModal").hidden = true; renderOrders(); showOrderDetail(activeOrder);
+});
 
 renderLessonCards();
 renderValidity();
