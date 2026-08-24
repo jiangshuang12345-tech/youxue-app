@@ -64,6 +64,10 @@
                 <span class="nav-icon nav-icon--lessons" aria-hidden="true">◷</span>
                 <span>我的课时</span>
               </button>
+              <button class="nav-item" id="orderEntry" type="button">
+                <span class="nav-icon nav-icon--orders" aria-hidden="true">▤</span>
+                <span>我的订单</span>
+              </button>
               <button class="nav-item" type="button">
                 <span class="nav-icon nav-icon--privacy" aria-hidden="true">✓</span>
                 <span>隐私协议</span>
@@ -207,6 +211,34 @@
             <div class="ledger-list" id="ledgerList" aria-live="polite"></div>
           </div>
         </section>
+      </main>
+
+      <main class="page order-page" id="ordersPage" aria-labelledby="ordersTitle" hidden>
+        <header class="detail-topbar">
+          <button class="icon-button" id="backOrdersHome" type="button" aria-label="返回个人中心"><span class="back-chevron" aria-hidden="true"></span></button>
+          <div><span class="heading-kicker">MY PURCHASES</span><h1 id="ordersTitle">我的订单</h1></div>
+          <button class="invoice-link" type="button">发票和协议 ›</button>
+        </header>
+        <section class="orders-workbench">
+          <aside class="order-tabs" role="tablist" aria-label="订单状态">
+            <div class="asset-icon">🛍️</div><h2>订单中心</h2><p>查看课程与课时购买记录</p>
+            <button class="is-active" type="button" data-order-tab="all"><span>全部订单</span><b>5</b></button>
+            <button type="button" data-order-tab="pending"><span>待支付</span><b>1</b></button>
+            <button type="button" data-order-tab="completed"><span>已完成</span><b>2</b></button>
+            <button type="button" data-order-tab="processing"><span>处理中</span><b>1</b></button>
+            <button type="button" data-order-tab="refunded"><span>已退款</span><b>1</b></button>
+          </aside>
+          <div class="orders-panel"><div class="orders-toolbar"><div><span>订单列表</span><h2 id="orderFilterTitle">全部订单</h2></div><span id="orderResultCount">0 笔订单</span></div><div class="orders-grid" id="ordersList" aria-live="polite"></div></div>
+        </section>
+      </main>
+
+      <main class="page order-page" id="orderDetailPage" aria-labelledby="orderDetailTitle" hidden>
+        <header class="detail-topbar">
+          <button class="icon-button" id="backToOrders" type="button" aria-label="返回我的订单"><span class="back-chevron" aria-hidden="true"></span></button>
+          <div><span class="heading-kicker">ORDER DETAILS</span><h1 id="orderDetailTitle">订单详情</h1></div>
+          <span class="detail-page-count" id="detailOrderNumber"></span>
+        </header>
+        <section class="order-detail-workbench" id="orderDetailContent"></section>
       </main>
     </div>
 

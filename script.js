@@ -37,6 +37,13 @@ const ledgerData = [
   { month: "2026年01月", title: "购买课程包", date: "2026-01-23", amount: 648, kind: "income", source: "purchase", order: "2601231000663178652" },
   { month: "2026年01月", title: "新用户赠送 - VIPKID主修双师智学体系", date: "2026-01-15", amount: 5, kind: "income", source: "gift", order: "2601151000662475899" },
 ];
+const orderData = [
+  { id:"2511061000658408340", user:"Lucas - 田佳测试333", avatar:"🤖", status:"refunded", statusText:"已退款", title:"神奇高频词", product:"神奇高频词", qty:30, price:"9.90", paid:"9.90", created:"2025-11-06 19:31:24", paidAt:"2025-11-06 19:31:35" },
+  { id:"260623120000001", user:"testrichrich - 测试", avatar:"👩‍🎓", status:"pending", statusText:"确认中", title:"测试拼单活动成人续费10课时", product:"English in the Family--家庭外教口语课", qty:10, price:"0.01", paid:"0.01", created:"2026-06-23 12:51:05", paidAt:"—" },
+  { id:"1782190264863-46", user:"Lucas - 田佳测试333", avatar:"🤖", status:"completed", statusText:"已完成", title:"中国故事英文演绎课", product:"中国故事英文演绎课", qty:1, price:"0.00", paid:"0.00", created:"2026-06-23 12:51:05", paidAt:"2026-06-23 12:51:05" },
+  { id:"2605111000668640306", user:"Alex - 智学用户", avatar:"🐥", status:"completed", statusText:"已完成", title:"兑换-240课时主修双师智学体系课", product:"Major Course Co-teaching AI Version--VIPKID主修双师智学体系", qty:240, price:"5400.00", paid:"5400.00", created:"2026-05-11 10:18:26", paidAt:"2026-05-11 10:19:02" },
+  { id:"2604101000661000301", user:"test_new_G4 - 新打标用户", avatar:"🐣", status:"processing", statusText:"处理中", title:"VIPKID美国小学课程", product:"VIPKID美国小学课程", qty:1, price:"9.90", paid:"9.90", created:"2026-04-10 09:12:10", paidAt:"2026-04-10 09:12:32" }
+];
 
 const homePage = document.querySelector("#homePage");
 const lessonsPage = document.querySelector("#lessonsPage");
@@ -49,9 +56,13 @@ const ledgerPage = document.querySelector("#ledgerPage");
 const validityList = document.querySelector("#validityList");
 const ledgerList = document.querySelector("#ledgerList");
 const incomeFilters = document.querySelector("#incomeFilters");
-const pages = [homePage, lessonsPage, validityPage, ledgerPage];
+const ordersPage = document.querySelector("#ordersPage");
+const orderDetailPage = document.querySelector("#orderDetailPage");
+const ordersList = document.querySelector("#ordersList");
+const pages = [homePage, lessonsPage, validityPage, ledgerPage, ordersPage, orderDetailPage];
 let ledgerTab = "all";
 let incomeFilter = "all";
+let orderTab = "all";
 
 function renderLessonCards() {
   lessonList.innerHTML = lessonData
@@ -106,6 +117,25 @@ function renderLedger() {
   }).join("") || '<p class="empty-state">当前筛选下暂无课时记录</p>';
 }
 
+function renderOrders() {
+  const filtered = orderData.filter((order) => orderTab === "all" || order.status === orderTab);
+  ordersList.innerHTML = filtered.map((order) => `<button class="order-card" type="button" data-order-id="${order.id}">
+    <div class="order-customer"><span>${order.avatar}</span><strong>${order.user}</strong><b>${order.statusText}</b></div>
+    <div class="order-product"><h3>${order.title}</h3><p>${order.product}</p><span>× ${order.qty}</span></div>
+    <div class="order-total"><small>实付</small><strong>¥ ${order.paid}</strong><i>查看详情 ›</i></div>
+  </button>`).join("") || '<p class="empty-state">当前状态下暂无订单</p>';
+  document.querySelector("#orderResultCount").textContent = `${filtered.length} 笔订单`;
+}
+
+function showOrderDetail(order) {
+  document.querySelector("#detailOrderNumber").textContent = `订单号 ${order.id}`;
+  document.querySelector("#orderDetailContent").innerHTML = `<aside class="order-status-panel"><span>当前状态</span><strong>${order.statusText}</strong><p>订单状态及支付信息已同步</p><div class="order-avatar">${order.avatar}</div><h2>${order.user}</h2></aside>
+    <div class="order-detail-main"><section><span class="section-label">购买内容</span><h2>${order.title}</h2><div class="detail-product"><div><small>商品名称</small><strong>${order.product}</strong></div><b>× ${order.qty}</b></div></section>
+    <section class="detail-money"><div><span>商品金额</span><strong>¥ ${order.price}</strong></div><div><span>实付金额</span><strong>¥ ${order.paid}</strong></div></section>
+    <section><span class="section-label">订单信息</span><dl class="order-info"><div><dt>订单编号</dt><dd>${order.id}</dd></div><div><dt>下单时间</dt><dd>${order.created}</dd></div><div><dt>支付时间</dt><dd>${order.paidAt}</dd></div></dl></section></div>`;
+  showPage(orderDetailPage, `#order-${order.id}`);
+}
+
 function showPage(targetPage, hash) {
   pages.forEach((page) => { page.hidden = page !== targetPage; });
   targetPage.classList.remove("is-entering");
@@ -121,6 +151,9 @@ function showPage(targetPage, hash) {
 }
 
 lessonEntry.addEventListener("click", () => showPage(lessonsPage, "#lessons"));
+document.querySelector("#orderEntry").addEventListener("click", () => showPage(ordersPage, "#orders"));
+document.querySelector("#backOrdersHome").addEventListener("click", () => showPage(homePage, "#home"));
+document.querySelector("#backToOrders").addEventListener("click", () => showPage(ordersPage, "#orders"));
 backToHome.addEventListener("click", () => showPage(homePage, "#home"));
 document.querySelectorAll("[data-back='lessons']").forEach((button) => button.addEventListener("click", () => showPage(lessonsPage, "#lessons")));
 lessonList.addEventListener("click", (event) => {
@@ -138,10 +171,18 @@ document.querySelectorAll("[data-income-filter]").forEach((button) => button.add
   document.querySelectorAll("[data-income-filter]").forEach((item) => item.classList.toggle("is-active", item === button));
   renderLedger();
 }));
+document.querySelectorAll("[data-order-tab]").forEach((button) => button.addEventListener("click", () => {
+  orderTab = button.dataset.orderTab;
+  document.querySelectorAll("[data-order-tab]").forEach((item) => item.classList.toggle("is-active", item === button));
+  document.querySelector("#orderFilterTitle").textContent = button.querySelector("span").textContent;
+  renderOrders();
+}));
+ordersList.addEventListener("click", (event) => { const card = event.target.closest("[data-order-id]"); if (card) showOrderDetail(orderData.find((item) => item.id === card.dataset.orderId)); });
 
 renderLessonCards();
 renderValidity();
 renderLedger();
+renderOrders();
 
-const initialRoutes = { "#lessons": lessonsPage, "#validity": validityPage, "#ledger": ledgerPage };
+const initialRoutes = { "#lessons": lessonsPage, "#validity": validityPage, "#ledger": ledgerPage, "#orders": ordersPage };
 if (initialRoutes[window.location.hash]) showPage(initialRoutes[window.location.hash], window.location.hash);
