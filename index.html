@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#93ddf3" />
+    <title>VIPKID 优学 - 我的课时</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <div class="ambient ambient--one"></div>
+      <div class="ambient ambient--two"></div>
+      <div class="ambient ambient--three"></div>
+
+      <main class="page page--home is-active" id="homePage" aria-labelledby="homeTitle">
+        <h1 class="sr-only" id="homeTitle">个人中心</h1>
+
+        <header class="topbar">
+          <button class="icon-button" type="button" aria-label="返回上一页">
+            <span class="back-chevron" aria-hidden="true"></span>
+          </button>
+          <button class="logout-button" type="button">退出登录</button>
+        </header>
+
+        <section class="dashboard">
+          <article class="profile-card glass-card">
+            <div class="profile-heading">
+              <div class="avatar" aria-hidden="true">
+                <div class="avatar-ring">
+                  <span class="avatar-face">🐣</span>
+                </div>
+              </div>
+              <div class="profile-copy">
+                <div class="name-line">
+                  <h2>M哈哈哈</h2>
+                  <button class="edit-button" type="button" aria-label="编辑个人信息">✎</button>
+                </div>
+                <p><span class="gender-symbol">♀</span> 女宝 <i></i> 4岁 <i></i> 学龄前</p>
+              </div>
+            </div>
+
+            <div class="learning-stats" aria-label="学习数据">
+              <div><strong>196</strong><span>探险天数</span></div>
+              <div><strong>81</strong><span>解锁地图</span></div>
+              <div><strong>349</strong><span>掌握词汇</span></div>
+            </div>
+
+            <p class="tip-pill">💡 只有完成探险，数据才会被记录哦~</p>
+
+            <nav class="profile-nav" aria-label="个人功能">
+              <button class="nav-item" type="button">
+                <span class="nav-icon nav-icon--account" aria-hidden="true">♙</span>
+                <span>账号管理</span>
+              </button>
+              <button class="nav-item nav-item--featured" id="lessonEntry" type="button">
+                <span class="new-badge">NEW</span>
+                <span class="nav-icon nav-icon--lessons" aria-hidden="true">◷</span>
+                <span>我的课时</span>
+              </button>
+              <button class="nav-item" type="button">
+                <span class="nav-icon nav-icon--privacy" aria-hidden="true">✓</span>
+                <span>隐私协议</span>
+              </button>
+              <button class="nav-item" type="button">
+                <span class="nav-icon nav-icon--about" aria-hidden="true">i</span>
+                <span>关于我们</span>
+              </button>
+            </nav>
+          </article>
+
+          <div class="dashboard-side">
+            <article class="vip-card">
+              <div class="vip-copy">
+                <div class="vip-title"><strong>♛ VIP</strong><span>有效期至：2046-08-26</span></div>
+                <div class="vip-benefits">
+                  <span><b>▣</b>1000+课程</span>
+                  <span><b>◩</b>无限探险</span>
+                  <span><b>AI</b>AI定制</span>
+                  <span><b>♛</b>专属身份</span>
+                </div>
+              </div>
+              <button type="button">查看更多</button>
+              <div class="vip-gem" aria-hidden="true">◆</div>
+            </article>
+
+            <div class="feature-grid">
+              <article class="ai-card glass-card">
+                <div class="card-title"><strong><i>AI</i>定制</strong><a href="#">定制记录 ›</a></div>
+                <div class="coin-count"><strong>108</strong><span>★</span></div>
+                <button type="button">去充值</button>
+                <div class="ai-orb" aria-hidden="true">AI</div>
+              </article>
+
+              <article class="expert-card glass-card">
+                <h3>专家定制</h3>
+                <div class="grade-tags">
+                  <span>学龄前</span><span>一年级</span><span>二年级</span><span>三年级</span>
+                  <span>四年级</span><span>五年级</span>
+                </div>
+                <button type="button">联系专家客服</button>
+                <div class="expert" aria-hidden="true">👨‍🏫</div>
+              </article>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <main class="page page--lessons" id="lessonsPage" aria-labelledby="lessonsTitle" hidden>
+        <header class="lesson-header">
+          <button class="icon-button" id="backToHome" type="button" aria-label="返回个人中心">
+            <span class="back-chevron" aria-hidden="true"></span>
+          </button>
+          <div class="lesson-heading">
+            <span class="heading-kicker">LESSON WALLET</span>
+            <h1 id="lessonsTitle">我的课时</h1>
+            <p>每一节课，都是成长路上的一颗星</p>
+          </div>
+          <div class="header-mascot" aria-hidden="true">🚀</div>
+        </header>
+
+        <section class="lesson-content">
+          <div class="lesson-summary">
+            <div>
+              <span>可用课时总计</span>
+              <strong id="totalLessons">0</strong>
+              <small>课时</small>
+            </div>
+            <span class="summary-decoration" aria-hidden="true">✦ ✦ ✦</span>
+          </div>
+
+          <div class="lesson-list" id="lessonList" aria-live="polite"></div>
+
+          <p class="lesson-note"><span>i</span> 课时将在有效期结束后自动失效，请合理安排学习时间</p>
+        </section>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
