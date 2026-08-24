@@ -64,6 +64,7 @@ let ledgerTab = "all";
 let incomeFilter = "all";
 let orderTab = "all";
 let activeOrder = null;
+let cancelFromList = false;
 
 function renderLessonCards() {
   lessonList.innerHTML = lessonData
@@ -119,11 +120,11 @@ function renderLedger() {
 
 function renderOrders() {
   const filtered = orderData.filter((order) => orderTab === "all" || order.status === orderTab);
-  ordersList.innerHTML = filtered.map((order) => `<button class="order-card" type="button" data-order-id="${order.id}">
+  ordersList.innerHTML = filtered.map((order) => `<article class="order-card" data-order-id="${order.id}">
     <div class="order-customer"><span>${order.avatar}</span><strong>${order.user}</strong><b>${order.statusText}</b></div>
     <div class="order-product"><h3>${order.title}</h3><p>${order.product}</p><span>× ${order.qty}</span></div>
-    <div class="order-total"><small>实付</small><strong>¥ ${order.paid}</strong><i>查看详情 ›</i></div>
-  </button>`).join("") || '<p class="empty-state">当前状态下暂无订单</p>';
+    <div class="order-total"><small>实付</small><strong>¥ ${order.paid}</strong>${order.status === "pending" ? '<button class="list-cancel-button" type="button">取消订单</button>' : ""}<i>查看详情 ›</i></div>
+  </article>`).join("") || '<p class="empty-state">当前状态下暂无订单</p>';
   document.querySelector("#orderResultCount").textContent = `${filtered.length} 笔订单`;
   document.querySelectorAll("[data-order-tab]").forEach((button) => {
     const tab = button.dataset.orderTab;
@@ -182,13 +183,19 @@ document.querySelectorAll("[data-order-tab]").forEach((button) => button.addEven
   document.querySelector("#orderFilterTitle").textContent = button.querySelector("span").textContent;
   renderOrders();
 }));
-ordersList.addEventListener("click", (event) => { const card = event.target.closest("[data-order-id]"); if (card) showOrderDetail(orderData.find((item) => item.id === card.dataset.orderId)); });
-document.querySelector("#orderDetailContent").addEventListener("click", (event) => { if (event.target.closest("#cancelOrder")) document.querySelector("#cancelModal").hidden = false; });
+ordersList.addEventListener("click", (event) => {
+  const card = event.target.closest("[data-order-id]"); if (!card) return;
+  const order = orderData.find((item) => item.id === card.dataset.orderId);
+  if (event.target.closest(".list-cancel-button")) { activeOrder = order; cancelFromList = true; document.querySelector("#cancelModal").hidden = false; return; }
+  showOrderDetail(order);
+});
+document.querySelector("#orderDetailContent").addEventListener("click", (event) => { if (event.target.closest("#cancelOrder")) { cancelFromList = false; document.querySelector("#cancelModal").hidden = false; } });
 document.querySelector("#keepOrder").addEventListener("click", () => { document.querySelector("#cancelModal").hidden = true; });
 document.querySelector("#confirmCancel").addEventListener("click", () => {
   if (!activeOrder || activeOrder.status !== "pending") return;
   activeOrder.status = "canceled"; activeOrder.statusText = "已取消";
-  document.querySelector("#cancelModal").hidden = true; renderOrders(); showOrderDetail(activeOrder);
+  document.querySelector("#cancelModal").hidden = true; renderOrders();
+  if (cancelFromList) showPage(ordersPage, "#orders"); else showOrderDetail(activeOrder);
 });
 
 renderLessonCards();
