@@ -14,7 +14,16 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="app-shell">
+    <div class="device-stage">
+      <div class="iphone iphone--landscape" aria-label="iPhone 横屏交互原型">
+        <span class="iphone-button iphone-button--action" aria-hidden="true"></span>
+        <span class="iphone-button iphone-button--volume-up" aria-hidden="true"></span>
+        <span class="iphone-button iphone-button--volume-down" aria-hidden="true"></span>
+        <span class="iphone-button iphone-button--power" aria-hidden="true"></span>
+        <div class="iphone-screen">
+          <div class="dynamic-island" aria-hidden="true"><i></i></div>
+          <div class="home-indicator" aria-hidden="true"></div>
+          <div class="app-shell">
       <div class="ambient ambient--one"></div>
       <div class="ambient ambient--two"></div>
       <div class="ambient ambient--three"></div>
@@ -240,6 +249,10 @@
         </header>
         <section class="order-detail-workbench" id="orderDetailContent"></section>
       </main>
+          </div>
+        </div>
+      </div>
+      <p class="device-caption"><span></span> iPhone · 横屏交互原型</p>
     </div>
 
     <script src="script.js"></script>
