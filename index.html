@@ -140,6 +140,74 @@
           <p class="lesson-note"><span>i</span> 课时将在有效期结束后自动失效，请合理安排学习时间</p>
         </section>
       </main>
+
+      <main class="page detail-page" id="validityPage" aria-labelledby="validityTitle" hidden>
+        <header class="detail-topbar">
+          <button class="icon-button detail-back" type="button" data-back="lessons" aria-label="返回我的课时">
+            <span class="back-chevron" aria-hidden="true"></span>
+          </button>
+          <div>
+            <span class="heading-kicker">VALIDITY DETAILS</span>
+            <h1 id="validityTitle">有效期详情</h1>
+          </div>
+          <span class="detail-page-count" id="validityBatchCount">0 个课时包</span>
+        </header>
+        <section class="detail-workbench">
+          <aside class="asset-panel">
+            <div class="asset-icon">📘</div>
+            <span>课时类型</span>
+            <h2>双师智学课</h2>
+            <div class="asset-number"><strong>2344</strong><small>剩余课时</small></div>
+            <p>所有课时按照最早到期顺序优先消耗</p>
+          </aside>
+          <div class="records-panel">
+            <div class="records-heading">
+              <div><span>课时包有效期</span><h2>按到期时间查看</h2></div>
+              <span class="records-legend"><i></i> 已激活 <i></i> 未激活</span>
+            </div>
+            <div class="validity-grid" id="validityList"></div>
+          </div>
+        </section>
+      </main>
+
+      <main class="page detail-page" id="ledgerPage" aria-labelledby="ledgerTitle" hidden>
+        <header class="detail-topbar">
+          <button class="icon-button detail-back" type="button" data-back="lessons" aria-label="返回我的课时">
+            <span class="back-chevron" aria-hidden="true"></span>
+          </button>
+          <div>
+            <span class="heading-kicker">LESSON RECORDS</span>
+            <h1 id="ledgerTitle">双师智学课课时</h1>
+          </div>
+          <span class="detail-page-count">当前余额 <b>2344</b></span>
+        </header>
+        <section class="detail-workbench detail-workbench--ledger">
+          <aside class="ledger-sidebar">
+            <div class="asset-icon">🧾</div>
+            <h2>课时明细</h2>
+            <p>查看每一笔课时的获得与消耗记录</p>
+            <div class="ledger-stats">
+              <div><span>累计获得</span><strong class="positive">+1237</strong></div>
+              <div><span>累计消耗</span><strong>−10</strong></div>
+            </div>
+          </aside>
+          <div class="records-panel ledger-panel">
+            <div class="ledger-controls">
+              <div class="primary-tabs" role="tablist" aria-label="课时流水类型">
+                <button class="is-active" type="button" data-ledger-tab="all">全部</button>
+                <button type="button" data-ledger-tab="income">获得</button>
+                <button type="button" data-ledger-tab="expense">消耗</button>
+              </div>
+              <div class="secondary-tabs" id="incomeFilters" aria-label="获得类型筛选" hidden>
+                <button class="is-active" type="button" data-income-filter="all">全部获得</button>
+                <button type="button" data-income-filter="purchase">购买获得</button>
+                <button type="button" data-income-filter="gift">赠送获得</button>
+              </div>
+            </div>
+            <div class="ledger-list" id="ledgerList" aria-live="polite"></div>
+          </div>
+        </section>
+      </main>
     </div>
 
     <script src="script.js"></script>
