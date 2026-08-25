@@ -133,8 +133,9 @@ function renderOrders() {
 function showOrderDetail(order) {
   activeOrder = order;
   document.querySelector("#detailOrderNumber").textContent = `订单号 ${order.id}`;
-  document.querySelector("#orderDetailContent").innerHTML = `<aside class="order-status-panel"><span>当前状态</span><strong>${order.statusText}</strong>${order.status === "pending" ? '<button class="cancel-order-button" type="button" id="cancelOrder">取消订单</button>' : ""}<div class="order-avatar">${order.avatar}</div><h2>${order.user}</h2></aside>
-    <div class="order-detail-main"><section><span class="section-label">购买内容</span><h2>${order.title}</h2><div class="detail-product"><div><small>商品名称</small><strong>${order.product}</strong></div><b>× ${order.qty}</b></div></section>
+  document.querySelector("#orderDetailContent").innerHTML = `<div class="order-detail-main">
+    <section class="detail-status-inline"><div><span>当前状态</span><strong>${order.statusText}</strong></div><div class="inline-customer"><span class="order-avatar">${order.avatar}</span><h2>${order.user}</h2></div>${order.status === "pending" ? '<button class="cancel-order-button" type="button" id="cancelOrder">取消订单</button>' : ""}</section>
+    <section class="detail-product-section"><span class="section-label">购买内容</span><h2>${order.title}</h2><div class="detail-product"><div><small>商品名称</small><strong>${order.product}</strong></div><b>× ${order.qty}</b></div></section>
     <section class="detail-money"><div><span>商品金额</span><strong>¥ ${order.price}</strong></div><div><span>实付金额</span><strong>¥ ${order.paid}</strong></div></section>
     <section><span class="section-label">订单信息</span><dl class="order-info"><div><dt>订单编号</dt><dd>${order.id}</dd></div><div><dt>下单时间</dt><dd>${order.created}</dd></div><div><dt>支付时间</dt><dd>${order.paidAt}</dd></div></dl></section></div>`;
   showPage(orderDetailPage, `#order-${order.id}`);
