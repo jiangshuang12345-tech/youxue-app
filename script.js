@@ -50,7 +50,6 @@ const lessonsPage = document.querySelector("#lessonsPage");
 const lessonEntry = document.querySelector("#lessonEntry");
 const backToHome = document.querySelector("#backToHome");
 const lessonList = document.querySelector("#lessonList");
-const totalLessons = document.querySelector("#totalLessons");
 const validityPage = document.querySelector("#validityPage");
 const ledgerPage = document.querySelector("#ledgerPage");
 const validityList = document.querySelector("#validityList");
@@ -84,7 +83,6 @@ function renderLessonCards() {
     )
     .join("");
 
-  totalLessons.textContent = lessonData.reduce((sum, lesson) => sum + lesson.count, 0);
 }
 
 function renderValidity() {
