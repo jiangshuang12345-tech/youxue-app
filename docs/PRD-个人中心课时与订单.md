@@ -332,8 +332,34 @@
 | `order_filter_change` | 切换订单状态 | `order_status` |
 | `order_card_click` | 点击订单卡片 | `order_id`、`order_status` |
 | `order_detail_view` | 订单详情曝光 | `order_id`、`order_status` |
-| `order_cancel_click` | 点击取消订单 | `order_id`、`order_status` |
-| `order_cancel_confirm` | 确认取消订单 | `order_id`、`result` |
+| `order_cancel_button_view` | 可取消订单的“取消订单”按钮有效曝光 | `order_id`、`order_status`、`page_source` |
+| `order_cancel_click` | 点击“取消订单” | `order_id`、`order_status`、`page_source` |
+| `order_cancel_dialog_view` | 取消订单二次确认弹窗曝光 | `order_id`、`order_status`、`page_source` |
+| `order_cancel_dialog_dismiss` | 点击“暂不取消”或关闭确认弹窗 | `order_id`、`dismiss_method`、`page_source` |
+| `order_cancel_confirm_click` | 点击“确认取消”并发起取消请求 | `order_id`、`order_status`、`page_source` |
+| `order_cancel_result` | 取消订单接口返回结果 | `order_id`、`result`、`error_code`、`duration_ms`、`page_source` |
+
+### 10.1 取消订单埋点参数定义
+
+| 参数 | 类型 | 取值/说明 |
+|---|---|---|
+| `order_id` | String | 订单唯一编号 |
+| `order_status` | String | 操作前订单状态，如 `pending`、`confirming` |
+| `page_source` | String | 操作入口：订单列表为 `order_list`，订单详情为 `order_detail` |
+| `dismiss_method` | String | `keep_order`（暂不取消）、`close`（关闭弹窗）、`mask`（点击遮罩） |
+| `result` | String | `success` 或 `failed` |
+| `error_code` | String | 失败时记录服务端错误码；成功时为空字符串 |
+| `duration_ms` | Number | 从发起取消请求到收到结果的耗时，单位毫秒 |
+
+#### 上报规则
+
+- 按钮进入可视区域且可点击时，上报一次 `order_cancel_button_view`；同一页面生命周期内同一订单不重复上报。
+- 列表页和详情页的取消入口必须通过 `page_source` 区分。
+- 每次弹出二次确认框均上报 `order_cancel_dialog_view`。
+- 用户关闭弹窗但未发起请求时，只上报 `order_cancel_dialog_dismiss`，不得上报结果事件。
+- 点击确认时先上报 `order_cancel_confirm_click`；接口返回后再上报 `order_cancel_result`。
+- 网络超时、业务校验失败和服务端异常均按 `failed` 上报，并携带 `error_code`。
+- 埋点不得包含商品名称、用户姓名等非必要个人信息。
 
 ## 11. 验收标准
 
