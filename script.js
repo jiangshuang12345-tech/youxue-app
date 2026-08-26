@@ -214,7 +214,18 @@ function renderLessonCards() {
 }
 
 function renderValidity() {
-  validityList.innerHTML = validityData.map((item) => `
+  const sortedValidityData = validityData
+    .map((item, index) => ({ item, index }))
+    .sort((left, right) => {
+      if (left.item.active !== right.item.active) return left.item.active ? -1 : 1;
+      const dateComparison = left.item.active
+        ? left.item.expiry.localeCompare(right.item.expiry)
+        : left.item.date.localeCompare(right.item.date);
+      return dateComparison || left.index - right.index;
+    })
+    .map(({ item }) => item);
+
+  validityList.innerHTML = sortedValidityData.map((item) => `
     <article class="validity-item ${item.active ? "is-active" : ""}">
       <div class="validity-status"><span>${item.status}</span><strong>${item.count}<small>节</small></strong></div>
       <dl>
