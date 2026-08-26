@@ -64,6 +64,39 @@ let incomeFilter = "all";
 let orderTab = "all";
 let activeOrder = null;
 let cancelFromList = false;
+const paymentModal = document.querySelector("#paymentModal");
+
+function createPrototypeQr(seed) {
+  const size = 25;
+  let value = [...seed].reduce((total, char) => total + char.charCodeAt(0), 17);
+  const cells = Array.from({ length: size * size }, (_, index) => {
+    value = (value * 9301 + 49297 + index) % 233280;
+    return value / 233280 > 0.49;
+  });
+  const finder = (startX, startY) => {
+    for (let y = 0; y < 7; y += 1) for (let x = 0; x < 7; x += 1) {
+      const edge = x === 0 || x === 6 || y === 0 || y === 6;
+      const center = x >= 2 && x <= 4 && y >= 2 && y <= 4;
+      cells[(startY + y) * size + startX + x] = edge || center;
+    }
+  };
+  finder(1, 1); finder(size - 8, 1); finder(1, size - 8);
+  return cells.map((filled) => `<i${filled ? ' class="is-filled"' : ""}></i>`).join("");
+}
+
+function openPayment(order, method) {
+  activeOrder = order;
+  const isWechat = method === "wechat";
+  paymentModal.dataset.method = method;
+  document.querySelector("#paymentBrand").textContent = isWechat ? "微信" : "支";
+  document.querySelector("#paymentTitle").textContent = isWechat ? "微信支付" : "支付宝支付";
+  document.querySelector("#paymentAmount").textContent = `¥ ${order.paid}`;
+  document.querySelector("#paymentQr").innerHTML = createPrototypeQr(`${method}-${order.id}`);
+  paymentModal.hidden = false;
+  document.querySelector("#closePayment").focus();
+}
+
+function closePayment() { paymentModal.hidden = true; }
 
 function renderLessonCards() {
   lessonList.innerHTML = lessonData
@@ -121,7 +154,8 @@ function renderOrders() {
   ordersList.innerHTML = filtered.map((order) => `<article class="order-card" data-order-id="${order.id}">
     <div class="order-customer"><span>${order.avatar}</span><strong>${order.user}</strong><b>${order.statusText}</b></div>
     <div class="order-product"><h3>${order.title}</h3><p>${order.product}</p><span>× ${order.qty}</span></div>
-    <div class="order-total"><small>实付</small><strong>¥ ${order.paid}</strong>${order.status === "pending" ? '<button class="list-cancel-button" type="button">取消订单</button>' : ""}<i>查看详情 ›</i></div>
+    <div class="order-total"><small>实付</small><strong>¥ ${order.paid}</strong><i>查看详情 ›</i></div>
+    ${order.status === "pending" ? '<div class="order-actions"><button class="payment-button payment-button--wechat" data-pay-method="wechat" type="button"><span>微信</span>微信支付</button><button class="payment-button payment-button--alipay" data-pay-method="alipay" type="button"><span>支</span>支付宝支付</button><button class="list-cancel-button" type="button">取消订单</button></div>' : ""}
   </article>`).join("") || '<p class="empty-state">当前状态下暂无订单</p>';
   document.querySelector("#orderResultCount").textContent = `${filtered.length} 笔订单`;
   document.querySelectorAll("[data-order-tab]").forEach((button) => {
@@ -184,11 +218,16 @@ document.querySelectorAll("[data-order-tab]").forEach((button) => button.addEven
 ordersList.addEventListener("click", (event) => {
   const card = event.target.closest("[data-order-id]"); if (!card) return;
   const order = orderData.find((item) => item.id === card.dataset.orderId);
+  const paymentButton = event.target.closest("[data-pay-method]");
+  if (paymentButton) { openPayment(order, paymentButton.dataset.payMethod); return; }
   if (event.target.closest(".list-cancel-button")) { activeOrder = order; cancelFromList = true; document.querySelector("#cancelModal").hidden = false; return; }
   showOrderDetail(order);
 });
 document.querySelector("#orderDetailContent").addEventListener("click", (event) => { if (event.target.closest("#cancelOrder")) { cancelFromList = false; document.querySelector("#cancelModal").hidden = false; } });
 document.querySelector("#keepOrder").addEventListener("click", () => { document.querySelector("#cancelModal").hidden = true; });
+document.querySelector("#closePayment").addEventListener("click", closePayment);
+paymentModal.addEventListener("click", (event) => { if (event.target === paymentModal) closePayment(); });
+document.addEventListener("keydown", (event) => { if (event.key === "Escape" && !paymentModal.hidden) closePayment(); });
 document.querySelector("#confirmCancel").addEventListener("click", () => {
   if (!activeOrder || activeOrder.status !== "pending") return;
   activeOrder.status = "canceled"; activeOrder.statusText = "已取消";
