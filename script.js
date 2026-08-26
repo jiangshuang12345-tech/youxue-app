@@ -337,7 +337,7 @@ document.querySelectorAll("[data-photo-setting]").forEach((button) => button.add
 }));
 document.querySelector("#backFromSettings").addEventListener("click", () => {
   prototypeSettings.hidden = true;
-  document.querySelector("#saveQrFeedback").textContent = prototypePhotoPermission === "authorized" ? "权限已开启，请点击保存二维码" : "相册权限仍未开启";
+  document.querySelector("#saveQrFeedback").textContent = ["authorized", "limited"].includes(prototypePhotoPermission) ? "权限已开启，请点击保存二维码" : "相册权限仍未开启";
 });
 function updatePrototypeSettings() {
   document.querySelectorAll("[data-photo-setting]").forEach((button) => button.classList.toggle("is-selected", button.dataset.photoSetting === prototypePhotoPermission));
