@@ -102,7 +102,14 @@ function closePayment() { paymentModal.hidden = true; }
 
 function savePaymentQr() {
   const qrCells = [...document.querySelectorAll("#paymentQr i")];
-  if (!activeOrder || qrCells.length === 0) return;
+  const feedback = document.querySelector("#saveQrFeedback");
+  const saveButton = document.querySelector("#savePaymentQr");
+  if (!activeOrder || qrCells.length === 0) {
+    feedback.textContent = "二维码生成失败，请重新打开支付弹窗";
+    return;
+  }
+  feedback.textContent = "正在生成二维码图片…";
+  saveButton.disabled = true;
   const size = 25;
   const cellSize = 24;
   const quietZone = 48;
@@ -118,24 +125,41 @@ function savePaymentQr() {
     context.fillRect(quietZone + (index % size) * cellSize, quietZone + Math.floor(index / size) * cellSize, cellSize, cellSize);
   });
   const methodName = paymentModal.dataset.method === "wechat" ? "wechat" : "alipay";
-  canvas.toBlob((blob) => {
-    if (!blob) {
-      document.querySelector("#saveQrFeedback").textContent = "保存失败，请重试";
-      return;
-    }
+  const filename = `${methodName}-payment-${activeOrder.id}.png`;
+  const imageData = canvas.toDataURL("image/png");
+
+  if (window.webkit?.messageHandlers?.savePaymentQr) {
+    window.webkit.messageHandlers.savePaymentQr.postMessage({
+      imageBase64: imageData.split(",")[1],
+      filename,
+      orderId: activeOrder.id,
+      paymentChannel: methodName,
+    });
+    feedback.textContent = "正在保存到相册…";
+    return;
+  }
+
+  try {
     const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = `${methodName}-payment-${activeOrder.id}.png`;
+    link.href = imageData;
+    link.download = filename;
     link.hidden = true;
     document.body.appendChild(link);
     link.click();
-    window.setTimeout(() => {
-      URL.revokeObjectURL(link.href);
-      link.remove();
-    }, 1000);
-    document.querySelector("#saveQrFeedback").textContent = "二维码已保存，请前往对应App扫码支付";
-  }, "image/png");
+    link.remove();
+    feedback.textContent = "二维码图片已生成，请查看系统下载内容";
+  } catch (error) {
+    feedback.textContent = "保存失败，请重试";
+  } finally {
+    saveButton.disabled = false;
+  }
 }
+
+window.onPaymentQrSaveResult = (success, errorCode = "") => {
+  const feedback = document.querySelector("#saveQrFeedback");
+  document.querySelector("#savePaymentQr").disabled = false;
+  feedback.textContent = success ? "二维码已保存到相册，请前往对应App扫码支付" : `保存失败${errorCode ? `（${errorCode}）` : ""}，请重试`;
+};
 
 function renderLessonCards() {
   lessonList.innerHTML = lessonData
