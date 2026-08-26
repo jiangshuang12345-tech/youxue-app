@@ -65,6 +65,10 @@ let orderTab = "all";
 let activeOrder = null;
 let cancelFromList = false;
 const paymentModal = document.querySelector("#paymentModal");
+const photoPermissionModal = document.querySelector("#photoPermissionModal");
+const permissionGuideModal = document.querySelector("#permissionGuideModal");
+const prototypeSettings = document.querySelector("#prototypeSettings");
+let prototypePhotoPermission = "not_determined";
 
 function createPrototypeQr(seed) {
   const size = 25;
@@ -100,7 +104,26 @@ function openPayment(order, method) {
 
 function closePayment() { paymentModal.hidden = true; }
 
-function savePaymentQr() {
+function requestSavePaymentQr() {
+  if (window.webkit?.messageHandlers?.savePaymentQr) {
+    performQrSave();
+    return;
+  }
+  if (prototypePhotoPermission === "not_determined") {
+    document.querySelector("#saveQrFeedback").textContent = "正在申请相册权限…";
+    photoPermissionModal.hidden = false;
+    document.querySelector("#denyPhotoPermission").focus();
+    return;
+  }
+  if (prototypePhotoPermission === "denied") {
+    permissionGuideModal.hidden = false;
+    document.querySelector("#skipPhotoSettings").focus();
+    return;
+  }
+  performQrSave();
+}
+
+function performQrSave() {
   const qrCells = [...document.querySelectorAll("#paymentQr i")];
   const feedback = document.querySelector("#saveQrFeedback");
   const saveButton = document.querySelector("#savePaymentQr");
@@ -289,7 +312,36 @@ ordersList.addEventListener("click", (event) => {
 document.querySelector("#orderDetailContent").addEventListener("click", (event) => { if (event.target.closest("#cancelOrder")) { cancelFromList = false; document.querySelector("#cancelModal").hidden = false; } });
 document.querySelector("#keepOrder").addEventListener("click", () => { document.querySelector("#cancelModal").hidden = true; });
 document.querySelector("#closePayment").addEventListener("click", closePayment);
-document.querySelector("#savePaymentQr").addEventListener("click", savePaymentQr);
+document.querySelector("#savePaymentQr").addEventListener("click", requestSavePaymentQr);
+document.querySelector("#allowPhotoPermission").addEventListener("click", () => {
+  prototypePhotoPermission = "authorized";
+  photoPermissionModal.hidden = true;
+  performQrSave();
+});
+document.querySelector("#denyPhotoPermission").addEventListener("click", () => {
+  prototypePhotoPermission = "denied";
+  photoPermissionModal.hidden = true;
+  document.querySelector("#saveQrFeedback").textContent = "未获得相册权限，暂时无法保存";
+  permissionGuideModal.hidden = false;
+  document.querySelector("#skipPhotoSettings").focus();
+});
+document.querySelector("#skipPhotoSettings").addEventListener("click", () => { permissionGuideModal.hidden = true; });
+document.querySelector("#openPhotoSettings").addEventListener("click", () => {
+  permissionGuideModal.hidden = true;
+  prototypeSettings.hidden = false;
+  updatePrototypeSettings();
+});
+document.querySelectorAll("[data-photo-setting]").forEach((button) => button.addEventListener("click", () => {
+  prototypePhotoPermission = button.dataset.photoSetting;
+  updatePrototypeSettings();
+}));
+document.querySelector("#backFromSettings").addEventListener("click", () => {
+  prototypeSettings.hidden = true;
+  document.querySelector("#saveQrFeedback").textContent = prototypePhotoPermission === "authorized" ? "权限已开启，请点击保存二维码" : "相册权限仍未开启";
+});
+function updatePrototypeSettings() {
+  document.querySelectorAll("[data-photo-setting]").forEach((button) => button.classList.toggle("is-selected", button.dataset.photoSetting === prototypePhotoPermission));
+}
 paymentModal.addEventListener("click", (event) => { if (event.target === paymentModal) closePayment(); });
 document.addEventListener("keydown", (event) => { if (event.key === "Escape" && !paymentModal.hidden) closePayment(); });
 document.querySelector("#confirmCancel").addEventListener("click", () => {

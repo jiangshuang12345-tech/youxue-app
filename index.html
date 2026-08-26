@@ -241,6 +241,33 @@
           <p class="save-qr-feedback" id="saveQrFeedback" role="status" aria-live="polite"></p>
         </div>
       </div>
+      <div class="photo-permission-modal prototype-overlay" id="photoPermissionModal" hidden>
+        <div class="ios-permission-dialog" role="alertdialog" aria-modal="true" aria-labelledby="photoPermissionTitle">
+          <div class="permission-app-icon" aria-hidden="true">优</div>
+          <h2 id="photoPermissionTitle">“优学App”想添加照片</h2>
+          <p>用于将支付二维码保存到相册，方便前往微信或支付宝扫码支付。</p>
+          <div class="permission-actions"><button id="denyPhotoPermission" type="button">不允许</button><button id="allowPhotoPermission" type="button">允许</button></div>
+        </div>
+      </div>
+      <div class="permission-guide-modal prototype-overlay" id="permissionGuideModal" hidden>
+        <div class="permission-guide-dialog" role="dialog" aria-modal="true" aria-labelledby="permissionGuideTitle">
+          <div class="guide-icon" aria-hidden="true">▣</div>
+          <h2 id="permissionGuideTitle">无法保存二维码</h2>
+          <p>请在系统设置中允许优学App添加照片，以便保存支付二维码。</p>
+          <div><button id="skipPhotoSettings" type="button">暂不保存</button><button class="settings-button" id="openPhotoSettings" type="button">去设置</button></div>
+        </div>
+      </div>
+      <div class="prototype-settings prototype-overlay" id="prototypeSettings" hidden>
+        <div class="settings-sheet" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+          <header><button id="backFromSettings" type="button">‹ 优学App</button><h2 id="settingsTitle">照片</h2><span></span></header>
+          <p>允许“优学App”访问照片</p>
+          <div class="settings-options" role="radiogroup" aria-label="照片权限">
+            <button type="button" data-photo-setting="denied"><span>无</span><i></i></button>
+            <button type="button" data-photo-setting="authorized"><span>仅添加照片</span><i></i></button>
+          </div>
+          <small>允许此App将支付二维码添加到照片图库。</small>
+        </div>
+      </div>
           </div>
         </div>
       </div>
