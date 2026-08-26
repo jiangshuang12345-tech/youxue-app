@@ -226,8 +226,12 @@
 - 点击订单卡片任意区域进入订单详情。
 - 可取消状态的订单卡片直接展示“取消订单”按钮；点击后弹出二次确认，确认成功后停留在列表并刷新状态。
 - 待支付订单卡片展示“微信支付”和“支付宝支付”按钮；点击后分别弹出对应渠道的支付二维码。
-- 支付二维码弹窗展示支付方式、应付金额、二维码、有效期提示和关闭按钮；点击遮罩或按 `Esc` 可关闭。
+- 支付二维码弹窗展示支付方式、应付金额、二维码、有效期提示、“保存二维码”按钮、渠道化操作说明和关闭按钮；点击遮罩或按 `Esc` 可关闭。
 - 支付按钮点击事件不触发订单详情跳转；二维码过期或支付失败时允许关闭后重新发起。
+- 点击“保存二维码”后，客户端将当前渠道二维码保存至系统相册；保存成功后提示用户打开对应支付App，通过“扫一扫—从相册选择”完成支付。
+- 微信支付弹窗引导用户打开微信，支付宝支付弹窗引导用户打开支付宝，不得混用渠道文案。
+- 首次保存时按系统要求申请照片写入权限；权限被拒绝时提示用户前往系统设置开启权限，保存失败时提示重试。
+- 保存行为不延长二维码有效期；二维码过期后必须重新获取，历史图片不可继续支付。
 - 无数据时展示“当前状态下暂无订单”。
 
 ### 6.6 订单详情
@@ -306,7 +310,15 @@
 - 仅允许取消服务端判定为可取消的订单。
 - 接口应保证幂等；取消失败时保留原状态并展示错误提示。
 
-### 8.7 通用接口规则
+### 8.7 支付二维码
+
+`POST /api/v1/orders/{orderId}/payment-qrcode`
+
+建议请求参数：`paymentChannel`（`wechat` 或 `alipay`）。
+
+建议返回：二维码图片地址或Base64数据、支付流水号、失效时间。客户端仅允许保存服务端当前返回且未过期的二维码，不得自行拼接支付内容。
+
+### 8.8 通用接口规则
 
 - 金额使用最小货币单位传输，前端负责格式化。
 - 时间统一返回带时区的 ISO 8601，前端转换为用户本地时间。
@@ -341,6 +353,10 @@
 | `order_cancel_dialog_dismiss` | 点击“暂不取消”或关闭确认弹窗 | `order_id`、`dismiss_method`、`page_source` |
 | `order_cancel_confirm_click` | 点击“确认取消”并发起取消请求 | `order_id`、`order_status`、`page_source` |
 | `order_cancel_result` | 取消订单接口返回结果 | `order_id`、`result`、`error_code`、`duration_ms`、`page_source` |
+| `payment_qr_save_button_view` | “保存二维码”按钮有效曝光 | `order_id`、`payment_channel`、`order_amount` |
+| `payment_qr_save_click` | 点击“保存二维码” | `order_id`、`payment_channel`、`order_amount` |
+| `payment_qr_save_permission_result` | 系统相册权限请求返回 | `order_id`、`payment_channel`、`permission_result` |
+| `payment_qr_save_result` | 二维码保存完成或失败 | `order_id`、`payment_channel`、`result`、`error_code`、`duration_ms` |
 
 ### 10.1 取消订单埋点参数定义
 
@@ -364,6 +380,24 @@
 - 网络超时、业务校验失败和服务端异常均按 `failed` 上报，并携带 `error_code`。
 - 埋点不得包含商品名称、用户姓名等非必要个人信息。
 
+### 10.2 保存二维码埋点参数定义
+
+| 参数 | 类型 | 取值/说明 |
+|---|---|---|
+| `payment_channel` | String | `wechat` 或 `alipay` |
+| `order_amount` | Number | 订单应付金额，单位为分 |
+| `permission_result` | String | `granted`、`denied`、`limited` 或 `not_requested` |
+| `result` | String | `success` 或 `failed` |
+| `error_code` | String | 如 `permission_denied`、`image_generate_failed`、`album_write_failed` |
+| `duration_ms` | Number | 从点击保存到返回结果的耗时，单位毫秒 |
+
+#### 上报规则
+
+- 同一支付弹窗生命周期内，“保存二维码”按钮曝光只上报一次。
+- 每次点击保存均上报点击事件；若触发系统权限请求，额外上报权限结果。
+- 图片真正写入相册成功后才允许上报 `payment_qr_save_result=success`。
+- 用户拒绝权限或写入失败时上报 `failed`，并携带标准化错误码。
+
 ## 11. 验收标准
 
 ### 11.1 我的课时
@@ -385,6 +419,10 @@
 - [ ] 金额、数量、编号和时间显示符合格式要求。
 - [ ] 仅可取消状态的订单展示取消按钮。
 - [ ] 待支付订单列表卡片展示“取消订单”，点击按钮不进入详情页。
+- [ ] 待支付订单支持分别打开微信、支付宝二维码弹窗。
+- [ ] 两种支付弹窗均展示“保存二维码”，且引导文案与支付渠道一致。
+- [ ] 保存成功、权限拒绝和保存失败均有明确反馈；保存按钮不会触发订单详情跳转。
+- [ ] 保存后的图片清晰完整，可被对应支付App从相册识别。
 - [ ] 取消前必须二次确认，成功后状态更新为“已取消”。
 - [ ] 页面不展示“发票和协议”入口。
 

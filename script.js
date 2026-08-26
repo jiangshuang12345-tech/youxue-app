@@ -92,11 +92,50 @@ function openPayment(order, method) {
   document.querySelector("#paymentTitle").textContent = isWechat ? "微信支付" : "支付宝支付";
   document.querySelector("#paymentAmount").textContent = `¥ ${order.paid}`;
   document.querySelector("#paymentQr").innerHTML = createPrototypeQr(`${method}-${order.id}`);
+  document.querySelector("#saveQrGuide").textContent = `保存后打开${isWechat ? "微信" : "支付宝"}，使用“扫一扫—从相册选择”完成支付`;
+  document.querySelector("#saveQrFeedback").textContent = "";
   paymentModal.hidden = false;
   document.querySelector("#closePayment").focus();
 }
 
 function closePayment() { paymentModal.hidden = true; }
+
+function savePaymentQr() {
+  const qrCells = [...document.querySelectorAll("#paymentQr i")];
+  if (!activeOrder || qrCells.length === 0) return;
+  const size = 25;
+  const cellSize = 24;
+  const quietZone = 48;
+  const canvas = document.createElement("canvas");
+  canvas.width = size * cellSize + quietZone * 2;
+  canvas.height = canvas.width;
+  const context = canvas.getContext("2d");
+  context.fillStyle = "#ffffff";
+  context.fillRect(0, 0, canvas.width, canvas.height);
+  context.fillStyle = "#111111";
+  qrCells.forEach((cell, index) => {
+    if (!cell.classList.contains("is-filled")) return;
+    context.fillRect(quietZone + (index % size) * cellSize, quietZone + Math.floor(index / size) * cellSize, cellSize, cellSize);
+  });
+  const methodName = paymentModal.dataset.method === "wechat" ? "wechat" : "alipay";
+  canvas.toBlob((blob) => {
+    if (!blob) {
+      document.querySelector("#saveQrFeedback").textContent = "保存失败，请重试";
+      return;
+    }
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = `${methodName}-payment-${activeOrder.id}.png`;
+    link.hidden = true;
+    document.body.appendChild(link);
+    link.click();
+    window.setTimeout(() => {
+      URL.revokeObjectURL(link.href);
+      link.remove();
+    }, 1000);
+    document.querySelector("#saveQrFeedback").textContent = "二维码已保存，请前往对应App扫码支付";
+  }, "image/png");
+}
 
 function renderLessonCards() {
   lessonList.innerHTML = lessonData
@@ -226,6 +265,7 @@ ordersList.addEventListener("click", (event) => {
 document.querySelector("#orderDetailContent").addEventListener("click", (event) => { if (event.target.closest("#cancelOrder")) { cancelFromList = false; document.querySelector("#cancelModal").hidden = false; } });
 document.querySelector("#keepOrder").addEventListener("click", () => { document.querySelector("#cancelModal").hidden = true; });
 document.querySelector("#closePayment").addEventListener("click", closePayment);
+document.querySelector("#savePaymentQr").addEventListener("click", savePaymentQr);
 paymentModal.addEventListener("click", (event) => { if (event.target === paymentModal) closePayment(); });
 document.addEventListener("keydown", (event) => { if (event.key === "Escape" && !paymentModal.hidden) closePayment(); });
 document.querySelector("#confirmCancel").addEventListener("click", () => {
