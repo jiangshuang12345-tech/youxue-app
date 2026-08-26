@@ -69,11 +69,6 @@ const photoPermissionModal = document.querySelector("#photoPermissionModal");
 const permissionGuideModal = document.querySelector("#permissionGuideModal");
 const prototypeSettings = document.querySelector("#prototypeSettings");
 let prototypePhotoPermission = "not_determined";
-const QR_VALID_SECONDS = 30;
-let qrSecondsRemaining = QR_VALID_SECONDS;
-let qrExpired = false;
-let qrTimer = null;
-let qrGeneration = 0;
 
 function createPrototypeQr(seed) {
   const size = 25;
@@ -100,56 +95,18 @@ function openPayment(order, method) {
   document.querySelector("#paymentBrand").textContent = isWechat ? "微信" : "支";
   document.querySelector("#paymentTitle").textContent = isWechat ? "微信支付" : "支付宝支付";
   document.querySelector("#paymentAmount").textContent = `¥ ${order.paid}`;
-  renderPaymentQr(`${method}-${order.id}-${qrGeneration}`);
+  renderPaymentQr(`${method}-${order.id}`);
   document.querySelector("#saveQrGuide").textContent = `保存后打开${isWechat ? "微信" : "支付宝"}，使用“扫一扫—从相册选择”完成支付`;
   document.querySelector("#saveQrFeedback").textContent = "";
   paymentModal.hidden = false;
-  startQrCountdown();
   document.querySelector("#closePayment").focus();
 }
 
 function renderPaymentQr(seed) {
-  document.querySelector("#paymentQr").innerHTML = `${createPrototypeQr(seed)}<span class="qr-expired-state" hidden><b>二维码已失效</b><small>请刷新后重新支付</small></span>`;
-}
-
-function startQrCountdown() {
-  window.clearInterval(qrTimer);
-  qrSecondsRemaining = QR_VALID_SECONDS;
-  qrExpired = false;
-  document.querySelector("#paymentQr").classList.remove("is-expired");
-  document.querySelector("#paymentQr .qr-expired-state").hidden = true;
-  document.querySelector("#savePaymentQr").textContent = "保存二维码";
-  updateQrCountdown();
-  qrTimer = window.setInterval(() => {
-    qrSecondsRemaining -= 1;
-    updateQrCountdown();
-    if (qrSecondsRemaining <= 0) expirePaymentQr();
-  }, 1000);
-}
-
-function updateQrCountdown() {
-  document.querySelector("#paymentTip").textContent = `二维码将在 00:${String(Math.max(qrSecondsRemaining, 0)).padStart(2, "0")} 后失效`;
-}
-
-function expirePaymentQr() {
-  window.clearInterval(qrTimer);
-  qrExpired = true;
-  document.querySelector("#paymentQr").classList.add("is-expired");
-  document.querySelector("#paymentQr .qr-expired-state").hidden = false;
-  document.querySelector("#paymentTip").textContent = "二维码已失效，请刷新后重新支付";
-  document.querySelector("#savePaymentQr").textContent = "刷新二维码";
-  document.querySelector("#saveQrFeedback").textContent = "";
-}
-
-function refreshPaymentQr() {
-  qrGeneration += 1;
-  renderPaymentQr(`${paymentModal.dataset.method}-${activeOrder.id}-${qrGeneration}`);
-  document.querySelector("#saveQrFeedback").textContent = "二维码已刷新";
-  startQrCountdown();
+  document.querySelector("#paymentQr").innerHTML = createPrototypeQr(seed);
 }
 
 function closePayment() {
-  window.clearInterval(qrTimer);
   paymentModal.hidden = true;
   photoPermissionModal.hidden = true;
   permissionGuideModal.hidden = true;
@@ -157,10 +114,6 @@ function closePayment() {
 }
 
 function requestSavePaymentQr() {
-  if (qrExpired) {
-    refreshPaymentQr();
-    return;
-  }
   if (window.webkit?.messageHandlers?.savePaymentQr) {
     performQrSave();
     return;
@@ -180,10 +133,6 @@ function requestSavePaymentQr() {
 }
 
 function performQrSave() {
-  if (qrExpired) {
-    refreshPaymentQr();
-    return;
-  }
   const qrCells = [...document.querySelectorAll("#paymentQr i")];
   const feedback = document.querySelector("#saveQrFeedback");
   const saveButton = document.querySelector("#savePaymentQr");
