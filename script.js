@@ -263,7 +263,6 @@ function renderOrders() {
     <div class="order-total"><small>实付</small><strong>¥ ${order.paid}</strong><i>查看详情 ›</i></div>
     ${order.status === "pending" ? '<div class="order-actions"><button class="payment-button payment-button--wechat" data-pay-method="wechat" type="button"><span>微信</span>微信支付</button><button class="payment-button payment-button--alipay" data-pay-method="alipay" type="button"><span>支</span>支付宝支付</button><button class="list-cancel-button" type="button">取消订单</button></div>' : ""}
   </article>`).join("") || '<p class="empty-state">当前状态下暂无订单</p>';
-  document.querySelector("#orderResultCount").textContent = `${filtered.length} 笔订单`;
   document.querySelectorAll("[data-order-tab]").forEach((button) => {
     const tab = button.dataset.orderTab;
     button.querySelector("b").textContent = tab === "all" ? orderData.length : orderData.filter((order) => order.status === tab).length;
