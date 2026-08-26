@@ -69,6 +69,11 @@ const photoPermissionModal = document.querySelector("#photoPermissionModal");
 const permissionGuideModal = document.querySelector("#permissionGuideModal");
 const prototypeSettings = document.querySelector("#prototypeSettings");
 let prototypePhotoPermission = "not_determined";
+const QR_VALID_SECONDS = 30;
+let qrSecondsRemaining = QR_VALID_SECONDS;
+let qrExpired = false;
+let qrTimer = null;
+let qrGeneration = 0;
 
 function createPrototypeQr(seed) {
   const size = 25;
@@ -95,16 +100,67 @@ function openPayment(order, method) {
   document.querySelector("#paymentBrand").textContent = isWechat ? "微信" : "支";
   document.querySelector("#paymentTitle").textContent = isWechat ? "微信支付" : "支付宝支付";
   document.querySelector("#paymentAmount").textContent = `¥ ${order.paid}`;
-  document.querySelector("#paymentQr").innerHTML = createPrototypeQr(`${method}-${order.id}`);
+  renderPaymentQr(`${method}-${order.id}-${qrGeneration}`);
   document.querySelector("#saveQrGuide").textContent = `保存后打开${isWechat ? "微信" : "支付宝"}，使用“扫一扫—从相册选择”完成支付`;
   document.querySelector("#saveQrFeedback").textContent = "";
   paymentModal.hidden = false;
+  startQrCountdown();
   document.querySelector("#closePayment").focus();
 }
 
-function closePayment() { paymentModal.hidden = true; }
+function renderPaymentQr(seed) {
+  document.querySelector("#paymentQr").innerHTML = `${createPrototypeQr(seed)}<span class="qr-expired-state" hidden><b>二维码已失效</b><small>请刷新后重新支付</small></span>`;
+}
+
+function startQrCountdown() {
+  window.clearInterval(qrTimer);
+  qrSecondsRemaining = QR_VALID_SECONDS;
+  qrExpired = false;
+  document.querySelector("#paymentQr").classList.remove("is-expired");
+  document.querySelector("#paymentQr .qr-expired-state").hidden = true;
+  document.querySelector("#savePaymentQr").textContent = "保存二维码";
+  updateQrCountdown();
+  qrTimer = window.setInterval(() => {
+    qrSecondsRemaining -= 1;
+    updateQrCountdown();
+    if (qrSecondsRemaining <= 0) expirePaymentQr();
+  }, 1000);
+}
+
+function updateQrCountdown() {
+  document.querySelector("#paymentTip").textContent = `二维码将在 00:${String(Math.max(qrSecondsRemaining, 0)).padStart(2, "0")} 后失效`;
+}
+
+function expirePaymentQr() {
+  window.clearInterval(qrTimer);
+  qrExpired = true;
+  document.querySelector("#paymentQr").classList.add("is-expired");
+  document.querySelector("#paymentQr .qr-expired-state").hidden = false;
+  document.querySelector("#paymentTip").textContent = "二维码已失效，请刷新后重新支付";
+  document.querySelector("#savePaymentQr").textContent = "刷新二维码";
+  document.querySelector("#saveQrFeedback").textContent = "";
+}
+
+function refreshPaymentQr() {
+  qrGeneration += 1;
+  renderPaymentQr(`${paymentModal.dataset.method}-${activeOrder.id}-${qrGeneration}`);
+  document.querySelector("#saveQrFeedback").textContent = "二维码已刷新";
+  startQrCountdown();
+}
+
+function closePayment() {
+  window.clearInterval(qrTimer);
+  paymentModal.hidden = true;
+  photoPermissionModal.hidden = true;
+  permissionGuideModal.hidden = true;
+  prototypeSettings.hidden = true;
+}
 
 function requestSavePaymentQr() {
+  if (qrExpired) {
+    refreshPaymentQr();
+    return;
+  }
   if (window.webkit?.messageHandlers?.savePaymentQr) {
     performQrSave();
     return;
@@ -124,6 +180,10 @@ function requestSavePaymentQr() {
 }
 
 function performQrSave() {
+  if (qrExpired) {
+    refreshPaymentQr();
+    return;
+  }
   const qrCells = [...document.querySelectorAll("#paymentQr i")];
   const feedback = document.querySelector("#saveQrFeedback");
   const saveButton = document.querySelector("#savePaymentQr");
@@ -253,7 +313,7 @@ function renderOrders() {
 function showOrderDetail(order) {
   activeOrder = order;
   document.querySelector("#orderDetailContent").innerHTML = `<div class="order-detail-main">
-    <section class="detail-status-inline"><div><span>当前状态</span><strong>${order.statusText}</strong></div><div class="inline-customer"><span class="order-avatar">${order.avatar}</span><h2>${order.user}</h2></div>${order.status === "pending" ? '<button class="cancel-order-button" type="button" id="cancelOrder">取消订单</button>' : ""}</section>
+    <section class="detail-status-inline"><div><span>当前状态</span><strong>${order.statusText}</strong></div><div class="inline-customer"><span class="order-avatar">${order.avatar}</span><h2>${order.user}</h2></div>${order.status === "pending" ? '<div class="detail-status-actions"><button class="detail-pay-button detail-pay-button--wechat" data-detail-pay-method="wechat" type="button"><span>微信</span>微信支付</button><button class="detail-pay-button detail-pay-button--alipay" data-detail-pay-method="alipay" type="button"><span>支</span>支付宝支付</button><button class="cancel-order-button" type="button" id="cancelOrder">取消订单</button></div>' : ""}</section>
     <section class="detail-product-section"><span class="section-label">购买内容</span><h2>${order.title}</h2><div class="detail-product"><div><small>商品名称</small><strong>${order.product}</strong></div><b>× ${order.qty}</b></div></section>
     <section class="detail-money"><div><span>商品金额</span><strong>¥ ${order.price}</strong></div><div><span>实付金额</span><strong>¥ ${order.paid}</strong></div></section>
     <section><span class="section-label">订单信息</span><dl class="order-info"><div><dt>订单编号</dt><dd>${order.id}</dd></div><div><dt>下单时间</dt><dd>${order.created}</dd></div><div><dt>支付时间</dt><dd>${order.paidAt}</dd></div></dl></section></div>`;
@@ -309,14 +369,21 @@ ordersList.addEventListener("click", (event) => {
   if (event.target.closest(".list-cancel-button")) { activeOrder = order; cancelFromList = true; document.querySelector("#cancelModal").hidden = false; return; }
   showOrderDetail(order);
 });
-document.querySelector("#orderDetailContent").addEventListener("click", (event) => { if (event.target.closest("#cancelOrder")) { cancelFromList = false; document.querySelector("#cancelModal").hidden = false; } });
+document.querySelector("#orderDetailContent").addEventListener("click", (event) => {
+  const detailPaymentButton = event.target.closest("[data-detail-pay-method]");
+  if (detailPaymentButton && activeOrder?.status === "pending") {
+    openPayment(activeOrder, detailPaymentButton.dataset.detailPayMethod);
+    return;
+  }
+  if (event.target.closest("#cancelOrder")) { cancelFromList = false; document.querySelector("#cancelModal").hidden = false; }
+});
 document.querySelector("#keepOrder").addEventListener("click", () => { document.querySelector("#cancelModal").hidden = true; });
 document.querySelector("#closePayment").addEventListener("click", closePayment);
 document.querySelector("#savePaymentQr").addEventListener("click", requestSavePaymentQr);
 document.querySelector("#allowPhotoPermission").addEventListener("click", () => {
   prototypePhotoPermission = "authorized";
   photoPermissionModal.hidden = true;
-  performQrSave();
+  requestSavePaymentQr();
 });
 document.querySelector("#denyPhotoPermission").addEventListener("click", () => {
   prototypePhotoPermission = "denied";
