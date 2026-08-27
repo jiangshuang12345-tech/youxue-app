@@ -69,6 +69,8 @@ const photoPermissionModal = document.querySelector("#photoPermissionModal");
 const permissionGuideModal = document.querySelector("#permissionGuideModal");
 const prototypeSettings = document.querySelector("#prototypeSettings");
 let prototypePhotoPermission = "not_determined";
+let qrLongPressTimer = null;
+let qrLongPressTriggered = false;
 
 function createPrototypeQr(seed) {
   const size = 25;
@@ -96,7 +98,7 @@ function openPayment(order, method) {
   document.querySelector("#paymentTitle").textContent = isWechat ? "微信支付" : "支付宝支付";
   document.querySelector("#paymentAmount").textContent = `¥ ${order.paid}`;
   renderPaymentQr(`${method}-${order.id}`);
-  document.querySelector("#saveQrGuide").textContent = `可长按扫码，或保存二维码后打开${isWechat ? "微信" : "支付宝"}，使用“扫一扫—从相册选择”完成支付`;
+  document.querySelector("#saveQrGuide").textContent = `可长按二维码直接扫码，或保存二维码后打开${isWechat ? "微信" : "支付宝"}，使用“扫一扫—从相册选择”完成支付`;
   document.querySelector("#saveQrFeedback").textContent = "";
   paymentModal.hidden = false;
   document.querySelector("#closePayment").focus();
@@ -149,6 +151,23 @@ function requestLongPressScan() {
     return;
   }
   feedback.textContent = `已触发长按识码，请在${appName}中完成支付`;
+}
+
+function beginQrLongPress(event) {
+  if (event.pointerType === "mouse" && event.button !== 0) return;
+  window.clearTimeout(qrLongPressTimer);
+  qrLongPressTriggered = false;
+  event.currentTarget.classList.add("is-pressing");
+  qrLongPressTimer = window.setTimeout(() => {
+    qrLongPressTriggered = true;
+    event.currentTarget.classList.remove("is-pressing");
+    requestLongPressScan();
+  }, 650);
+}
+
+function endQrLongPress(event) {
+  window.clearTimeout(qrLongPressTimer);
+  event.currentTarget.classList.remove("is-pressing");
 }
 
 function performQrSave() {
@@ -362,7 +381,14 @@ document.querySelector("#orderDetailContent").addEventListener("click", (event) 
 });
 document.querySelector("#keepOrder").addEventListener("click", () => { document.querySelector("#cancelModal").hidden = true; });
 document.querySelector("#closePayment").addEventListener("click", closePayment);
-document.querySelector("#longPressScan").addEventListener("click", requestLongPressScan);
+document.querySelector("#paymentQr").addEventListener("pointerdown", beginQrLongPress);
+document.querySelector("#paymentQr").addEventListener("pointerup", endQrLongPress);
+document.querySelector("#paymentQr").addEventListener("pointercancel", endQrLongPress);
+document.querySelector("#paymentQr").addEventListener("pointerleave", endQrLongPress);
+document.querySelector("#paymentQr").addEventListener("contextmenu", (event) => {
+  event.preventDefault();
+  if (!qrLongPressTriggered) requestLongPressScan();
+});
 document.querySelector("#savePaymentQr").addEventListener("click", requestSavePaymentQr);
 document.querySelector("#allowPhotoPermission").addEventListener("click", () => {
   prototypePhotoPermission = "authorized";
