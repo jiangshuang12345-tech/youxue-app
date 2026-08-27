@@ -235,7 +235,10 @@
           <h2 id="paymentTitle"></h2>
           <p class="payment-amount">请使用手机扫码支付 <strong id="paymentAmount"></strong></p>
           <div class="payment-qr" id="paymentQr" aria-label="支付二维码"></div>
-          <button class="save-qr-button" id="savePaymentQr" type="button">保存二维码</button>
+          <div class="qr-actions">
+            <button class="long-press-qr-button" id="longPressScan" type="button">长按扫码</button>
+            <button class="save-qr-button" id="savePaymentQr" type="button">保存二维码</button>
+          </div>
           <p class="save-qr-guide" id="saveQrGuide"></p>
           <p class="save-qr-feedback" id="saveQrFeedback" role="status" aria-live="polite"></p>
         </div>

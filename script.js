@@ -96,7 +96,7 @@ function openPayment(order, method) {
   document.querySelector("#paymentTitle").textContent = isWechat ? "微信支付" : "支付宝支付";
   document.querySelector("#paymentAmount").textContent = `¥ ${order.paid}`;
   renderPaymentQr(`${method}-${order.id}`);
-  document.querySelector("#saveQrGuide").textContent = `保存后打开${isWechat ? "微信" : "支付宝"}，使用“扫一扫—从相册选择”完成支付`;
+  document.querySelector("#saveQrGuide").textContent = `可长按扫码，或保存二维码后打开${isWechat ? "微信" : "支付宝"}，使用“扫一扫—从相册选择”完成支付`;
   document.querySelector("#saveQrFeedback").textContent = "";
   paymentModal.hidden = false;
   document.querySelector("#closePayment").focus();
@@ -130,6 +130,25 @@ function requestSavePaymentQr() {
     return;
   }
   performQrSave();
+}
+
+function requestLongPressScan() {
+  const feedback = document.querySelector("#saveQrFeedback");
+  if (!activeOrder) {
+    feedback.textContent = "二维码识别失败，请重新打开支付弹窗";
+    return;
+  }
+  const methodName = paymentModal.dataset.method === "wechat" ? "wechat" : "alipay";
+  const appName = methodName === "wechat" ? "微信" : "支付宝";
+  if (window.webkit?.messageHandlers?.recognizePaymentQr) {
+    window.webkit.messageHandlers.recognizePaymentQr.postMessage({
+      orderId: activeOrder.id,
+      paymentChannel: methodName,
+    });
+    feedback.textContent = "正在识别二维码…";
+    return;
+  }
+  feedback.textContent = `已触发长按识码，请在${appName}中完成支付`;
 }
 
 function performQrSave() {
@@ -191,6 +210,11 @@ window.onPaymentQrSaveResult = (success, errorCode = "") => {
   const feedback = document.querySelector("#saveQrFeedback");
   document.querySelector("#savePaymentQr").disabled = false;
   feedback.textContent = success ? "二维码已保存到相册，请前往对应App扫码支付" : `保存失败${errorCode ? `（${errorCode}）` : ""}，请重试`;
+};
+
+window.onPaymentQrRecognizeResult = (success, errorCode = "") => {
+  const feedback = document.querySelector("#saveQrFeedback");
+  feedback.textContent = success ? "二维码识别成功，正在打开支付 App" : `二维码识别失败${errorCode ? `（${errorCode}）` : ""}，请重试`;
 };
 
 function renderLessonCards() {
@@ -338,6 +362,7 @@ document.querySelector("#orderDetailContent").addEventListener("click", (event) 
 });
 document.querySelector("#keepOrder").addEventListener("click", () => { document.querySelector("#cancelModal").hidden = true; });
 document.querySelector("#closePayment").addEventListener("click", closePayment);
+document.querySelector("#longPressScan").addEventListener("click", requestLongPressScan);
 document.querySelector("#savePaymentQr").addEventListener("click", requestSavePaymentQr);
 document.querySelector("#allowPhotoPermission").addEventListener("click", () => {
   prototypePhotoPermission = "authorized";
