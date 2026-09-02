@@ -231,3 +231,57 @@
 .detail-paid { display:flex; justify-content:space-between; align-items:center; margin-top:28px; padding-top:24px; border-top:1px solid #dfe4e6; font-size:16px; font-weight:700; }
 .detail-paid strong { color:#111; font-size:22px; }
 .detail-status-actions { right:30px; bottom:27px; }
+
+/* Keep order details at the same visual scale as the approved UI artwork. */
+.iphone-screen .order-detail-workbench {
+  width:min(72%,1120px);
+  height:calc(100% - 48px) !important;
+  min-height:420px;
+}
+#orderDetailPage .detail-topbar { margin-bottom:6px; }
+.order-detail-main {
+  grid-template-rows:128px minmax(0,1fr);
+  gap:0 20px;
+  padding:13px;
+  border-radius:30px;
+}
+.detail-status-inline {
+  min-height:128px;
+  padding:25px 32px !important;
+  border-radius:25px !important;
+}
+.detail-status-inline h2 { font-size:28px; }
+.detail-status-inline p { font-size:16px; }
+.detail-status-inline > strong { font-size:30px; }
+.detail-product-section { padding:28px 32px !important; }
+.detail-product-section h2 { margin:14px 0 28px; font-size:22px; }
+.detail-product small,.section-label { font-size:15px; }
+.detail-product strong { font-size:18px; }
+.detail-product-price { gap:14px; padding-top:24px; font-size:15px; }
+.detail-product-price strong { font-size:20px; }
+.detail-summary { padding:17px !important; }
+.detail-summary > div { padding:28px 30px; }
+.order-info { gap:22px; margin-top:24px; font-size:15px; }
+.order-info div { grid-template-columns:100px minmax(0,1fr); }
+.detail-paid { margin-top:32px; padding-top:28px; font-size:17px; }
+.detail-paid strong { font-size:24px; }
+
+@media (max-height:620px) {
+  .iphone-screen .order-detail-workbench { min-height:0; }
+  .order-detail-main { grid-template-rows:90px minmax(0,1fr); }
+  .detail-status-inline { min-height:90px; padding:14px 25px !important; }
+  .detail-status-inline h2 { font-size:23px; }
+  .detail-status-inline p { font-size:13px; }
+  .detail-status-inline > strong { font-size:25px; }
+  .detail-product-section,.detail-summary > div { padding:20px 23px !important; }
+  .detail-product-section h2 { margin:8px 0 14px; font-size:18px; }
+  .detail-product { padding:0 0 12px; }
+  .detail-product div { gap:5px; }
+  .detail-product small,.section-label { font-size:12px; }
+  .detail-product strong { font-size:14px; }
+  .detail-product-price { gap:7px; padding-top:12px; font-size:12px; }
+  .detail-product-price strong { font-size:16px; }
+  .order-info { gap:14px; margin-top:16px; font-size:12px; }
+  .detail-paid { margin-top:13px; padding-top:13px; font-size:14px; }
+  .detail-paid strong { font-size:19px; }
+}
