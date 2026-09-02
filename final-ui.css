@@ -596,3 +596,13 @@
   height:20px;
   font-size:10px;
 }
+.cancel-order-button {
+  color:#3a4146;
+  border:1px solid #d7dcdf;
+  background:#eef1f3;
+}
+.cancel-order-button:hover {
+  color:#ff5d2b;
+  border-color:#ffb394;
+  background:#fff7f3;
+}
