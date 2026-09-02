@@ -285,3 +285,49 @@
   .detail-paid { margin-top:13px; padding-top:13px; font-size:14px; }
   .detail-paid strong { font-size:19px; }
 }
+
+/* Large landscape iPhones: scale the card contents with the available height. */
+@media (min-height:680px) {
+  .page--home .profile-card {
+    justify-content:space-between;
+    padding:26px 22px 18px;
+  }
+  .page--home .profile-heading { gap:18px; }
+  .page--home .avatar { padding:5px; }
+  .page--home .avatar-ring { width:86px; }
+  .page--home .avatar-face { font-size:55px; }
+  .page--home .name-line h2 { font-size:30px; }
+  .page--home .edit-button { width:44px; height:44px; font-size:22px; }
+  .page--home .profile-copy p { margin-top:8px; font-size:15px; }
+  .page--home .learning-stats { margin:0; }
+  .page--home .learning-stats strong { font-size:42px; }
+  .page--home .learning-stats span { margin-top:8px; font-size:17px; }
+  .page--home .tip-pill { margin:0; padding:8px 12px; font-size:13px; }
+  .page--home .profile-nav { padding:15px 7px 10px; border-radius:20px; }
+  .page--home .nav-item { gap:6px; font-size:12px; }
+  .page--home .nav-icon { width:36px; height:36px; border-width:3px; border-radius:11px; font-size:17px; }
+
+  .page--home .vip-card { align-items:center; padding:24px 30px; }
+  .page--home .vip-copy { display:flex; flex-direction:column; justify-content:center; }
+  .page--home .vip-title { gap:24px; }
+  .page--home .vip-title strong { font-size:34px; }
+  .page--home .vip-title span { font-size:16px; }
+  .page--home .vip-benefits { gap:24px; margin-top:27px; }
+  .page--home .vip-benefits b { width:43px; height:43px; font-size:17px; }
+  .page--home .vip-benefits span { font-size:11px; }
+  .page--home .vip-card button,.page--home .expert-card button { padding:11px 28px; font-size:14px; }
+  .page--home .vip-gem { right:32px; font-size:78px; }
+
+  .page--home .ai-card,.page--home .expert-card { padding:24px 26px; }
+  .page--home .card-title strong,.page--home .expert-card h3 { font-size:29px; }
+  .page--home .card-title a { font-size:11px; }
+  .page--home .coin-count { margin:auto 0 16px; }
+  .page--home .coin-count strong { font-size:55px; }
+  .page--home .coin-count span { width:31px; height:31px; font-size:13px; }
+  .page--home .ai-card button { padding:10px 14px; font-size:15px; }
+  .page--home .ai-orb { width:135px; height:135px; font-size:48px; }
+  .page--home .grade-tags { gap:7px; }
+  .page--home .grade-tags span { padding:5px 8px; font-size:10px; }
+  .page--home .expert-card button { left:25px; bottom:18px; }
+  .page--home .expert { font-size:98px; }
+}
