@@ -554,3 +554,45 @@
 #ledgerPanel .ledger-row strong { font-size:clamp(12px,1.35vw,19px); }
 #ledgerPanel .ledger-row span,#ledgerPanel .ledger-row small { font-size:clamp(10px,1.2vw,17px); }
 #ledgerPanel .ledger-row b { font-size:clamp(16px,1.8vw,25px); }
+
+/* Pending-order actions: preserve readable controls and keep them clear of copy. */
+.order-card:has(.order-actions) .order-total {
+  padding-right:390px;
+}
+.order-card:has(.order-actions) .order-total i {
+  white-space:nowrap;
+}
+.order-actions {
+  right:18px;
+  bottom:13px;
+  gap:9px;
+}
+.payment-button,
+.list-cancel-button {
+  min-height:38px;
+  padding:8px 16px;
+  border-radius:999px;
+  font-size:12px;
+}
+.payment-button span {
+  width:20px;
+  height:20px;
+  font-size:10px;
+}
+.detail-status-actions {
+  right:30px;
+  bottom:26px;
+  gap:10px;
+}
+.detail-pay-button,
+.cancel-order-button {
+  min-height:42px;
+  padding:9px 18px;
+  border-radius:999px;
+  font-size:13px;
+}
+.detail-pay-button span {
+  width:20px;
+  height:20px;
+  font-size:10px;
+}
