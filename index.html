@@ -12,7 +12,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="final-ui.css?v=3" />
+    <link rel="stylesheet" href="final-ui.css?v=8" />
   </head>
   <body>
     <div class="device-stage">
@@ -143,18 +143,18 @@
         </section>
       </main>
 
-      <main class="page detail-page" id="validityPage" aria-labelledby="validityTitle" hidden>
+      <main class="page detail-page" id="lessonDetailsPage" aria-label="课时详情" hidden>
         <header class="detail-topbar">
           <button class="icon-button detail-back" type="button" data-back="lessons" aria-label="返回我的课时">
             <span class="back-chevron" aria-hidden="true"></span>
           </button>
           <nav class="lesson-detail-tabs" aria-label="课时详情页面切换">
-            <button type="button" data-detail-route="ledger">课时记录</button>
-            <button class="is-active" type="button">有效期详情</button>
+            <button type="button" data-detail-tab="ledger">课时记录</button>
+            <button class="is-active" type="button" data-detail-tab="validity">有效期详情</button>
           </nav>
           <span aria-hidden="true"></span>
         </header>
-        <section class="detail-workbench">
+        <section class="detail-workbench detail-tab-panel" id="validityPanel" data-detail-panel="validity">
           <div class="records-panel">
             <div class="records-heading">
               <span class="records-legend"><i></i> 已激活 <i></i> 未激活</span>
@@ -162,20 +162,7 @@
             <div class="validity-grid" id="validityList"></div>
           </div>
         </section>
-      </main>
-
-      <main class="page detail-page" id="ledgerPage" aria-labelledby="ledgerTitle" hidden>
-        <header class="detail-topbar">
-          <button class="icon-button detail-back" type="button" data-back="lessons" aria-label="返回我的课时">
-            <span class="back-chevron" aria-hidden="true"></span>
-          </button>
-          <nav class="lesson-detail-tabs" aria-label="课时详情页面切换">
-            <button class="is-active" type="button">课时记录</button>
-            <button type="button" data-detail-route="validity">有效期详情</button>
-          </nav>
-          <span aria-hidden="true"></span>
-        </header>
-        <section class="detail-workbench detail-workbench--ledger">
+        <section class="detail-workbench detail-workbench--ledger detail-tab-panel" id="ledgerPanel" data-detail-panel="ledger" hidden>
           <div class="records-panel ledger-panel">
             <div class="ledger-controls">
               <div class="primary-tabs" role="tablist" aria-label="课时流水类型">
@@ -278,6 +265,6 @@
       <p class="device-caption"><span></span> iPhone · 横屏交互原型</p>
     </div>
 
-    <script src="script.js"></script>
+    <script src="script.js?v=5"></script>
   </body>
 </html>

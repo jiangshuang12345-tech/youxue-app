@@ -48,3 +48,60 @@
 .orders-workbench { width:82%; max-width:1120px; grid-template-columns:18% 1fr; }
 .order-detail-workbench { width:70%; max-width:960px; }
 .primary-tabs { left:11%; }
+
+/* Responsive canvas: render the approved 812 × 375 layout at any iPhone size. */
+.app-shell { position:absolute; transform-origin:left top; overflow:hidden; }
+.page { width:812px; height:375px; }
+.page.is-entering { animation:page-fade .18s ease both; }
+@keyframes page-fade { from { opacity:.35; } to { opacity:1; } }
+.detail-tab-panel[hidden] { display:none !important; }
+
+/* Lesson record filters */
+.detail-workbench,.detail-workbench--ledger { width:78%; max-width:none; }
+.primary-tabs { top:47px; left:103px; gap:6px; z-index:5; }
+.primary-tabs button { min-width:52px; padding:7px 16px; font-size:13px; line-height:1; }
+.secondary-tabs { position:absolute; top:88px; left:112px; z-index:6; gap:8px; padding:5px 8px; border-radius:10px; background:white; box-shadow:0 6px 18px rgba(44,83,101,.08); }
+.secondary-tabs button { min-width:78px; padding:7px 15px; font-size:12px; line-height:1; }
+.ledger-panel { padding:18px 14px 10px; }
+.ledger-list { padding-top:10px; }
+.ledger-list h3 { padding:10px 12px; font-size:12px; }
+.ledger-row { min-height:49px; padding:9px 12px; grid-template-columns:minmax(0,1fr) 52px; }
+.ledger-row > div { grid-template-columns:minmax(250px,1fr) 105px 175px; }
+.ledger-row strong { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.ledger-row strong { font-size:11px; }.ledger-row span,.ledger-row small { font-size:9px; }.ledger-row b { font-size:15px; }
+
+/* Approved order-list cards */
+.orders-workbench { width:82%; max-width:none; grid-template-columns:122px minmax(0,1fr); gap:12px; }
+.order-tabs { padding:8px; }
+.order-tabs button { min-height:43px; padding:12px 13px; font-size:13px; }
+.orders-grid { height:100%; overflow-y:auto; }
+.order-card { min-height:137px; margin-bottom:11px; padding:15px 17px; border-radius:16px; }
+.order-customer { min-height:29px; padding-bottom:10px; }
+.order-customer strong { font-size:15px; }.order-customer b { padding:4px 11px; font-size:12px; }
+.order-product { padding:11px 60px 8px 0; }.order-product p { font-size:12px; }.order-product > span { top:11px; font-size:12px; }
+.order-total { padding-top:10px; font-size:11px; }.order-total strong { font-size:18px; }.order-total i { font-size:11px; }
+.order-actions { right:15px; bottom:12px; gap:7px; }.order-card:has(.order-actions) .order-total { padding-right:245px; }
+.payment-button,.list-cancel-button { min-height:30px; padding:6px 13px; font-size:10px; }.payment-button span { width:16px; height:16px; font-size:8px; }
+
+/* Approved order-detail composition */
+.iphone-screen .order-detail-workbench { width:70%; max-width:none; height:250px; min-height:0; }
+.order-detail-main { position:relative; grid-template-columns:1fr 1fr; grid-template-rows:70px 1fr; gap:8px 10px; height:100%; padding:7px; border-radius:22px; }
+.order-detail-main section { padding:15px 17px; }
+.detail-status-inline { grid-column:1/-1; display:flex; align-items:center; justify-content:space-between; gap:20px; padding:12px 18px !important; }
+.detail-status-inline > div:first-child { display:block; }
+.detail-status-inline h2 { margin:0 0 5px; color:white; font-size:21px; }.detail-status-inline p { margin:0; color:rgba(255,255,255,.86); font-size:11px; }
+.detail-status-inline > strong { color:white; font-size:22px; white-space:nowrap; }
+.detail-product-section { grid-row:2; min-height:0; }.detail-product-section h2 { margin:7px 0 14px; font-size:18px; }
+.detail-product { padding:12px 0; font-size:11px; }.detail-product small { font-size:10px; }.detail-product strong { font-size:12px; }
+.detail-summary { grid-column:2; grid-row:2; display:grid; grid-template-rows:auto 1fr; gap:10px; padding:0 !important; background:transparent !important; }
+.detail-summary > div { padding:8px 12px; border-radius:14px; background:#f7fafb; }
+.detail-money div { padding:4px 0; font-size:9px; }.order-info { gap:3px; margin-top:4px; font-size:8px; }.order-info div { grid-template-columns:60px 1fr; }
+.detail-status-actions { position:absolute; right:18px; bottom:17px; z-index:3; }.detail-pay-button,.cancel-order-button { min-height:29px; padding:6px 10px; font-size:9px; }
+
+/* Validity cards must keep dates and order numbers readable in two columns. */
+.lesson-detail-tabs button:focus { outline:none; }
+.validity-item { grid-template-columns:88px minmax(0,1fr); gap:10px; }
+.validity-status { padding-right:10px; }
+.validity-item dl { min-width:0; }
+.validity-item dl div { grid-template-columns:42px minmax(0,1fr); gap:3px; font-size:9px; }
+.validity-item dd { white-space:nowrap; }

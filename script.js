@@ -22,7 +22,7 @@ const validityData = [
   { status: "未激活", count: 100, order: "251111000658460498", date: "2025-11-11", expiry: "激活后计算有效期" },
   { status: "未激活", count: 100, order: "251111000658460495", date: "2025-11-11", expiry: "激活后计算有效期" },
   { status: "未激活", count: 100, order: "251111000658460492", date: "2025-11-11", expiry: "激活后计算有效期" },
-  { status: "有效期至：2027-07-29 23:59:59", count: 71, order: "251111000658460489", date: "2025-11-11", expiry: "2027-07-29 23:59:59", active: true },
+  { status: "兑换赠课", count: 71, order: "251111000658460489", date: "2025-11-11", expiry: "2027-07-29 23:59:59", active: true },
 ];
 
 const ledgerData = [
@@ -39,7 +39,7 @@ const ledgerData = [
 ];
 const orderData = [
   { id:"2511061000658408340", user:"Lucas - 田佳测试333", avatar:"🤖", status:"refunded", statusText:"已退款", title:"神奇高频词", product:"神奇高频词", qty:30, price:"9.90", paid:"9.90", created:"2025-11-06 19:31:24", paidAt:"2025-11-06 19:31:35" },
-  { id:"260623120000001", user:"testrichrich - 测试", avatar:"👩‍🎓", status:"pending", statusText:"确认中", title:"测试拼单活动成人续费10课时", product:"English in the Family--家庭外教口语课", qty:10, price:"0.01", paid:"0.01", created:"2026-06-23 12:51:05", paidAt:"—" },
+  { id:"260623120000001", user:"testrichrich - 测试", avatar:"👩‍🎓", status:"pending", statusText:"待支付", title:"测试拼单活动成人续费10课时", product:"English in the Family--家庭外教口语课", qty:10, price:"0.01", paid:"0.01", created:"2026-06-23 12:51:05", paidAt:"—" },
   { id:"1782190264863-46", user:"Lucas - 田佳测试333", avatar:"🤖", status:"completed", statusText:"已完成", title:"中国故事英文演绎课", product:"中国故事英文演绎课", qty:1, price:"0.00", paid:"0.00", created:"2026-06-23 12:51:05", paidAt:"2026-06-23 12:51:05" },
   { id:"2605111000668640306", user:"Alex - 智学用户", avatar:"🐥", status:"completed", statusText:"已完成", title:"兑换-240课时主修双师智学体系课", product:"Major Course Co-teaching AI Version--VIPKID主修双师智学体系", qty:240, price:"5400.00", paid:"5400.00", created:"2026-05-11 10:18:26", paidAt:"2026-05-11 10:19:02" },
   { id:"2604101000661000301", user:"test_new_G4 - 新打标用户", avatar:"🐣", status:"processing", statusText:"处理中", title:"VIPKID美国小学课程", product:"VIPKID美国小学课程", qty:1, price:"9.90", paid:"9.90", created:"2026-04-10 09:12:10", paidAt:"2026-04-10 09:12:32" }
@@ -50,15 +50,14 @@ const lessonsPage = document.querySelector("#lessonsPage");
 const lessonEntry = document.querySelector("#lessonEntry");
 const backToHome = document.querySelector("#backToHome");
 const lessonList = document.querySelector("#lessonList");
-const validityPage = document.querySelector("#validityPage");
-const ledgerPage = document.querySelector("#ledgerPage");
+const lessonDetailsPage = document.querySelector("#lessonDetailsPage");
 const validityList = document.querySelector("#validityList");
 const ledgerList = document.querySelector("#ledgerList");
 const incomeFilters = document.querySelector("#incomeFilters");
 const ordersPage = document.querySelector("#ordersPage");
 const orderDetailPage = document.querySelector("#orderDetailPage");
 const ordersList = document.querySelector("#ordersList");
-const pages = [homePage, lessonsPage, validityPage, ledgerPage, ordersPage, orderDetailPage];
+const pages = [homePage, lessonsPage, lessonDetailsPage, ordersPage, orderDetailPage];
 let ledgerTab = "all";
 let incomeFilter = "all";
 let orderTab = "all";
@@ -314,11 +313,30 @@ function renderOrders() {
 function showOrderDetail(order) {
   activeOrder = order;
   document.querySelector("#orderDetailContent").innerHTML = `<div class="order-detail-main">
-    <section class="detail-status-inline"><div><span>当前状态</span><strong>${order.statusText}</strong></div><div class="inline-customer"><span class="order-avatar">${order.avatar}</span><h2>${order.user}</h2></div>${order.status === "pending" ? '<div class="detail-status-actions"><button class="detail-pay-button detail-pay-button--wechat" data-detail-pay-method="wechat" type="button"><span>微信</span>微信支付</button><button class="detail-pay-button detail-pay-button--alipay" data-detail-pay-method="alipay" type="button"><span>支</span>支付宝支付</button><button class="cancel-order-button" type="button" id="cancelOrder">取消订单</button></div>' : ""}</section>
+    <section class="detail-status-inline"><div><h2>${order.title}</h2><p>${order.product}</p></div><strong>${order.statusText}</strong></section>
     <section class="detail-product-section"><span class="section-label">购买内容</span><h2>${order.title}</h2><div class="detail-product"><div><small>商品名称</small><strong>${order.product}</strong></div><b>× ${order.qty}</b></div></section>
-    <section class="detail-money"><div><span>商品金额</span><strong>¥ ${order.price}</strong></div><div><span>实付金额</span><strong>¥ ${order.paid}</strong></div></section>
-    <section><span class="section-label">订单信息</span><dl class="order-info"><div><dt>订单编号</dt><dd>${order.id}</dd></div><div><dt>下单时间</dt><dd>${order.created}</dd></div><div><dt>支付时间</dt><dd>${order.paidAt}</dd></div></dl></section></div>`;
+    <section class="detail-summary"><div class="detail-money"><div><span>商品金额</span><strong>¥ ${order.price}</strong></div><div><span>实付金额</span><strong>¥ ${order.paid}</strong></div></div><div><span class="section-label">订单信息</span><dl class="order-info"><div><dt>订单编号</dt><dd>${order.id}</dd></div><div><dt>下单时间</dt><dd>${order.created}</dd></div><div><dt>支付时间</dt><dd>${order.paidAt}</dd></div></dl></div></section>
+    ${order.status === "pending" ? '<div class="detail-status-actions"><button class="detail-pay-button detail-pay-button--wechat" data-detail-pay-method="wechat" type="button"><span>微信</span>微信支付</button><button class="detail-pay-button detail-pay-button--alipay" data-detail-pay-method="alipay" type="button"><span>支</span>支付宝支付</button><button class="cancel-order-button" type="button" id="cancelOrder">取消订单</button></div>' : ""}</div>`;
   showPage(orderDetailPage, `#order-${order.id}`);
+}
+
+function showLessonDetailTab(tabName) {
+  document.querySelectorAll("[data-detail-tab]").forEach((button) => button.classList.toggle("is-active", button.dataset.detailTab === tabName));
+  document.querySelectorAll("[data-detail-panel]").forEach((panel) => { panel.hidden = panel.dataset.detailPanel !== tabName; });
+  showPage(lessonDetailsPage, tabName === "ledger" ? "#ledger" : "#validity");
+}
+
+function fitPrototypeCanvas() {
+  const shell = document.querySelector(".app-shell");
+  const screen = shell.parentElement;
+  const designWidth = 812;
+  const designHeight = 375;
+  const scale = Math.min(screen.clientWidth / designWidth, screen.clientHeight / designHeight);
+  shell.style.width = `${designWidth}px`;
+  shell.style.height = `${designHeight}px`;
+  shell.style.left = `${(screen.clientWidth - designWidth * scale) / 2}px`;
+  shell.style.top = `${(screen.clientHeight - designHeight * scale) / 2}px`;
+  shell.style.transform = `scale(${scale})`;
 }
 
 function showPage(targetPage, hash) {
@@ -341,13 +359,10 @@ document.querySelector("#backOrdersHome").addEventListener("click", () => showPa
 document.querySelector("#backToOrders").addEventListener("click", () => showPage(ordersPage, "#orders"));
 backToHome.addEventListener("click", () => showPage(homePage, "#home"));
 document.querySelectorAll("[data-back='lessons']").forEach((button) => button.addEventListener("click", () => showPage(lessonsPage, "#lessons")));
-document.querySelectorAll("[data-detail-route]").forEach((button) => button.addEventListener("click", () => {
-  const target = button.dataset.detailRoute === "ledger" ? ledgerPage : validityPage;
-  showPage(target, button.dataset.detailRoute === "ledger" ? "#ledger" : "#validity");
-}));
+document.querySelectorAll("[data-detail-tab]").forEach((button) => button.addEventListener("click", () => showLessonDetailTab(button.dataset.detailTab)));
 lessonList.addEventListener("click", (event) => {
-  if (event.target.closest(".expiry-link")) showPage(validityPage, "#validity");
-  if (event.target.closest(".lesson-count")) showPage(ledgerPage, "#ledger");
+  if (event.target.closest(".expiry-link")) showLessonDetailTab("validity");
+  if (event.target.closest(".lesson-count")) showLessonDetailTab("ledger");
 });
 document.querySelectorAll("[data-ledger-tab]").forEach((button) => button.addEventListener("click", () => {
   ledgerTab = button.dataset.ledgerTab;
@@ -436,5 +451,10 @@ renderValidity();
 renderLedger();
 renderOrders();
 
-const initialRoutes = { "#lessons": lessonsPage, "#validity": validityPage, "#ledger": ledgerPage, "#orders": ordersPage };
-if (initialRoutes[window.location.hash]) showPage(initialRoutes[window.location.hash], window.location.hash);
+fitPrototypeCanvas();
+window.addEventListener("resize", fitPrototypeCanvas);
+
+const initialRoutes = { "#lessons": lessonsPage, "#orders": ordersPage };
+if (window.location.hash === "#validity") showLessonDetailTab("validity");
+else if (window.location.hash === "#ledger") showLessonDetailTab("ledger");
+else if (initialRoutes[window.location.hash]) showPage(initialRoutes[window.location.hash], window.location.hash);
