@@ -331,3 +331,74 @@
   .page--home .expert-card button { left:25px; bottom:18px; }
   .page--home .expert { font-size:98px; }
 }
+
+/* My Lessons uses the approved 1624 × 750 artwork as a pixel-accurate layer. */
+#lessonsPage {
+  padding:0;
+  overflow:hidden;
+  background-image:url("优学课时&订单/我的课时.png");
+  background-size:100% 100%;
+  background-position:center;
+  background-repeat:no-repeat;
+}
+#lessonsPage .lesson-header {
+  position:absolute;
+  inset:0;
+  z-index:3;
+  display:block;
+  width:100%;
+  height:100%;
+  margin:0;
+  pointer-events:none;
+}
+#lessonsPage .lesson-header .icon-button {
+  position:absolute;
+  left:4.9%;
+  top:5.3%;
+  width:5%;
+  opacity:0;
+  pointer-events:auto;
+}
+#lessonsPage .lesson-heading,#lessonsPage .lesson-header > span { display:none; }
+#lessonsPage .lesson-content {
+  position:absolute;
+  inset:0;
+  z-index:2;
+  width:100%;
+  max-width:none;
+  height:100%;
+  margin:0;
+  pointer-events:none;
+}
+#lessonsPage .lesson-list {
+  position:absolute;
+  left:11.58%;
+  top:23.73%;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:3%;
+  width:76.85%;
+  height:63.47%;
+}
+#lessonsPage .lesson-card {
+  min-height:0;
+  height:100%;
+  padding:0;
+  border:0;
+  background:transparent;
+  box-shadow:none;
+  opacity:0;
+  pointer-events:auto;
+}
+#lessonsPage .lesson-card::before,#lessonsPage .lesson-card > *:not(.lesson-count) { display:none; }
+#lessonsPage .lesson-count {
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  min-width:0;
+  padding:0;
+  opacity:0;
+  pointer-events:auto;
+}
+#lessonsPage .lesson-note { display:none; }
