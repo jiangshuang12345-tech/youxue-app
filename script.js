@@ -326,19 +326,6 @@ function showLessonDetailTab(tabName) {
   showPage(lessonDetailsPage, tabName === "ledger" ? "#ledger" : "#validity");
 }
 
-function fitPrototypeCanvas() {
-  const shell = document.querySelector(".app-shell");
-  const screen = shell.parentElement;
-  const designWidth = 812;
-  const designHeight = 375;
-  const scale = Math.min(screen.clientWidth / designWidth, screen.clientHeight / designHeight);
-  shell.style.width = `${designWidth}px`;
-  shell.style.height = `${designHeight}px`;
-  shell.style.left = `${(screen.clientWidth - designWidth * scale) / 2}px`;
-  shell.style.top = `${(screen.clientHeight - designHeight * scale) / 2}px`;
-  shell.style.transform = `scale(${scale})`;
-}
-
 function showPage(targetPage, hash) {
   pages.forEach((page) => { page.hidden = page !== targetPage; });
   targetPage.classList.remove("is-entering");
@@ -451,8 +438,6 @@ renderValidity();
 renderLedger();
 renderOrders();
 
-fitPrototypeCanvas();
-window.addEventListener("resize", fitPrototypeCanvas);
 
 const initialRoutes = { "#lessons": lessonsPage, "#orders": ordersPage };
 if (window.location.hash === "#validity") showLessonDetailTab("validity");

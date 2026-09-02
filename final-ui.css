@@ -105,3 +105,44 @@
 .validity-item dl { min-width:0; }
 .validity-item dl div { grid-template-columns:42px minmax(0,1fr); gap:3px; font-size:9px; }
 .validity-item dd { white-space:nowrap; }
+
+/* Fill the real iPhone viewport instead of scaling a fixed 812 × 375 canvas. */
+.app-shell {
+  position:relative;
+  left:0;
+  top:0;
+  width:100%;
+  height:100%;
+  transform:none;
+  overflow:hidden;
+}
+.page { width:100%; height:100%; }
+.page--home { display:flex; flex-direction:column; }
+.page--home[hidden] { display:none; }
+.page--home .topbar { flex:0 0 auto; }
+.page--home .dashboard {
+  flex:1 1 auto;
+  min-height:0;
+  width:85%;
+  max-width:none;
+  grid-template-columns:40% 60%;
+  align-items:stretch;
+}
+.page--home .profile-card {
+  height:100%;
+  min-height:0;
+  display:flex;
+  flex-direction:column;
+}
+.page--home .learning-stats { margin:auto 0 10px; }
+.page--home .dashboard-side {
+  height:100%;
+  min-height:0;
+  grid-template-rows:42% minmax(0,1fr);
+}
+.page--home .vip-card,
+.page--home .feature-grid,
+.page--home .ai-card,
+.page--home .expert-card { height:100%; min-height:0; }
+.page--home .ai-card { display:flex; flex-direction:column; }
+.page--home .coin-count { margin:auto 0 8px; }
