@@ -146,3 +146,85 @@
 .page--home .expert-card { height:100%; min-height:0; }
 .page--home .ai-card { display:flex; flex-direction:column; }
 .page--home .coin-count { margin:auto 0 8px; }
+
+/* Order list: restore the approved card density and information hierarchy. */
+.orders-grid { padding-right:6px; }
+.order-card {
+  min-height:168px;
+  margin-bottom:14px;
+  padding:16px 18px;
+  border-radius:18px;
+}
+.order-customer {
+  grid-template-columns:38px minmax(0,1fr) auto;
+  gap:10px;
+  min-height:39px;
+  padding-bottom:11px;
+}
+.order-customer > span { width:36px; height:36px; font-size:21px; }
+.order-customer strong { font-size:15px; }
+.order-customer b { padding:5px 11px; font-size:11px; }
+.order-product { min-height:65px; padding:12px 62px 9px 0; }
+.order-product h3 { display:block; margin:0 0 8px; font-size:15px; line-height:1.35; }
+.order-product p { font-size:11px; line-height:1.45; }
+.order-product > span { top:38px; font-size:13px; }
+.order-total { min-height:32px; padding-top:10px; font-size:11px; }
+.order-total strong { font-size:18px; }
+.order-total i { font-size:10px; }
+.order-actions { bottom:13px; }
+
+/* Order detail: match the approved hero + two-column information card. */
+.iphone-screen .order-detail-workbench {
+  width:72%;
+  max-width:1080px;
+  height:calc(100% - 74px);
+}
+.order-detail-main {
+  grid-template-columns:1fr 1.05fr;
+  grid-template-rows:auto minmax(0,1fr);
+  gap:0 18px;
+  height:100%;
+  padding:12px;
+  border-radius:26px;
+  background:rgba(255,255,255,.96);
+}
+.order-detail-main section { padding:24px 26px; border-radius:22px; }
+.detail-status-inline {
+  min-height:112px;
+  padding:22px 28px !important;
+  border-radius:24px !important;
+  background:linear-gradient(105deg,#ff9561,#ff5d28) !important;
+}
+.detail-status-inline h2 { margin:0 0 10px; font-size:25px; }
+.detail-status-inline p { max-width:720px; font-size:14px; line-height:1.45; }
+.detail-status-inline > strong { font-size:27px; }
+.detail-product-section {
+  grid-column:1;
+  grid-row:2;
+  min-height:0;
+  background:white !important;
+}
+.detail-product-section h2 { margin:12px 0 25px; font-size:20px; }
+.detail-product { padding:0 0 22px; border-top:0; }
+.detail-product div { gap:10px; }
+.detail-product small,.section-label { font-size:14px; }
+.detail-product strong { font-size:16px; }
+.detail-product b { align-self:flex-end; font-size:14px; }
+.detail-product-price { display:flex; flex-direction:column; gap:12px; padding-top:20px; color:#858b90; font-size:14px; }
+.detail-product-price strong { color:#2f3438; font-size:18px; font-weight:500; }
+.detail-summary {
+  grid-column:2;
+  grid-row:2;
+  display:block;
+  min-height:0;
+  padding:16px !important;
+  background:transparent !important;
+}
+.detail-summary > div { height:100%; padding:24px 26px; border-radius:22px; background:#f6f8f9; }
+.order-info { gap:18px; margin-top:20px; font-size:14px; }
+.order-info div { grid-template-columns:94px minmax(0,1fr); }
+.order-info dt { color:#929aa0; }
+.order-info dd { color:#30363a; text-align:right; white-space:nowrap; }
+.detail-paid { display:flex; justify-content:space-between; align-items:center; margin-top:28px; padding-top:24px; border-top:1px solid #dfe4e6; font-size:16px; font-weight:700; }
+.detail-paid strong { color:#111; font-size:22px; }
+.detail-status-actions { right:30px; bottom:27px; }

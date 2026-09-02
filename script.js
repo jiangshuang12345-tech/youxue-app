@@ -299,8 +299,8 @@ function renderLedger() {
 function renderOrders() {
   const filtered = orderData.filter((order) => orderTab === "all" || order.status === orderTab);
   ordersList.innerHTML = filtered.map((order) => `<article class="order-card" data-order-id="${order.id}">
-    <div class="order-customer"><strong>${order.title}</strong><b>${order.statusText}</b></div>
-    <div class="order-product"><p>${order.product}</p><span>×${order.qty}</span></div>
+    <div class="order-customer"><span aria-hidden="true">${order.avatar}</span><strong>${order.user}</strong><b>${order.statusText}</b></div>
+    <div class="order-product"><h3>${order.title}</h3><p>${order.product}</p><span>×${order.qty}</span></div>
     <div class="order-total"><small>实付</small><strong>¥ ${order.paid}</strong><i>查看详情 ›</i></div>
     ${order.status === "pending" ? '<div class="order-actions"><button class="payment-button payment-button--wechat" data-pay-method="wechat" type="button"><span>微信</span>微信支付</button><button class="payment-button payment-button--alipay" data-pay-method="alipay" type="button"><span>支</span>支付宝支付</button><button class="list-cancel-button" type="button">取消订单</button></div>' : ""}
   </article>`).join("") || '<p class="empty-state">当前状态下暂无订单</p>';
@@ -314,8 +314,8 @@ function showOrderDetail(order) {
   activeOrder = order;
   document.querySelector("#orderDetailContent").innerHTML = `<div class="order-detail-main">
     <section class="detail-status-inline"><div><h2>${order.title}</h2><p>${order.product}</p></div><strong>${order.statusText}</strong></section>
-    <section class="detail-product-section"><span class="section-label">购买内容</span><h2>${order.title}</h2><div class="detail-product"><div><small>商品名称</small><strong>${order.product}</strong></div><b>× ${order.qty}</b></div></section>
-    <section class="detail-summary"><div class="detail-money"><div><span>商品金额</span><strong>¥ ${order.price}</strong></div><div><span>实付金额</span><strong>¥ ${order.paid}</strong></div></div><div><span class="section-label">订单信息</span><dl class="order-info"><div><dt>订单编号</dt><dd>${order.id}</dd></div><div><dt>下单时间</dt><dd>${order.created}</dd></div><div><dt>支付时间</dt><dd>${order.paidAt}</dd></div></dl></div></section>
+    <section class="detail-product-section"><span class="section-label">购买内容</span><h2>${order.title}</h2><div class="detail-product"><div><small>商品名称</small><strong>${order.product}</strong></div><b>× ${order.qty}</b></div><div class="detail-product-price"><span>商品金额</span><strong>¥ ${order.price}</strong></div></section>
+    <section class="detail-summary"><div><span class="section-label">订单信息</span><dl class="order-info"><div><dt>订单编号</dt><dd>${order.id}</dd></div><div><dt>下单时间</dt><dd>${order.created}</dd></div><div><dt>支付时间</dt><dd>${order.paidAt}</dd></div></dl><div class="detail-paid"><span>实付金额</span><strong>¥ ${order.paid}</strong></div></div></section>
     ${order.status === "pending" ? '<div class="detail-status-actions"><button class="detail-pay-button detail-pay-button--wechat" data-detail-pay-method="wechat" type="button"><span>微信</span>微信支付</button><button class="detail-pay-button detail-pay-button--alipay" data-detail-pay-method="alipay" type="button"><span>支</span>支付宝支付</button><button class="cancel-order-button" type="button" id="cancelOrder">取消订单</button></div>' : ""}</div>`;
   showPage(orderDetailPage, `#order-${order.id}`);
 }
