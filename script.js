@@ -241,14 +241,13 @@ function renderLessonCards() {
     .map(
       (lesson) => `
         <article class="lesson-card ${lesson.variant === "trial" ? "lesson-card--trial" : ""}" data-lesson-index="${lessonData.indexOf(lesson)}">
-          <div class="lesson-type-icon" aria-hidden="true">${lesson.icon}</div>
+          <div class="lesson-visual" aria-hidden="true">${lesson.variant === "trial" ? "✍️" : "📺"}</div>
           <div class="lesson-info">
-            <h2>${lesson.type}</h2>
-            <p class="lesson-expiry">有效期至：<span>${lesson.expiry}</span>${lesson.variant === "standard" ? '<button class="expiry-link" type="button">去查看</button>' : ""}</p>
+            <h2>${lesson.type.replace("课时", "")}</h2>
+            <button class="lesson-expiry ${lesson.variant === "standard" ? "expiry-link" : ""}" type="button">有效期至: ${lesson.expiry.slice(0, 16)}</button>
           </div>
-          <button class="lesson-count" type="button" aria-label="查看剩余 ${lesson.count} 课时明细">
-            <strong>${lesson.count}</strong><span>剩余课时</span><i aria-hidden="true">›</i>
-          </button>
+          <div class="lesson-balance"><span>剩余</span><strong>${lesson.count}<small>课时</small></strong></div>
+          <button class="lesson-count" type="button" aria-label="查看剩余 ${lesson.count} 课时明细">课时详情 <i aria-hidden="true">›</i></button>
         </article>
       `,
     )
@@ -301,8 +300,8 @@ function renderLedger() {
 function renderOrders() {
   const filtered = orderData.filter((order) => orderTab === "all" || order.status === orderTab);
   ordersList.innerHTML = filtered.map((order) => `<article class="order-card" data-order-id="${order.id}">
-    <div class="order-customer"><span>${order.avatar}</span><strong>${order.user}</strong><b>${order.statusText}</b></div>
-    <div class="order-product"><h3>${order.title}</h3><p>${order.product}</p><span>× ${order.qty}</span></div>
+    <div class="order-customer"><strong>${order.title}</strong><b>${order.statusText}</b></div>
+    <div class="order-product"><p>${order.product}</p><span>×${order.qty}</span></div>
     <div class="order-total"><small>实付</small><strong>¥ ${order.paid}</strong><i>查看详情 ›</i></div>
     ${order.status === "pending" ? '<div class="order-actions"><button class="payment-button payment-button--wechat" data-pay-method="wechat" type="button"><span>微信</span>微信支付</button><button class="payment-button payment-button--alipay" data-pay-method="alipay" type="button"><span>支</span>支付宝支付</button><button class="list-cancel-button" type="button">取消订单</button></div>' : ""}
   </article>`).join("") || '<p class="empty-state">当前状态下暂无订单</p>';
@@ -342,6 +341,10 @@ document.querySelector("#backOrdersHome").addEventListener("click", () => showPa
 document.querySelector("#backToOrders").addEventListener("click", () => showPage(ordersPage, "#orders"));
 backToHome.addEventListener("click", () => showPage(homePage, "#home"));
 document.querySelectorAll("[data-back='lessons']").forEach((button) => button.addEventListener("click", () => showPage(lessonsPage, "#lessons")));
+document.querySelectorAll("[data-detail-route]").forEach((button) => button.addEventListener("click", () => {
+  const target = button.dataset.detailRoute === "ledger" ? ledgerPage : validityPage;
+  showPage(target, button.dataset.detailRoute === "ledger" ? "#ledger" : "#validity");
+}));
 lessonList.addEventListener("click", (event) => {
   if (event.target.closest(".expiry-link")) showPage(validityPage, "#validity");
   if (event.target.closest(".lesson-count")) showPage(ledgerPage, "#ledger");
