@@ -31,58 +31,15 @@
 
       <main class="page page--study is-active" id="studyPage" aria-labelledby="studyTitle">
         <h1 class="sr-only" id="studyTitle">优学中心</h1>
-
-        <header class="study-header">
-          <button class="study-avatar" id="profileEntry" type="button" aria-label="进入个人中心">
-            <span class="study-avatar-ring">
-              <span class="study-avatar-face">🐣</span>
-            </span>
-            <span class="study-avatar-streak"><b>🔥</b><i>196</i></span>
-          </button>
-          <div class="study-welcome">
-            <p class="study-greeting">早安，M哈哈哈</p>
-            <p class="study-subtitle">今天继续探险吧！</p>
-          </div>
-          <button class="study-vip-button" type="button">
-            <span>♛</span>
-            <small>开通会员</small>
-          </button>
-        </header>
-
-        <section class="study-hero">
-          <div class="study-hero-copy">
-            <strong>探索英语世界</strong>
-            <p>和外教一起闯关，每一天都有新收获</p>
-          </div>
-          <div class="study-mascot" aria-hidden="true">🚀</div>
-        </section>
-
-        <section class="study-grid" aria-label="学习入口">
-          <article class="study-card study-card--smart" data-study-card="smart">
-            <div class="study-card-icon">📘</div>
-            <h2>双师智学</h2>
-            <p>AI + 外教双师课堂</p>
-            <span>去学习 ›</span>
-          </article>
-          <article class="study-card study-card--adventure" data-study-card="adventure">
-            <div class="study-card-icon">🗺️</div>
-            <h2>冒险岛</h2>
-            <p>趣味闯关学单词</p>
-            <span>去探险 ›</span>
-          </article>
-          <article class="study-card study-card--reading" data-study-card="reading">
-            <div class="study-card-icon">📖</div>
-            <h2>绘本馆</h2>
-            <p>分级阅读随时听</p>
-            <span>去阅读 ›</span>
-          </article>
-          <article class="study-card study-card--review" data-study-card="review">
-            <div class="study-card-icon">✨</div>
-            <h2>每日复习</h2>
-            <p>巩固今日所学</p>
-            <span>去复习 ›</span>
-          </article>
-        </section>
+        <button class="study-avatar" id="profileEntry" type="button" aria-label="进入个人中心"></button>
+        <div class="study-zones">
+          <button class="study-hotspot" data-study-card="map" type="button" aria-label="探险课程地图"></button>
+          <button class="study-hotspot" data-study-card="continue" type="button" aria-label="继续上次的探险"></button>
+          <button class="study-hotspot" data-study-card="custom" type="button" aria-label="打造专属探险"></button>
+          <button class="nav-hotspot" data-tab="study" type="button" aria-label="优学中心"></button>
+          <button class="nav-hotspot" data-tab="smart" type="button" aria-label="双师智学"></button>
+          <button class="nav-hotspot" data-tab="vip" type="button" aria-label="会员订阅"></button>
+        </div>
       </main>
 
       <main class="page page--home" id="homePage" aria-labelledby="homeTitle" hidden>
@@ -267,36 +224,18 @@
 
       <main class="page page--smart" id="smartPage" aria-labelledby="smartTitle" hidden>
         <h1 class="sr-only" id="smartTitle">双师智学</h1>
-
-        <header class="smart-header">
-          <button class="icon-button" id="backFromSmart" type="button" aria-label="返回优学中心">
-            <span class="back-chevron" aria-hidden="true"></span>
-          </button>
-          <div class="smart-heading">
-            <p class="smart-kicker">Smart Learning</p>
-            <h2>双师智学</h2>
-          </div>
-          <div class="smart-progress" aria-label="学习进度">
-            <strong id="smartProgressText">3 / 12</strong>
-            <span>本周课时</span>
-          </div>
-        </header>
-
-        <section class="smart-workbench">
-          <aside class="smart-units" role="tablist" aria-label="课程单元">
-            <button class="is-active" type="button" data-smart-unit="u1">Unit 1<br><small>打招呼</small></button>
-            <button type="button" data-smart-unit="u2">Unit 2<br><small>颜色</small></button>
-            <button type="button" data-smart-unit="u3">Unit 3<br><small>数字</small></button>
-            <button type="button" data-smart-unit="u4">Unit 4<br><small>动物</small></button>
-          </aside>
-          <div class="smart-panel">
-            <div class="smart-panel-header">
-              <h3 id="smartUnitTitle">Unit 1 打招呼</h3>
-              <p id="smartUnitDesc">用简单句子和新朋友打招呼</p>
-            </div>
-            <div class="smart-lessons" id="smartLessonList" aria-live="polite"></div>
-          </div>
-        </section>
+        <button class="icon-button smart-back" id="backFromSmart" type="button" aria-label="返回优学中心">
+          <span class="back-chevron" aria-hidden="true"></span>
+        </button>
+        <div class="smart-zones">
+          <button class="smart-hotspot smart-hotspot--contact" type="button" aria-label="联系班主任"></button>
+          <button class="smart-hotspot smart-hotspot--lesson-left" data-lesson-action="start" type="button" aria-label="去上课"></button>
+          <button class="smart-hotspot smart-hotspot--lesson-center" data-lesson-action="start" type="button" aria-label="去上课"></button>
+          <button class="smart-hotspot smart-hotspot--lesson-right" data-lesson-action="start" type="button" aria-label="去上课"></button>
+          <button class="nav-hotspot" data-tab="study" type="button" aria-label="优学中心"></button>
+          <button class="nav-hotspot" data-tab="smart" type="button" aria-label="双师智学"></button>
+          <button class="nav-hotspot" data-tab="vip" type="button" aria-label="会员订阅"></button>
+        </div>
       </main>
 
       <nav class="tab-bar" id="tabBar" aria-label="底部导航" hidden>
@@ -319,9 +258,9 @@
           <button class="rating-close" id="closeRating" type="button" aria-label="关闭评价弹窗">×</button>
 
           <section class="rating-step" id="ratingStepAsk">
-            <div class="rating-mascot" aria-hidden="true">🌟</div>
-            <h2 id="ratingTitle">今天的探险开心吗？</h2>
-            <p>小朋友的进步，是我们最大的动力！</p>
+            <div class="rating-mascot" aria-hidden="true">🚀</div>
+            <h2 id="ratingTitle">今天的智学课怎么样？</h2>
+            <p>每一次探险，都是成长的足迹！</p>
             <div class="rating-options">
               <button type="button" data-rating="positive">
                 <span>🥳</span>
@@ -337,7 +276,7 @@
           <section class="rating-step" id="ratingStepPraise" hidden>
             <div class="rating-mascot" aria-hidden="true">🎉</div>
             <h2>太棒了！</h2>
-            <p>你的好评会让更多小朋友加入探险队伍～</p>
+            <p>给优学一个好评，让更多小朋友一起加入探险队伍吧～</p>
             <div class="rating-stars" aria-hidden="true">
               <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
             </div>
@@ -347,8 +286,8 @@
 
           <section class="rating-step" id="ratingStepImprove" hidden>
             <div class="rating-mascot" aria-hidden="true">💬</div>
-            <h2>我们哪里可以更好？</h2>
-            <p>每一条反馈都会让优学变得更棒</p>
+            <h2>告诉我们哪里可以更好</h2>
+            <p>你的每一条建议，都会让优学的探险旅程变得更有趣</p>
             <button class="rating-primary" id="ratingToFeedback" type="button">填写反馈</button>
             <button class="rating-secondary" id="skipFeedback" type="button">暂时跳过</button>
           </section>

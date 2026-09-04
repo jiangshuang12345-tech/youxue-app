@@ -453,14 +453,7 @@ function showPage(targetPage, hash) {
 }
 
 function syncChrome(targetPage) {
-  const chromePages = [studyPage, smartPage];
-  const showTabBar = chromePages.includes(targetPage);
-  tabBar.hidden = !showTabBar;
-  document.querySelectorAll("[data-tab]").forEach((button) => {
-    const tab = button.dataset.tab;
-    const active = (tab === "study" && targetPage === studyPage) || (tab === "smart" && targetPage === smartPage);
-    button.classList.toggle("is-active", active);
-  });
+  tabBar.hidden = true;
 }
 
 function readStore(key, fallback = null) {
@@ -709,30 +702,39 @@ document.querySelector("#confirmCancel").addEventListener("click", () => {
 profileEntry.addEventListener("click", () => showPage(homePage, "#home"));
 document.querySelector("#backFromProfile").addEventListener("click", () => showPage(studyPage, "#study"));
 document.querySelector("#profileFeedbackEntry").addEventListener("click", () => openFeedback("personal-center"));
-document.querySelector("#studyPage .study-grid").addEventListener("click", (event) => {
-  const card = event.target.closest("[data-study-card]"); if (!card) return;
-  const id = card.dataset.studyCard;
-  if (id === "smart") showPage(smartPage, "#smart");
-  else showToast("该功能正在开发中，敬请期待");
-});
-document.querySelectorAll("[data-tab]").forEach((button) => button.addEventListener("click", () => {
-  const tab = button.dataset.tab;
-  if (tab === "study") showPage(studyPage, "#study");
-  else if (tab === "smart") showPage(smartPage, "#smart");
-  else if (tab === "vip") showToast("会员订阅功能即将上线");
-}));
-document.querySelector("#backFromSmart").addEventListener("click", () => showPage(studyPage, "#study"));
-document.querySelectorAll("[data-smart-unit]").forEach((button) => button.addEventListener("click", () => setSmartUnit(button.dataset.smartUnit)));
-document.querySelector("#smartLessonList").addEventListener("click", (event) => {
-  const action = event.target.closest("[data-lesson-action]"); if (!action) return;
-  const card = action.closest("[data-lesson-id]"); if (!card) return;
-  const lessonId = card.dataset.lessonId;
-  if (action.dataset.lessonAction === "locked") {
-    showToast("先完成前面的课程，才能解锁这一节哦");
+document.querySelector("#studyPage .study-zones").addEventListener("click", (event) => {
+  const tab = event.target.closest("[data-tab]");
+  if (tab) {
+    const id = tab.dataset.tab;
+    if (id === "study") return;
+    if (id === "smart") showPage(smartPage, "#smart");
+    else showToast("会员订阅功能即将上线");
     return;
   }
-  completeLesson(lessonId);
+  const card = event.target.closest("[data-study-card]");
+  if (!card) return;
+  const id = card.dataset.studyCard;
+  if (id === "map") showPage(smartPage, "#smart");
+  else showToast("该功能正在开发中，敬请期待");
 });
+document.querySelector("#smartPage .smart-zones").addEventListener("click", (event) => {
+  const tab = event.target.closest("[data-tab]");
+  if (tab) {
+    const id = tab.dataset.tab;
+    if (id === "smart") return;
+    if (id === "study") showPage(studyPage, "#study");
+    else showToast("会员订阅功能即将上线");
+    return;
+  }
+  if (event.target.closest(".smart-hotspot--contact")) {
+    showToast("正在为你联系班主任…");
+    return;
+  }
+  if (event.target.closest("[data-lesson-action]")) {
+    maybePromptRating(true);
+  }
+});
+document.querySelector("#backFromSmart").addEventListener("click", () => showPage(studyPage, "#study"));
 document.querySelector("#closeRating").addEventListener("click", dismissRatingPrompt);
 document.querySelectorAll("[data-rating]").forEach((button) => button.addEventListener("click", () => {
   const rating = button.dataset.rating;
