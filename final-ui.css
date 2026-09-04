@@ -640,7 +640,7 @@
   background:rgba(0,0,0,0.01);
   cursor:pointer;
   -webkit-tap-highlight-color:transparent;
-  touch-action:none;
+  touch-action:manipulation;
 }
 .study-hotspot[data-study-card="map"] { left:51%; top:17%; width:44%; height:22%; border-radius:20px; }
 .study-hotspot[data-study-card="continue"] { left:51%; top:43%; width:44%; height:22%; border-radius:20px; }

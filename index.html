@@ -36,9 +36,9 @@
           <button class="study-hotspot" data-study-card="map" type="button" aria-label="探险课程地图"></button>
           <button class="study-hotspot" data-study-card="continue" type="button" aria-label="继续上次的探险"></button>
           <button class="study-hotspot" data-study-card="custom" type="button" aria-label="打造专属探险"></button>
-          <button class="nav-hotspot" data-tab="study" type="button" aria-label="优学中心"></button>
-          <button class="nav-hotspot" data-tab="smart" type="button" aria-label="双师智学"></button>
-          <button class="nav-hotspot" data-tab="vip" type="button" aria-label="会员订阅"></button>
+          <button class="nav-hotspot" data-tab="study" type="button" onclick="navTo('study')" aria-label="优学中心"></button>
+          <button class="nav-hotspot" data-tab="smart" type="button" onclick="navTo('smart')" aria-label="双师智学"></button>
+          <button class="nav-hotspot" data-tab="vip" type="button" onclick="navTo('vip')" aria-label="会员订阅"></button>
         </div>
       </main>
 
@@ -233,9 +233,9 @@
           <button class="smart-hotspot smart-hotspot--lesson-center" data-lesson-action="start" type="button" aria-label="去上课"></button>
           <button class="smart-hotspot smart-hotspot--lesson-right" data-lesson-action="start" type="button" aria-label="去上课"></button>
         </div>
-        <button class="nav-hotspot" data-tab="study" type="button" aria-label="优学中心"></button>
-        <button class="nav-hotspot" data-tab="smart" type="button" aria-label="双师智学"></button>
-        <button class="nav-hotspot" data-tab="vip" type="button" aria-label="会员订阅"></button>
+        <button class="nav-hotspot" data-tab="study" type="button" onclick="navTo('study')" aria-label="优学中心"></button>
+        <button class="nav-hotspot" data-tab="smart" type="button" onclick="navTo('smart')" aria-label="双师智学"></button>
+        <button class="nav-hotspot" data-tab="vip" type="button" onclick="navTo('vip')" aria-label="会员订阅"></button>
       </main>
 
       <nav class="tab-bar" id="tabBar" aria-label="底部导航" hidden>

@@ -452,6 +452,14 @@ function showPage(targetPage, hash) {
   }, 120);
 }
 
+function navTo(tabId) {
+  if (tabId === "study" && !studyPage.hidden) return;
+  if (tabId === "smart" && !smartPage.hidden) return;
+  if (tabId === "study") showPage(studyPage, "#study");
+  else if (tabId === "smart") showPage(smartPage, "#smart");
+  else showToast("会员订阅功能即将上线");
+}
+
 function syncChrome(targetPage) {
   tabBar.hidden = true;
 }
@@ -702,23 +710,7 @@ document.querySelector("#confirmCancel").addEventListener("click", () => {
 profileEntry.addEventListener("click", () => showPage(homePage, "#home"));
 document.querySelector("#backFromProfile").addEventListener("click", () => showPage(studyPage, "#study"));
 document.querySelector("#profileFeedbackEntry").addEventListener("click", () => openFeedback("personal-center"));
-document.querySelectorAll("#studyPage .nav-hotspot").forEach((btn) => {
-  function handleStudyNav() {
-    const id = btn.dataset.tab;
-    if (id === "study") return;
-    if (id === "smart") showPage(smartPage, "#smart");
-    else showToast("会员订阅功能即将上线");
-  }
-  btn.addEventListener("touchstart", (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    handleStudyNav();
-  }, { passive: false });
-  btn.addEventListener("click", handleStudyNav);
-});
 document.querySelector("#studyPage .study-zones").addEventListener("click", (event) => {
-  const tab = event.target.closest("[data-tab]");
-  if (tab) return;
   const card = event.target.closest("[data-study-card]");
   if (!card) return;
   const id = card.dataset.studyCard;
@@ -735,25 +727,19 @@ document.querySelector("#smartPage .smart-zones").addEventListener("click", (eve
   }
 });
 
-document.querySelectorAll("#smartPage > .nav-hotspot").forEach((btn) => {
-  function handleNav() {
-    const id = btn.dataset.tab;
-    if (id === "smart") return;
-    if (id === "study") showPage(studyPage, "#study");
-    else showToast("会员订阅功能即将上线");
-  }
-  btn.addEventListener("touchstart", (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    handleNav();
-  }, { passive: false });
-  btn.addEventListener("click", handleNav);
-});
-
 let _touched = false;
 document.addEventListener("touchend", (event) => {
+  const navBtn = event.target.closest(".nav-hotspot");
+  if (navBtn) {
+    event.preventDefault();
+    if (_touched) return;
+    _touched = true;
+    navTo(navBtn.dataset.tab);
+    setTimeout(() => { _touched = false; }, 800);
+    return;
+  }
   const el = event.target.closest(
-    ".study-hotspot, .nav-hotspot, .smart-hotspot, .study-avatar, .icon-button, .smart-back, .logout-button, .lesson-card, .lesson-count, #lessonEntry, #orderEntry, .feedback-entry"
+    ".study-hotspot, .smart-hotspot, .study-avatar, .icon-button, .smart-back, .logout-button, .lesson-card, .lesson-count, #lessonEntry, #orderEntry, .feedback-entry"
   );
   if (!el) return;
   event.preventDefault();
