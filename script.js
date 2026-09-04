@@ -45,7 +45,47 @@ const orderData = [
   { id:"2604101000661000301", user:"test_new_G4 - 新打标用户", avatar:"🐣", status:"processing", statusText:"处理中", title:"VIPKID美国小学课程", product:"VIPKID美国小学课程", qty:1, price:"9.90", paid:"9.90", created:"2026-04-10 09:12:10", paidAt:"2026-04-10 09:12:32" }
 ];
 
+const studyCardData = [
+  { id: "smart", icon: "📘", title: "双师智学", desc: "AI + 外教双师课堂", action: "去学习", color: "smart" },
+  { id: "adventure", icon: "🗺️", title: "冒险岛", desc: "趣味闯关学单词", action: "去探险", color: "adventure" },
+  { id: "reading", icon: "📖", title: "绘本馆", desc: "分级阅读随时听", action: "去阅读", color: "reading" },
+  { id: "review", icon: "✨", title: "每日复习", desc: "巩固今日所学", action: "去复习", color: "review" },
+];
+
+const smartUnitData = {
+  u1: { title: "Unit 1 打招呼", desc: "用简单句子和新朋友打招呼" },
+  u2: { title: "Unit 2 颜色", desc: "认识生活中的常见颜色" },
+  u3: { title: "Unit 3 数字", desc: "从 1 数到 10，一起数一数" },
+  u4: { title: "Unit 4 动物", desc: "拜访农场里可爱的小动物" },
+};
+
+const smartLessonData = [
+  { unit: "u1", id: "u1-l1", title: "Hello!", desc: "学会说你好", status: "done", duration: "10 min" },
+  { unit: "u1", id: "u1-l2", title: "What's your name?", desc: "介绍自己的名字", status: "ready", duration: "10 min" },
+  { unit: "u1", id: "u1-l3", title: "Nice to meet you", desc: "认识新朋友", status: "locked", duration: "10 min" },
+  { unit: "u2", id: "u2-l1", title: "Red and Blue", desc: "红色和蓝色", status: "locked", duration: "12 min" },
+  { unit: "u2", id: "u2-l2", title: "Yellow Sun", desc: "黄色的太阳", status: "locked", duration: "12 min" },
+  { unit: "u2", id: "u2-l3", title: "Color Mix", desc: "颜色变变变", status: "locked", duration: "12 min" },
+  { unit: "u3", id: "u3-l1", title: "Count 1-5", desc: "数一数 1 到 5", status: "locked", duration: "10 min" },
+  { unit: "u3", id: "u3-l2", title: "Count 6-10", desc: "数一数 6 到 10", status: "locked", duration: "10 min" },
+  { unit: "u3", id: "u3-l3", title: "Number Song", desc: "数字儿歌", status: "locked", duration: "10 min" },
+  { unit: "u4", id: "u4-l1", title: "Farm Animals", desc: "农场动物", status: "locked", duration: "14 min" },
+  { unit: "u4", id: "u4-l2", title: "Animal Sounds", desc: "听声音猜动物", status: "locked", duration: "14 min" },
+  { unit: "u4", id: "u4-l3", title: "My Pet", desc: "介绍我的宠物", status: "locked", duration: "14 min" },
+];
+
+const FEEDBACK_TYPE_LABELS = {
+  lesson: "课程内容",
+  audio: "声音/画质",
+  interaction: "操作交互",
+  purchase: "购买/课时",
+  account: "账号/登录",
+  other: "其他",
+};
+
 const homePage = document.querySelector("#homePage");
+const studyPage = document.querySelector("#studyPage");
+const smartPage = document.querySelector("#smartPage");
 const lessonsPage = document.querySelector("#lessonsPage");
 const lessonEntry = document.querySelector("#lessonEntry");
 const backToHome = document.querySelector("#backToHome");
@@ -57,12 +97,21 @@ const incomeFilters = document.querySelector("#incomeFilters");
 const ordersPage = document.querySelector("#ordersPage");
 const orderDetailPage = document.querySelector("#orderDetailPage");
 const ordersList = document.querySelector("#ordersList");
-const pages = [homePage, lessonsPage, lessonDetailsPage, ordersPage, orderDetailPage];
+const tabBar = document.querySelector("#tabBar");
+const ratingModal = document.querySelector("#ratingModal");
+const feedbackModal = document.querySelector("#feedbackModal");
+const appToast = document.querySelector("#appToast");
+const pages = [studyPage, homePage, lessonsPage, lessonDetailsPage, ordersPage, orderDetailPage, smartPage];
 let ledgerTab = "all";
 let incomeFilter = "all";
 let orderTab = "all";
 let activeOrder = null;
 let cancelFromList = false;
+let currentSmartUnit = "u1";
+let currentFeedbackSource = "personal-center";
+let feedbackType = "";
+let toastTimer = null;
+const memoryStore = new Map();
 const paymentModal = document.querySelector("#paymentModal");
 const photoPermissionModal = document.querySelector("#photoPermissionModal");
 const permissionGuideModal = document.querySelector("#permissionGuideModal");
@@ -320,6 +369,68 @@ function showOrderDetail(order) {
   showPage(orderDetailPage, `#order-${order.id}`);
 }
 
+function renderStudyCards() {
+  const grid = document.querySelector("#studyPage .study-grid");
+  if (!grid) return;
+  grid.innerHTML = studyCardData.map((card) => `
+    <article class="study-card study-card--${card.color}" data-study-card="${card.id}">
+      <div class="study-card-icon" aria-hidden="true">${card.icon}</div>
+      <h2>${card.title}</h2>
+      <p>${card.desc}</p>
+      <span>${card.action} ›</span>
+    </article>
+  `).join("");
+}
+
+function renderSmartLessons() {
+  const list = document.querySelector("#smartLessonList");
+  if (!list) return;
+  const unit = smartUnitData[currentSmartUnit];
+  document.querySelector("#smartUnitTitle").textContent = unit.title;
+  document.querySelector("#smartUnitDesc").textContent = unit.desc;
+  const doneCount = smartLessonData.filter((lesson) => lesson.status === "done").length;
+  document.querySelector("#smartProgressText").textContent = `${doneCount} / ${smartLessonData.length}`;
+
+  list.innerHTML = smartLessonData
+    .filter((lesson) => lesson.unit === currentSmartUnit)
+    .map((lesson) => {
+      const isDone = lesson.status === "done";
+      const isLocked = lesson.status === "locked";
+      const badge = isDone ? "已完成" : isLocked ? "未解锁" : "可学习";
+      const buttonText = isDone ? "评价本节课" : isLocked ? "先完成前面的" : "去上课";
+      return `
+        <article class="smart-lesson-card ${isDone ? "is-done" : ""} ${isLocked ? "is-locked" : ""}" data-lesson-id="${lesson.id}">
+          <span class="lesson-badge">${badge}</span>
+          <h4>${lesson.title}</h4>
+          <p>${lesson.desc}</p>
+          <div class="lesson-meta"><span>⏱ ${lesson.duration}</span></div>
+          <button type="button" data-lesson-action="${isLocked ? "locked" : "start"}">${buttonText}</button>
+        </article>
+      `;
+    })
+    .join("");
+}
+
+function setSmartUnit(unit) {
+  currentSmartUnit = unit;
+  document.querySelectorAll("[data-smart-unit]").forEach((button) => {
+    button.classList.toggle("is-active", button.dataset.smartUnit === unit);
+  });
+  renderSmartLessons();
+}
+
+function completeLesson(lessonId) {
+  const lesson = smartLessonData.find((item) => item.id === lessonId);
+  if (!lesson || lesson.status === "locked") return;
+  if (lesson.status !== "done") {
+    lesson.status = "done";
+    const next = smartLessonData.find((item) => item.unit === lesson.unit && item.status === "locked");
+    if (next) next.status = "ready";
+  }
+  renderSmartLessons();
+  window.setTimeout(() => maybePromptRating(), 400);
+}
+
 function showLessonDetailTab(tabName) {
   document.querySelectorAll("[data-detail-tab]").forEach((button) => button.classList.toggle("is-active", button.dataset.detailTab === tabName));
   document.querySelectorAll("[data-detail-panel]").forEach((panel) => { panel.hidden = panel.dataset.detailPanel !== tabName; });
@@ -333,11 +444,51 @@ function showPage(targetPage, hash) {
   targetPage.classList.add("is-entering");
   window.history.replaceState(null, "", hash);
   window.scrollTo({ top: 0, behavior: "smooth" });
+  syncChrome(targetPage);
 
   window.setTimeout(() => {
     const heading = targetPage.querySelector("h1");
     heading?.focus({ preventScroll: true });
   }, 120);
+}
+
+function syncChrome(targetPage) {
+  const chromePages = [studyPage, smartPage];
+  const showTabBar = chromePages.includes(targetPage);
+  tabBar.hidden = !showTabBar;
+  document.querySelectorAll("[data-tab]").forEach((button) => {
+    const tab = button.dataset.tab;
+    const active = (tab === "study" && targetPage === studyPage) || (tab === "smart" && targetPage === smartPage);
+    button.classList.toggle("is-active", active);
+  });
+}
+
+function readStore(key, fallback = null) {
+  try {
+    const value = window.localStorage.getItem(key);
+    return value === null ? fallback : JSON.parse(value);
+  } catch {
+    return memoryStore.has(key) ? memoryStore.get(key) : fallback;
+  }
+}
+
+function writeStore(key, value) {
+  try {
+    window.localStorage.setItem(key, JSON.stringify(value));
+  } catch {
+    memoryStore.set(key, value);
+  }
+}
+
+function showToast(message, duration = 2200) {
+  appToast.textContent = message;
+  appToast.hidden = false;
+  window.clearTimeout(toastTimer);
+  window.requestAnimationFrame(() => appToast.classList.add("is-visible"));
+  toastTimer = window.setTimeout(() => {
+    appToast.classList.remove("is-visible");
+    window.setTimeout(() => { appToast.hidden = true; }, 250);
+  }, duration);
 }
 
 lessonEntry.addEventListener("click", () => showPage(lessonsPage, "#lessons"));
@@ -424,8 +575,130 @@ document.querySelector("#backFromSettings").addEventListener("click", () => {
 function updatePrototypeSettings() {
   document.querySelectorAll("[data-photo-setting]").forEach((button) => button.classList.toggle("is-selected", button.dataset.photoSetting === prototypePhotoPermission));
 }
+
+function getRatingState() {
+  return readStore("yx_rating_state", { status: "pending", dismissCount: 0, lastDismissed: 0 });
+}
+
+function setRatingState(state) {
+  writeStore("yx_rating_state", state);
+}
+
+function maybePromptRating(force = false) {
+  const state = getRatingState();
+  if (!force && ["rated", "feedback"].includes(state.status)) return;
+  if (!force && state.status === "dismissed") {
+    const coolDown = state.dismissCount >= 2 ? 1000 * 60 * 60 * 24 * 7 : 1000 * 60 * 60 * 24;
+    if (Date.now() - state.lastDismissed < coolDown) return;
+  }
+  openRatingPrompt("ask");
+}
+
+function openRatingPrompt(step = "ask") {
+  ratingModal.hidden = false;
+  setRatingStep(step);
+  ratingModal.querySelector(".rating-close")?.focus();
+}
+
+function setRatingStep(step) {
+  document.querySelector("#ratingStepAsk").hidden = step !== "ask";
+  document.querySelector("#ratingStepPraise").hidden = step !== "praise";
+  document.querySelector("#ratingStepImprove").hidden = step !== "improve";
+}
+
+function closeRatingPrompt() {
+  ratingModal.hidden = true;
+}
+
+function dismissRatingPrompt() {
+  const state = getRatingState();
+  state.status = "dismissed";
+  state.dismissCount = (state.dismissCount || 0) + 1;
+  state.lastDismissed = Date.now();
+  setRatingState(state);
+  closeRatingPrompt();
+}
+
+function openFeedback(source = "personal-center") {
+  currentFeedbackSource = source;
+  feedbackModal.hidden = false;
+  resetFeedbackForm();
+  feedbackModal.querySelector(".feedback-close")?.focus();
+}
+
+function closeFeedback() {
+  feedbackModal.hidden = true;
+}
+
+function resetFeedbackForm() {
+  feedbackType = "";
+  document.querySelectorAll("#feedbackTypes [data-feedback-type]").forEach((button) => button.classList.remove("is-active"));
+  document.querySelector("#feedbackDesc").value = "";
+  document.querySelector("#feedbackContact").value = "";
+  document.querySelector("#feedbackCount").textContent = "0 / 300";
+  document.querySelector("#feedbackError").textContent = "";
+  document.querySelector("#feedbackFormPanel").hidden = false;
+  document.querySelector("#feedbackSuccessPanel").hidden = true;
+}
+
+function validateFeedback() {
+  const error = document.querySelector("#feedbackError");
+  if (!feedbackType) {
+    error.textContent = "请选择一个问题类型";
+    return false;
+  }
+  const desc = document.querySelector("#feedbackDesc").value.trim();
+  if (desc.length < 5) {
+    error.textContent = "问题描述至少需要 5 个字";
+    return false;
+  }
+  error.textContent = "";
+  return true;
+}
+
+function submitFeedback() {
+  if (!validateFeedback()) return;
+  const desc = document.querySelector("#feedbackDesc").value.trim();
+  const contact = document.querySelector("#feedbackContact").value.trim();
+  const ticket = `YX${Date.now().toString(36).toUpperCase()}`;
+  const payload = {
+    ticket,
+    type: feedbackType,
+    typeLabel: FEEDBACK_TYPE_LABELS[feedbackType],
+    desc,
+    contact,
+    source: currentFeedbackSource,
+    createdAt: new Date().toISOString(),
+  };
+  try {
+    const history = readStore("yx_feedback_history", []);
+    history.unshift(payload);
+    writeStore("yx_feedback_history", history.slice(0, 50));
+  } catch {
+    // ignore storage errors in prototype
+  }
+  document.querySelector("#feedbackTicket").textContent = ticket;
+  document.querySelector("#feedbackFormPanel").hidden = true;
+  document.querySelector("#feedbackSuccessPanel").hidden = false;
+  if (currentFeedbackSource === "rating-prompt") {
+    const state = getRatingState();
+    state.status = "feedback";
+    setRatingState(state);
+  }
+}
+
 paymentModal.addEventListener("click", (event) => { if (event.target === paymentModal) closePayment(); });
-document.addEventListener("keydown", (event) => { if (event.key === "Escape" && !paymentModal.hidden) closePayment(); });
+ratingModal.addEventListener("click", (event) => { if (event.target === ratingModal) dismissRatingPrompt(); });
+feedbackModal.addEventListener("click", (event) => { if (event.target === feedbackModal) closeFeedback(); });
+document.addEventListener("keydown", (event) => {
+  if (event.key !== "Escape") return;
+  if (!feedbackModal.hidden) { closeFeedback(); return; }
+  if (!ratingModal.hidden) { dismissRatingPrompt(); return; }
+  if (!paymentModal.hidden) { closePayment(); return; }
+  if (!photoPermissionModal.hidden) { photoPermissionModal.hidden = true; return; }
+  if (!permissionGuideModal.hidden) { permissionGuideModal.hidden = true; return; }
+  if (!prototypeSettings.hidden) { prototypeSettings.hidden = true; return; }
+});
 document.querySelector("#confirmCancel").addEventListener("click", () => {
   if (!activeOrder || activeOrder.status !== "pending") return;
   activeOrder.status = "canceled"; activeOrder.statusText = "已取消";
@@ -433,13 +706,83 @@ document.querySelector("#confirmCancel").addEventListener("click", () => {
   if (cancelFromList) showPage(ordersPage, "#orders"); else showOrderDetail(activeOrder);
 });
 
+profileEntry.addEventListener("click", () => showPage(homePage, "#home"));
+document.querySelector("#backFromProfile").addEventListener("click", () => showPage(studyPage, "#study"));
+document.querySelector("#profileFeedbackEntry").addEventListener("click", () => openFeedback("personal-center"));
+document.querySelector("#studyPage .study-grid").addEventListener("click", (event) => {
+  const card = event.target.closest("[data-study-card]"); if (!card) return;
+  const id = card.dataset.studyCard;
+  if (id === "smart") showPage(smartPage, "#smart");
+  else showToast("该功能正在开发中，敬请期待");
+});
+document.querySelectorAll("[data-tab]").forEach((button) => button.addEventListener("click", () => {
+  const tab = button.dataset.tab;
+  if (tab === "study") showPage(studyPage, "#study");
+  else if (tab === "smart") showPage(smartPage, "#smart");
+  else if (tab === "vip") showToast("会员订阅功能即将上线");
+}));
+document.querySelector("#backFromSmart").addEventListener("click", () => showPage(studyPage, "#study"));
+document.querySelectorAll("[data-smart-unit]").forEach((button) => button.addEventListener("click", () => setSmartUnit(button.dataset.smartUnit)));
+document.querySelector("#smartLessonList").addEventListener("click", (event) => {
+  const action = event.target.closest("[data-lesson-action]"); if (!action) return;
+  const card = action.closest("[data-lesson-id]"); if (!card) return;
+  const lessonId = card.dataset.lessonId;
+  if (action.dataset.lessonAction === "locked") {
+    showToast("先完成前面的课程，才能解锁这一节哦");
+    return;
+  }
+  completeLesson(lessonId);
+});
+document.querySelector("#closeRating").addEventListener("click", dismissRatingPrompt);
+document.querySelectorAll("[data-rating]").forEach((button) => button.addEventListener("click", () => {
+  const rating = button.dataset.rating;
+  if (rating === "positive") setRatingStep("praise");
+  else setRatingStep("improve");
+}));
+document.querySelector("#goToAppStore").addEventListener("click", () => {
+  const state = getRatingState();
+  state.status = "rated";
+  setRatingState(state);
+  closeRatingPrompt();
+  showToast("已跳转至 App Store，感谢你的好评！");
+});
+document.querySelector("#skipAppStore").addEventListener("click", dismissRatingPrompt);
+document.querySelector("#ratingToFeedback").addEventListener("click", () => {
+  closeRatingPrompt();
+  openFeedback("rating-prompt");
+});
+document.querySelector("#skipFeedback").addEventListener("click", dismissRatingPrompt);
+document.querySelectorAll("[data-feedback-type]").forEach((button) => button.addEventListener("click", () => {
+  feedbackType = button.dataset.feedbackType;
+  document.querySelectorAll("[data-feedback-type]").forEach((item) => item.classList.toggle("is-active", item === button));
+}));
+document.querySelector("#feedbackDesc").addEventListener("input", (event) => {
+  document.querySelector("#feedbackCount").textContent = `${event.target.value.length} / 300`;
+});
+document.querySelector("#submitFeedback").addEventListener("click", submitFeedback);
+document.querySelector("#closeFeedback").addEventListener("click", closeFeedback);
+document.querySelector("#finishFeedback").addEventListener("click", () => {
+  closeFeedback();
+  if (currentFeedbackSource === "rating-prompt") showToast("反馈已提交，继续加油学习吧");
+});
+
 renderLessonCards();
 renderValidity();
 renderLedger();
 renderOrders();
+renderStudyCards();
+renderSmartLessons();
 
-
-const initialRoutes = { "#lessons": lessonsPage, "#orders": ordersPage };
+const initialRoutes = { "#study": studyPage, "#lessons": lessonsPage, "#orders": ordersPage, "#smart": smartPage, "#home": homePage };
 if (window.location.hash === "#validity") showLessonDetailTab("validity");
 else if (window.location.hash === "#ledger") showLessonDetailTab("ledger");
 else if (initialRoutes[window.location.hash]) showPage(initialRoutes[window.location.hash], window.location.hash);
+else showPage(studyPage, "#study");
+
+window.resetPrototypeState = () => {
+  writeStore("yx_rating_state", { status: "pending", dismissCount: 0, lastDismissed: 0 });
+  writeStore("yx_feedback_history", []);
+  smartLessonData.forEach((lesson, index) => { lesson.status = index === 0 ? "done" : index === 1 ? "ready" : "locked"; });
+  renderSmartLessons();
+  showToast("原型状态已重置");
+};

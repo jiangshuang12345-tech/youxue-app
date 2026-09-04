@@ -606,3 +606,120 @@
   border-color:#ffb394;
   background:#fff7f3;
 }
+
+/* New pages: explicit [hidden] guards and iPhone landscape fitting. */
+.page--study,
+.page--smart { display:flex; flex-direction:column; }
+.page--study[hidden],
+.page--smart[hidden] { display:none; }
+
+.page--study {
+  padding: clamp(14px, 3vh, 28px) clamp(30px, 5vw, 70px) 22px;
+  background:
+    radial-gradient(circle at 88% 18%, rgba(255, 215, 120, .55), transparent 18%),
+    radial-gradient(circle at 6% 86%, rgba(160, 220, 92, .5), transparent 24%),
+    linear-gradient(150deg, rgba(120, 210, 245, .95), rgba(230, 250, 250, .96) 55%, rgba(180, 230, 238, .95));
+}
+.page--study .study-header { margin-bottom: clamp(10px, 2vh, 20px); }
+.page--study .study-avatar-ring { width: clamp(46px, 7vh, 64px); }
+.page--study .study-avatar-face { font-size: clamp(26px, 4vh, 38px); }
+.page--study .study-avatar-streak { right: -4px; bottom: -2px; padding: 2px 6px; font-size: 10px; }
+.page--study .study-welcome { gap: 2px; }
+.page--study .study-greeting { font-size: clamp(16px, 2.4vh, 24px); }
+.page--study .study-subtitle { font-size: clamp(12px, 1.6vh, 16px); }
+.page--study .study-vip-button { padding: 6px 12px; font-size: 11px; }
+.page--study .study-vip-button span { font-size: 13px; }
+.page--study .study-hero { min-height: clamp(80px, 18vh, 140px); padding: clamp(14px, 3vh, 26px) clamp(20px, 4vw, 44px); margin-bottom: clamp(12px, 2.5vh, 22px); border-radius: clamp(22px, 3vw, 34px); }
+.page--study .study-hero-copy strong { font-size: clamp(22px, 4vh, 36px); }
+.page--study .study-hero-copy p { font-size: clamp(12px, 1.7vh, 17px); }
+.page--study .study-mascot { font-size: clamp(56px, 10vh, 100px); }
+.page--study .study-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(12px, 2vw, 24px); }
+.page--study .study-card { min-height: clamp(130px, 26vh, 210px); padding: clamp(14px, 2.5vh, 22px); border-radius: clamp(18px, 2.5vw, 28px); }
+.page--study .study-card-icon { width: clamp(42px, 7vh, 62px); height: clamp(42px, 7vh, 62px); border-radius: clamp(14px, 1.8vw, 20px); font-size: clamp(22px, 3.5vh, 34px); }
+.page--study .study-card h2 { font-size: clamp(16px, 2.3vh, 23px); }
+.page--study .study-card p { font-size: clamp(11px, 1.5vh, 14px); }
+.page--study .study-card span { font-size: clamp(11px, 1.5vh, 14px); }
+
+.page--smart {
+  padding: clamp(14px, 2.5vh, 24px) clamp(26px, 4.5vw, 60px) 22px;
+  background:
+    radial-gradient(circle at 86% 14%, rgba(255, 205, 105, .55), transparent 18%),
+    radial-gradient(circle at 8% 88%, rgba(140, 220, 160, .5), transparent 22%),
+    linear-gradient(145deg, rgba(130, 215, 248, .95), rgba(235, 250, 250, .96) 52%, rgba(185, 232, 238, .95));
+}
+.page--smart .smart-header { margin-bottom: clamp(10px, 2vh, 18px); }
+.page--smart .smart-kicker { font-size: clamp(10px, 1.4vh, 13px); }
+.page--smart .smart-heading h2 { font-size: clamp(22px, 3.5vh, 34px); }
+.page--smart .smart-progress { min-width: clamp(70px, 10vw, 110px); padding: 8px 14px; }
+.page--smart .smart-progress strong { font-size: clamp(18px, 2.8vh, 28px); }
+.page--smart .smart-progress span { font-size: clamp(10px, 1.3vh, 13px); }
+.page--smart .smart-workbench { gap: clamp(14px, 2vw, 24px); height: calc(100% - clamp(64px, 10vh, 90px)); }
+.page--smart .smart-units { width: clamp(110px, 16vw, 170px); gap: 8px; padding: 12px; border-radius: 18px; }
+.page--smart .smart-units button { padding: 10px 12px; border-radius: 14px; font-size: clamp(12px, 1.7vh, 15px); }
+.page--smart .smart-units button small { font-size: clamp(10px, 1.4vh, 12px); }
+.page--smart .smart-panel { padding: clamp(14px, 2.5vh, 24px); border-radius: 22px; }
+.page--smart .smart-panel-header h3 { font-size: clamp(18px, 2.6vh, 26px); }
+.page--smart .smart-panel-header p { font-size: clamp(11px, 1.5vh, 14px); }
+.page--smart .smart-lessons { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(12px, 1.8vh, 18px); }
+.page--smart .smart-lesson-card { padding: clamp(14px, 2vh, 20px); border-radius: 18px; }
+.page--smart .smart-lesson-card h4 { font-size: clamp(14px, 2vh, 19px); }
+.page--smart .smart-lesson-card p { font-size: clamp(11px, 1.4vh, 14px); }
+.page--smart .smart-lesson-card button { padding: 8px 12px; border-radius: 10px; font-size: clamp(11px, 1.5vh, 14px); }
+
+/* Personal center visible feedback entry positioned between existing hotspots. */
+#homePage .topbar .feedback-entry {
+  position: absolute;
+  left: 11.5%;
+  top: 5.3%;
+  z-index: 5;
+  padding: 0;
+  width: 11.5%;
+  height: 6.8%;
+  border-radius: 999px;
+  color: transparent;
+  background: transparent;
+  box-shadow: none;
+  pointer-events: auto;
+}
+#homePage .topbar .feedback-entry:hover { transform: none; }
+
+/* Bottom tab bar: fit above the iPhone home indicator. */
+.tab-bar { bottom: clamp(10px, 2vh, 20px); padding: 6px; gap: 6px; }
+.tab-bar button { padding: clamp(7px, 1.2vh, 11px) clamp(12px, 1.8vw, 20px); font-size: clamp(11px, 1.5vh, 15px); }
+
+/* Rating and feedback dialogs scale to the iPhone canvas. */
+.rating-dialog { width: min(88%, 400px); padding: 28px 24px 24px; border-radius: 28px; }
+.rating-options button { padding: 16px 12px; border-radius: 18px; }
+.feedback-dialog { width: min(90%, 480px); padding: 24px; border-radius: 26px; }
+.feedback-types button { padding: 7px 14px; font-size: clamp(12px, 1.5vh, 15px); }
+
+/* Toast sits above the tab bar. */
+.app-toast { bottom: clamp(72px, 12vh, 110px); font-size: clamp(12px, 1.5vh, 15px); }
+
+/* Compact mode for small landscape heights. */
+@media (max-height: 620px) {
+  .page--study .study-hero { min-height: 70px; padding: 10px 18px; margin-bottom: 10px; }
+  .page--study .study-hero-copy strong { font-size: 18px; }
+  .page--study .study-mascot { font-size: 50px; }
+  .page--study .study-grid { gap: 10px; }
+  .page--study .study-card { min-height: 110px; padding: 12px; }
+  .page--study .study-card-icon { width: 38px; height: 38px; font-size: 20px; }
+  .page--study .study-card h2 { font-size: 14px; }
+
+  .page--smart .smart-units { width: 100px; padding: 8px; }
+  .page--smart .smart-lessons { gap: 10px; }
+  .page--smart .smart-lesson-card { padding: 12px; }
+
+  .tab-bar button { padding: 6px 12px; font-size: 11px; }
+  .tab-bar button .tab-icon { font-size: 1em; }
+}
+
+/* Larger landscape iPhones: give the new pages a bit more breathing room. */
+@media (min-height: 680px) {
+  .page--study .study-header { margin-bottom: 20px; }
+  .page--study .study-hero { min-height: 130px; }
+  .page--study .study-card { min-height: 180px; }
+
+  .page--smart .smart-units { width: 150px; }
+  .page--smart .smart-panel { padding: 22px; }
+}

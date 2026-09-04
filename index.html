@@ -12,7 +12,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="final-ui.css?v=18" />
+    <link rel="stylesheet" href="final-ui.css?v=19" />
   </head>
   <body>
     <div class="device-stage">
@@ -29,13 +29,70 @@
       <div class="ambient ambient--two"></div>
       <div class="ambient ambient--three"></div>
 
-      <main class="page page--home is-active" id="homePage" aria-labelledby="homeTitle">
+      <main class="page page--study is-active" id="studyPage" aria-labelledby="studyTitle">
+        <h1 class="sr-only" id="studyTitle">优学中心</h1>
+
+        <header class="study-header">
+          <button class="study-avatar" id="profileEntry" type="button" aria-label="进入个人中心">
+            <span class="study-avatar-ring">
+              <span class="study-avatar-face">🐣</span>
+            </span>
+            <span class="study-avatar-streak"><b>🔥</b><i>196</i></span>
+          </button>
+          <div class="study-welcome">
+            <p class="study-greeting">早安，M哈哈哈</p>
+            <p class="study-subtitle">今天继续探险吧！</p>
+          </div>
+          <button class="study-vip-button" type="button">
+            <span>♛</span>
+            <small>开通会员</small>
+          </button>
+        </header>
+
+        <section class="study-hero">
+          <div class="study-hero-copy">
+            <strong>探索英语世界</strong>
+            <p>和外教一起闯关，每一天都有新收获</p>
+          </div>
+          <div class="study-mascot" aria-hidden="true">🚀</div>
+        </section>
+
+        <section class="study-grid" aria-label="学习入口">
+          <article class="study-card study-card--smart" data-study-card="smart">
+            <div class="study-card-icon">📘</div>
+            <h2>双师智学</h2>
+            <p>AI + 外教双师课堂</p>
+            <span>去学习 ›</span>
+          </article>
+          <article class="study-card study-card--adventure" data-study-card="adventure">
+            <div class="study-card-icon">🗺️</div>
+            <h2>冒险岛</h2>
+            <p>趣味闯关学单词</p>
+            <span>去探险 ›</span>
+          </article>
+          <article class="study-card study-card--reading" data-study-card="reading">
+            <div class="study-card-icon">📖</div>
+            <h2>绘本馆</h2>
+            <p>分级阅读随时听</p>
+            <span>去阅读 ›</span>
+          </article>
+          <article class="study-card study-card--review" data-study-card="review">
+            <div class="study-card-icon">✨</div>
+            <h2>每日复习</h2>
+            <p>巩固今日所学</p>
+            <span>去复习 ›</span>
+          </article>
+        </section>
+      </main>
+
+      <main class="page page--home" id="homePage" aria-labelledby="homeTitle" hidden>
         <h1 class="sr-only" id="homeTitle">个人中心</h1>
 
         <header class="topbar">
-          <button class="icon-button" type="button" aria-label="返回上一页">
+          <button class="icon-button" id="backFromProfile" type="button" aria-label="返回优学中心">
             <span class="back-chevron" aria-hidden="true"></span>
           </button>
+          <button class="feedback-entry" id="profileFeedbackEntry" type="button">💬 用户反馈</button>
           <button class="logout-button" type="button">退出登录</button>
         </header>
 
@@ -207,6 +264,141 @@
         </header>
         <section class="order-detail-workbench" id="orderDetailContent"></section>
       </main>
+
+      <main class="page page--smart" id="smartPage" aria-labelledby="smartTitle" hidden>
+        <h1 class="sr-only" id="smartTitle">双师智学</h1>
+
+        <header class="smart-header">
+          <button class="icon-button" id="backFromSmart" type="button" aria-label="返回优学中心">
+            <span class="back-chevron" aria-hidden="true"></span>
+          </button>
+          <div class="smart-heading">
+            <p class="smart-kicker">Smart Learning</p>
+            <h2>双师智学</h2>
+          </div>
+          <div class="smart-progress" aria-label="学习进度">
+            <strong id="smartProgressText">3 / 12</strong>
+            <span>本周课时</span>
+          </div>
+        </header>
+
+        <section class="smart-workbench">
+          <aside class="smart-units" role="tablist" aria-label="课程单元">
+            <button class="is-active" type="button" data-smart-unit="u1">Unit 1<br><small>打招呼</small></button>
+            <button type="button" data-smart-unit="u2">Unit 2<br><small>颜色</small></button>
+            <button type="button" data-smart-unit="u3">Unit 3<br><small>数字</small></button>
+            <button type="button" data-smart-unit="u4">Unit 4<br><small>动物</small></button>
+          </aside>
+          <div class="smart-panel">
+            <div class="smart-panel-header">
+              <h3 id="smartUnitTitle">Unit 1 打招呼</h3>
+              <p id="smartUnitDesc">用简单句子和新朋友打招呼</p>
+            </div>
+            <div class="smart-lessons" id="smartLessonList" aria-live="polite"></div>
+          </div>
+        </section>
+      </main>
+
+      <nav class="tab-bar" id="tabBar" aria-label="底部导航" hidden>
+        <button class="is-active" type="button" data-tab="study">
+          <span class="tab-icon" aria-hidden="true">🏠</span>
+          <span>优学中心</span>
+        </button>
+        <button type="button" data-tab="smart">
+          <span class="tab-icon" aria-hidden="true">📘</span>
+          <span>双师智学</span>
+        </button>
+        <button type="button" data-tab="vip">
+          <span class="tab-icon" aria-hidden="true">♛</span>
+          <span>会员订阅</span>
+        </button>
+      </nav>
+
+      <div class="rating-modal" id="ratingModal" hidden>
+        <div class="rating-dialog" role="dialog" aria-modal="true" aria-labelledby="ratingTitle">
+          <button class="rating-close" id="closeRating" type="button" aria-label="关闭评价弹窗">×</button>
+
+          <section class="rating-step" id="ratingStepAsk">
+            <div class="rating-mascot" aria-hidden="true">🌟</div>
+            <h2 id="ratingTitle">今天的探险开心吗？</h2>
+            <p>小朋友的进步，是我们最大的动力！</p>
+            <div class="rating-options">
+              <button type="button" data-rating="positive">
+                <span>🥳</span>
+                <strong>超喜欢</strong>
+              </button>
+              <button type="button" data-rating="negative">
+                <span>🤔</span>
+                <strong>还需改进</strong>
+              </button>
+            </div>
+          </section>
+
+          <section class="rating-step" id="ratingStepPraise" hidden>
+            <div class="rating-mascot" aria-hidden="true">🎉</div>
+            <h2>太棒了！</h2>
+            <p>你的好评会让更多小朋友加入探险队伍～</p>
+            <div class="rating-stars" aria-hidden="true">
+              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            </div>
+            <button class="rating-primary" id="goToAppStore" type="button">去 App Store 评分</button>
+            <button class="rating-secondary" id="skipAppStore" type="button">下次再说</button>
+          </section>
+
+          <section class="rating-step" id="ratingStepImprove" hidden>
+            <div class="rating-mascot" aria-hidden="true">💬</div>
+            <h2>我们哪里可以更好？</h2>
+            <p>每一条反馈都会让优学变得更棒</p>
+            <button class="rating-primary" id="ratingToFeedback" type="button">填写反馈</button>
+            <button class="rating-secondary" id="skipFeedback" type="button">暂时跳过</button>
+          </section>
+        </div>
+      </div>
+
+      <div class="feedback-modal" id="feedbackModal" hidden>
+        <div class="feedback-dialog" role="dialog" aria-modal="true" aria-labelledby="feedbackTitle">
+          <button class="feedback-close" id="closeFeedback" type="button" aria-label="关闭反馈">×</button>
+
+          <section class="feedback-form" id="feedbackFormPanel">
+            <h2 id="feedbackTitle">用户反馈</h2>
+            <p class="feedback-subtitle">请选择遇到的问题类型，帮助我们更快定位</p>
+
+            <div class="feedback-types" id="feedbackTypes" aria-label="反馈类型">
+              <button type="button" data-feedback-type="lesson">课程内容</button>
+              <button type="button" data-feedback-type="audio">声音/画质</button>
+              <button type="button" data-feedback-type="interaction">操作交互</button>
+              <button type="button" data-feedback-type="purchase">购买/课时</button>
+              <button type="button" data-feedback-type="account">账号/登录</button>
+              <button type="button" data-feedback-type="other">其他</button>
+            </div>
+
+            <div class="feedback-field">
+              <label for="feedbackDesc">问题描述</label>
+              <textarea id="feedbackDesc" rows="4" maxlength="300" placeholder="请简单描述你遇到的问题或建议..."></textarea>
+              <span class="feedback-count" id="feedbackCount">0 / 300</span>
+            </div>
+
+            <div class="feedback-field">
+              <label for="feedbackContact">联系方式（选填）</label>
+              <input id="feedbackContact" type="text" maxlength="60" placeholder="手机号 / 微信号，方便我们联系你" />
+            </div>
+
+            <p class="feedback-error" id="feedbackError" role="alert" aria-live="assertive"></p>
+            <button class="feedback-submit" id="submitFeedback" type="button">提交反馈</button>
+          </section>
+
+          <section class="feedback-success" id="feedbackSuccessPanel" hidden>
+            <div class="feedback-success-icon" aria-hidden="true">✓</div>
+            <h2>反馈已收到</h2>
+            <p>感谢你的建议，我们会认真阅读每一条反馈。</p>
+            <p class="feedback-ticket">工单号：<strong id="feedbackTicket">-</strong></p>
+            <button class="feedback-submit" id="finishFeedback" type="button">完成</button>
+          </section>
+        </div>
+      </div>
+
+      <div class="app-toast" id="appToast" role="status" aria-live="polite" hidden></div>
+
       <div class="confirm-modal" id="cancelModal" hidden>
         <div class="confirm-dialog" role="dialog" aria-modal="true" aria-labelledby="cancelTitle">
           <div class="confirm-icon">!</div><h2 id="cancelTitle">确认取消订单？</h2>
@@ -265,6 +457,6 @@
       <p class="device-caption"><span></span> iPhone · 横屏交互原型</p>
     </div>
 
-    <script src="script.js?v=7"></script>
+    <script src="script.js?v=9"></script>
   </body>
 </html>
