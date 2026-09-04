@@ -659,15 +659,7 @@
   background-repeat:no-repeat;
 }
 #smartPage .smart-back {
-  position:absolute;
-  left:0;
-  top:0;
-  width:8%;
-  height:14%;
-  z-index:5;
-  background:rgba(0,0,0,0.01);
-  -webkit-tap-highlight-color:transparent;
-  touch-action:none;
+  display:none;
 }
 .smart-zones {
   position:absolute;
@@ -679,9 +671,9 @@
 .smart-hotspot--lesson-left { left:3%; top:20%; width:30%; height:53%; border-radius:22px; }
 .smart-hotspot--lesson-center { left:35%; top:18%; width:31%; height:57%; border-radius:22px; }
 .smart-hotspot--lesson-right { left:68%; top:20%; width:30%; height:53%; border-radius:22px; }
-#smartPage .nav-hotspot[data-tab="study"] { left:5%; top:84%; width:24%; height:16%; border-radius:14px; }
-#smartPage .nav-hotspot[data-tab="smart"] { left:37%; top:84%; width:26%; height:16%; border-radius:14px; }
-#smartPage .nav-hotspot[data-tab="vip"] { left:65%; top:84%; width:24%; height:16%; border-radius:14px; }
+#smartPage .nav-hotspot[data-tab="study"] { left:5%; top:84%; width:24%; height:16%; z-index:5; border-radius:14px; }
+#smartPage .nav-hotspot[data-tab="smart"] { left:37%; top:84%; width:26%; height:16%; z-index:5; border-radius:14px; }
+#smartPage .nav-hotspot[data-tab="vip"] { left:65%; top:84%; width:24%; height:16%; z-index:5; border-radius:14px; }
 
 /* Personal center visible feedback entry positioned between existing hotspots. */
 #homePage .topbar .feedback-entry {

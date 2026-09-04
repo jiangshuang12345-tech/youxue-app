@@ -718,14 +718,6 @@ document.querySelector("#studyPage .study-zones").addEventListener("click", (eve
   else showToast("该功能正在开发中，敬请期待");
 });
 document.querySelector("#smartPage .smart-zones").addEventListener("click", (event) => {
-  const tab = event.target.closest("[data-tab]");
-  if (tab) {
-    const id = tab.dataset.tab;
-    if (id === "smart") return;
-    if (id === "study") showPage(studyPage, "#study");
-    else showToast("会员订阅功能即将上线");
-    return;
-  }
   if (event.target.closest(".smart-hotspot--contact")) {
     showToast("正在为你联系班主任…");
     return;
@@ -734,7 +726,15 @@ document.querySelector("#smartPage .smart-zones").addEventListener("click", (eve
     maybePromptRating(true);
   }
 });
-document.querySelector("#backFromSmart").addEventListener("click", () => showPage(studyPage, "#study"));
+
+document.querySelectorAll("#smartPage > .nav-hotspot").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const id = btn.dataset.tab;
+    if (id === "smart") return;
+    if (id === "study") showPage(studyPage, "#study");
+    else showToast("会员订阅功能即将上线");
+  });
+});
 
 let _touched = false;
 document.addEventListener("touchend", (event) => {
