@@ -702,15 +702,23 @@ document.querySelector("#confirmCancel").addEventListener("click", () => {
 profileEntry.addEventListener("click", () => showPage(homePage, "#home"));
 document.querySelector("#backFromProfile").addEventListener("click", () => showPage(studyPage, "#study"));
 document.querySelector("#profileFeedbackEntry").addEventListener("click", () => openFeedback("personal-center"));
-document.querySelector("#studyPage .study-zones").addEventListener("click", (event) => {
-  const tab = event.target.closest("[data-tab]");
-  if (tab) {
-    const id = tab.dataset.tab;
+document.querySelectorAll("#studyPage .nav-hotspot").forEach((btn) => {
+  function handleStudyNav() {
+    const id = btn.dataset.tab;
     if (id === "study") return;
     if (id === "smart") showPage(smartPage, "#smart");
     else showToast("会员订阅功能即将上线");
-    return;
   }
+  btn.addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    handleStudyNav();
+  }, { passive: false });
+  btn.addEventListener("click", handleStudyNav);
+});
+document.querySelector("#studyPage .study-zones").addEventListener("click", (event) => {
+  const tab = event.target.closest("[data-tab]");
+  if (tab) return;
   const card = event.target.closest("[data-study-card]");
   if (!card) return;
   const id = card.dataset.studyCard;
@@ -728,12 +736,18 @@ document.querySelector("#smartPage .smart-zones").addEventListener("click", (eve
 });
 
 document.querySelectorAll("#smartPage > .nav-hotspot").forEach((btn) => {
-  btn.addEventListener("click", () => {
+  function handleNav() {
     const id = btn.dataset.tab;
     if (id === "smart") return;
     if (id === "study") showPage(studyPage, "#study");
     else showToast("会员订阅功能即将上线");
-  });
+  }
+  btn.addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    handleNav();
+  }, { passive: false });
+  btn.addEventListener("click", handleNav);
 });
 
 let _touched = false;
