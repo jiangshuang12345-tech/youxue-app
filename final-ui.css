@@ -349,7 +349,7 @@
   width:100%;
   height:100%;
   margin:0;
-  pointer-events:none;
+  visibility:hidden;
 }
 #lessonsPage .lesson-header .icon-button {
   position:absolute;
@@ -357,7 +357,7 @@
   top:5.3%;
   width:5%;
   opacity:0;
-  pointer-events:auto;
+  visibility:visible;
 }
 #lessonsPage .lesson-heading,#lessonsPage .lesson-header > span { display:none; }
 #lessonsPage .lesson-content {
@@ -368,7 +368,7 @@
   max-width:none;
   height:100%;
   margin:0;
-  pointer-events:none;
+  visibility:hidden;
 }
 #lessonsPage .lesson-list {
   position:absolute;
@@ -388,7 +388,7 @@
   background:transparent;
   box-shadow:none;
   opacity:0;
-  pointer-events:auto;
+  visibility:visible;
 }
 #lessonsPage .lesson-card::before,#lessonsPage .lesson-card > *:not(.lesson-count) { display:none; }
 #lessonsPage .lesson-count {
@@ -399,7 +399,7 @@
   min-width:0;
   padding:0;
   opacity:0;
-  pointer-events:auto;
+  visibility:visible;
 }
 #lessonsPage .lesson-note { display:none; }
 
@@ -417,7 +417,7 @@
   inset:0;
   z-index:4;
   margin:0;
-  pointer-events:none;
+  visibility:hidden;
 }
 #homePage .topbar .icon-button {
   position:absolute;
@@ -425,7 +425,7 @@
   top:5.3%;
   width:5%;
   opacity:0;
-  pointer-events:auto;
+  visibility:visible;
 }
 #homePage .logout-button {
   position:absolute;
@@ -435,7 +435,7 @@
   height:10.2%;
   padding:0;
   opacity:0;
-  pointer-events:auto;
+  visibility:visible;
 }
 #homePage .dashboard {
   position:absolute;
@@ -446,7 +446,7 @@
   height:100%;
   margin:0;
   opacity:0;
-  pointer-events:none;
+  visibility:hidden;
 }
 #homePage #lessonEntry,#homePage #orderEntry {
   position:absolute;
@@ -454,7 +454,7 @@
   width:7.2%;
   height:21%;
   opacity:0;
-  pointer-events:auto;
+  visibility:visible;
 }
 #homePage #lessonEntry { left:11.2%; }
 #homePage #orderEntry { left:18.7%; }
@@ -467,14 +467,14 @@
   width:100%;
   height:100%;
   margin:0;
-  pointer-events:none;
+  visibility:hidden;
 }
 #lessonDetailsPage:has(#ledgerPanel:not([hidden])) .detail-topbar .icon-button {
   position:absolute;
   left:4.9%;
   top:5.3%;
   width:5%;
-  pointer-events:auto;
+  visibility:visible;
 }
 #lessonDetailsPage:has(#ledgerPanel:not([hidden])) .lesson-detail-tabs {
   position:absolute;
@@ -482,7 +482,7 @@
   top:6.7%;
   gap:5%;
   width:28%;
-  pointer-events:auto;
+  visibility:visible;
 }
 #lessonDetailsPage:has(#ledgerPanel:not([hidden])) .lesson-detail-tabs button {
   padding:5px 0 10px;
@@ -629,26 +629,28 @@
   height:18%;
   padding:0;
   opacity:0;
-  pointer-events:auto;
+  visibility:visible;
   z-index:5;
   border-radius:50%;
-  background:transparent;
+  background:rgba(0,0,0,0.01);
+  -webkit-tap-highlight-color:transparent;
 }
 .study-zones {
   position:absolute;
   inset:0;
   z-index:4;
-  pointer-events:none;
+  visibility:hidden;
 }
 .study-hotspot,
 .nav-hotspot,
 .smart-hotspot {
   position:absolute;
   opacity:0;
-  pointer-events:auto;
+  visibility:visible;
   border:0;
-  background:transparent;
+  background:rgba(0,0,0,0.01);
   cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
 }
 .study-hotspot[data-study-card="map"] { left:51%; top:17%; width:44%; height:22%; border-radius:20px; }
 .study-hotspot[data-study-card="continue"] { left:51%; top:43%; width:44%; height:22%; border-radius:20px; }
@@ -673,14 +675,16 @@
   width:8%;
   height:14%;
   opacity:0;
-  pointer-events:auto;
+  visibility:visible;
   z-index:5;
+  background:rgba(0,0,0,0.01);
+  -webkit-tap-highlight-color:transparent;
 }
 .smart-zones {
   position:absolute;
   inset:0;
   z-index:4;
-  pointer-events:none;
+  visibility:hidden;
 }
 .smart-hotspot--contact { left:24%; top:4%; width:52%; height:8%; border-radius:999px; }
 .smart-hotspot--lesson-left { left:3%; top:20%; width:30%; height:53%; border-radius:22px; }
@@ -703,7 +707,7 @@
   color: transparent;
   background: transparent;
   box-shadow: none;
-  pointer-events: auto;
+  visibility: visible;
 }
 #homePage .topbar .feedback-entry:hover { transform: none; }
 

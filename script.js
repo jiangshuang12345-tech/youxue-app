@@ -735,6 +735,20 @@ document.querySelector("#smartPage .smart-zones").addEventListener("click", (eve
   }
 });
 document.querySelector("#backFromSmart").addEventListener("click", () => showPage(studyPage, "#study"));
+
+let _touched = false;
+document.addEventListener("touchend", (event) => {
+  const el = event.target.closest(
+    ".study-hotspot, .nav-hotspot, .smart-hotspot, .study-avatar, .icon-button, .smart-back, .logout-button, .lesson-card, .lesson-count, #lessonEntry, #orderEntry, .feedback-entry"
+  );
+  if (!el) return;
+  event.preventDefault();
+  if (_touched) return;
+  _touched = true;
+  el.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
+  setTimeout(() => { _touched = false; }, 800);
+}, { passive: false });
+
 document.querySelector("#closeRating").addEventListener("click", dismissRatingPrompt);
 document.querySelectorAll("[data-rating]").forEach((button) => button.addEventListener("click", () => {
   const rating = button.dataset.rating;
