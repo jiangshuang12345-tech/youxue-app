@@ -658,12 +658,9 @@
   background-position:center;
   background-repeat:no-repeat;
 }
-#smartPage .smart-back {
-  display:none;
-}
 .smart-zones {
   position:absolute;
-  inset:0;
+  inset:0 0 16%;
   z-index:4;
   touch-action:none;
 }

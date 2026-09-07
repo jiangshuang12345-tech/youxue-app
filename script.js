@@ -729,17 +729,8 @@ document.querySelector("#smartPage .smart-zones").addEventListener("click", (eve
 
 let _touched = false;
 document.addEventListener("touchend", (event) => {
-  const navBtn = event.target.closest(".nav-hotspot");
-  if (navBtn) {
-    event.preventDefault();
-    if (_touched) return;
-    _touched = true;
-    navTo(navBtn.dataset.tab);
-    setTimeout(() => { _touched = false; }, 800);
-    return;
-  }
   const el = event.target.closest(
-    ".study-hotspot, .smart-hotspot, .study-avatar, .icon-button, .smart-back, .logout-button, .lesson-card, .lesson-count, #lessonEntry, #orderEntry, .feedback-entry"
+    ".study-hotspot, .smart-hotspot, .study-avatar, .icon-button, .logout-button, .lesson-card, .lesson-count, #lessonEntry, #orderEntry, .feedback-entry"
   );
   if (!el) return;
   event.preventDefault();
@@ -748,6 +739,27 @@ document.addEventListener("touchend", (event) => {
   el.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
   setTimeout(() => { _touched = false; }, 800);
 }, { passive: false });
+
+document.querySelectorAll(".nav-hotspot").forEach((button) => {
+  let handledByTouch = false;
+
+  button.addEventListener("touchend", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    handledByTouch = true;
+    navTo(button.dataset.tab);
+    window.setTimeout(() => { handledByTouch = false; }, 500);
+  }, { passive: false });
+
+  button.addEventListener("click", (event) => {
+    event.stopPropagation();
+    if (handledByTouch) {
+      handledByTouch = false;
+      return;
+    }
+    navTo(button.dataset.tab);
+  });
+});
 
 document.querySelector("#closeRating").addEventListener("click", dismissRatingPrompt);
 document.querySelectorAll("[data-rating]").forEach((button) => button.addEventListener("click", () => {
