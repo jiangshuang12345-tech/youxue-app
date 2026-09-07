@@ -392,9 +392,11 @@
 #lessonsPage .lesson-card::before,#lessonsPage .lesson-card::after,#lessonsPage .lesson-card > *:not(.lesson-count) { display:none; }
 #lessonsPage .lesson-count {
   position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
+  inset:auto;
+  left:55%;
+  top:74%;
+  width:40%;
+  height:21%;
   min-width:0;
   padding:0;
   border:0;
@@ -403,6 +405,7 @@
   background:transparent;
   box-shadow:none;
   touch-action:none;
+  cursor:pointer;
 }
 #lessonsPage .lesson-count i { display:none; }
 #lessonsPage .lesson-note { display:none; }
