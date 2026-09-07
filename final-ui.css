@@ -800,6 +800,7 @@
 .rating-stars--selectable button { padding:0; color:#3388e8; background:transparent; font-size:clamp(35px,4vw,48px); line-height:1; transition:transform .15s,color .15s; }
 .rating-stars--selectable button.is-selected { color:#ffb300; transform:scale(1.1); }
 .rating-star-copy { min-height:20px; color:#8a939b; font-size:13px; }
+.rating-submit-store { margin:8px 0 2px; }
 
 .survey-invite-modal { position:absolute; inset:0; z-index:270; display:grid; place-items:center; background:rgba(0,0,0,.78); }
 .survey-invite-modal[hidden], .survey-h5[hidden] { display:none; }
