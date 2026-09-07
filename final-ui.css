@@ -415,6 +415,11 @@
   z-index:4;
   margin:0;
   touch-action:none;
+  pointer-events:none;
+}
+#homePage .topbar > * {
+  opacity:0;
+  pointer-events:auto;
 }
 #homePage .topbar .icon-button {
   position:absolute;
@@ -441,13 +446,16 @@
   height:100%;
   margin:0;
   touch-action:none;
+  pointer-events:none;
 }
+#homePage .dashboard > * { opacity:0; }
 #homePage #lessonEntry,#homePage #orderEntry {
   position:absolute;
   top:70.3%;
   width:7.2%;
   height:21%;
   touch-action:none;
+  pointer-events:auto;
 }
 #homePage #lessonEntry { left:11.2%; }
 #homePage #orderEntry { left:18.7%; }
