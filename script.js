@@ -103,6 +103,8 @@ const orderDetailPage = document.querySelector("#orderDetailPage");
 const ordersList = document.querySelector("#ordersList");
 const tabBar = document.querySelector("#tabBar");
 const ratingModal = document.querySelector("#ratingModal");
+const surveyInviteModal = document.querySelector("#surveyInviteModal");
+const surveyH5 = document.querySelector("#surveyH5");
 const feedbackModal = document.querySelector("#feedbackModal");
 const appToast = document.querySelector("#appToast");
 const pages = [studyPage, homePage, lessonsPage, lessonDetailsPage, ordersPage, orderDetailPage, smartPage, vipPage];
@@ -619,11 +621,32 @@ function openRatingPrompt(step = "ask") {
 function setRatingStep(step) {
   document.querySelector("#ratingStepAsk").hidden = step !== "ask";
   document.querySelector("#ratingStepPraise").hidden = step !== "praise";
-  document.querySelector("#ratingStepImprove").hidden = step !== "improve";
 }
 
 function closeRatingPrompt() {
   ratingModal.hidden = true;
+}
+
+function openSurveyInvite() {
+  closeRatingPrompt();
+  surveyInviteModal.hidden = false;
+}
+
+function closeSurveyInvite() {
+  surveyInviteModal.hidden = true;
+}
+
+function openSurveyH5() {
+  closeSurveyInvite();
+  surveyH5.hidden = false;
+  document.querySelector("#surveyComplete").hidden = true;
+  document.querySelector("#submitSurvey").hidden = false;
+  document.querySelectorAll("[data-survey-choice]").forEach((button) => button.classList.remove("is-selected"));
+  window.scrollTo({ top: 0, behavior: "instant" });
+}
+
+function closeSurveyH5() {
+  surveyH5.hidden = true;
 }
 
 function dismissRatingPrompt() {
@@ -705,6 +728,7 @@ function submitFeedback() {
 
 paymentModal.addEventListener("click", (event) => { if (event.target === paymentModal) closePayment(); });
 ratingModal.addEventListener("click", (event) => { if (event.target === ratingModal) dismissRatingPrompt(); });
+surveyInviteModal.addEventListener("click", (event) => { if (event.target === surveyInviteModal) closeSurveyInvite(); });
 ratingModal.addEventListener("touchend", (event) => {
   if (ratingModal.hidden) return;
   const dialog = ratingModal.querySelector(".rating-dialog");
@@ -722,6 +746,8 @@ feedbackModal.addEventListener("click", (event) => { if (event.target === feedba
 document.addEventListener("keydown", (event) => {
   if (event.key !== "Escape") return;
   if (!feedbackModal.hidden) { closeFeedback(); return; }
+  if (!surveyInviteModal.hidden) { closeSurveyInvite(); return; }
+  if (!surveyH5.hidden) { closeSurveyH5(); return; }
   if (!ratingModal.hidden) { dismissRatingPrompt(); return; }
   if (!paymentModal.hidden) { closePayment(); return; }
   if (!photoPermissionModal.hidden) { photoPermissionModal.hidden = true; return; }
@@ -826,21 +852,50 @@ closeRatingButton.addEventListener("click", (event) => {
 document.querySelectorAll("[data-rating]").forEach((button) => button.addEventListener("click", () => {
   const rating = button.dataset.rating;
   if (rating === "positive") setRatingStep("praise");
-  else setRatingStep("improve");
+  else if (rating === "negative") openSurveyInvite();
+  else dismissRatingPrompt();
 }));
-document.querySelector("#goToAppStore").addEventListener("click", () => {
+document.querySelectorAll("[data-star]").forEach((button) => button.addEventListener("click", () => {
+  const score = Number(button.dataset.star);
+  document.querySelectorAll("[data-star]").forEach((star) => {
+    const selected = Number(star.dataset.star) <= score;
+    star.textContent = selected ? "★" : "☆";
+    star.classList.toggle("is-selected", selected);
+  });
+  document.querySelector("#ratingStarCopy").textContent = `已选择 ${score} 星，感谢你的好评！`;
   const state = getRatingState();
   state.status = "rated";
   setRatingState(state);
-  closeRatingPrompt();
-  showToast("已跳转至 App Store，感谢你的好评！");
-});
+}));
 document.querySelector("#skipAppStore").addEventListener("click", dismissRatingPrompt);
-document.querySelector("#ratingToFeedback").addEventListener("click", () => {
-  closeRatingPrompt();
-  openFeedback("rating-prompt");
+document.querySelector("#closeSurveyInvite").addEventListener("click", closeSurveyInvite);
+document.querySelector("#openSurveyH5").addEventListener("click", openSurveyH5);
+document.querySelector("#closeSurveyH5").addEventListener("click", closeSurveyH5);
+document.querySelectorAll("[data-survey-choice]").forEach((button) => button.addEventListener("click", () => {
+  document.querySelectorAll("[data-survey-choice]").forEach((choice) => choice.classList.toggle("is-selected", choice === button));
+}));
+document.querySelector("#submitSurvey").addEventListener("click", () => {
+  const selected = document.querySelector("[data-survey-choice].is-selected");
+  if (!selected) { showToast("请选择满意度后再提交"); return; }
+  document.querySelector("#surveyComplete").hidden = false;
+  document.querySelector("#submitSurvey").hidden = true;
+  const state = getRatingState();
+  state.status = "feedback";
+  setRatingState(state);
 });
-document.querySelector("#skipFeedback").addEventListener("click", dismissRatingPrompt);
+document.querySelector("#finishSurvey").addEventListener("click", closeSurveyH5);
+
+document.querySelectorAll(".rating-options button, [data-star], #skipAppStore, #closeSurveyInvite, #openSurveyH5, #closeSurveyH5, [data-survey-choice], #submitSurvey, #finishSurvey").forEach((button) => {
+  let touched = false;
+  button.addEventListener("touchend", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    if (touched) return;
+    touched = true;
+    button.click();
+    window.setTimeout(() => { touched = false; }, 500);
+  }, { passive: false });
+});
 document.querySelectorAll("[data-feedback-type]").forEach((button) => button.addEventListener("click", () => {
   feedbackType = button.dataset.feedbackType;
   document.querySelectorAll("[data-feedback-type]").forEach((item) => item.classList.toggle("is-active", item === button));
