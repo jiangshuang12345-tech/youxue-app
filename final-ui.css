@@ -645,9 +645,9 @@
 .study-hotspot[data-study-card="map"] { left:51%; top:17%; width:44%; height:22%; border-radius:20px; }
 .study-hotspot[data-study-card="continue"] { left:51%; top:43%; width:44%; height:22%; border-radius:20px; }
 .study-hotspot[data-study-card="custom"] { left:51%; top:68%; width:44%; height:22%; border-radius:20px; }
-#studyPage .nav-hotspot[data-tab="study"] { left:5%; top:84%; width:24%; height:16%; border-radius:14px; }
-#studyPage .nav-hotspot[data-tab="smart"] { left:37%; top:84%; width:26%; height:16%; border-radius:14px; }
-#studyPage .nav-hotspot[data-tab="vip"] { left:65%; top:84%; width:24%; height:16%; border-radius:14px; }
+#studyPage .nav-hotspot[data-tab="study"] { left:34%; top:84%; width:12%; height:16%; border-radius:14px; }
+#studyPage .nav-hotspot[data-tab="smart"] { left:46%; top:84%; width:9%; height:16%; border-radius:14px; }
+#studyPage .nav-hotspot[data-tab="vip"] { left:55%; top:84%; width:11.5%; height:16%; border-radius:14px; }
 
 /* Smart page: 1:1 match using the approved 智学 artwork as background. */
 #smartPage {
@@ -668,9 +668,9 @@
 .smart-hotspot--lesson-left { left:3%; top:20%; width:30%; height:53%; border-radius:22px; }
 .smart-hotspot--lesson-center { left:35%; top:18%; width:31%; height:57%; border-radius:22px; }
 .smart-hotspot--lesson-right { left:68%; top:20%; width:30%; height:53%; border-radius:22px; }
-#smartPage .nav-hotspot[data-tab="study"] { left:5%; top:84%; width:24%; height:16%; z-index:5; border-radius:14px; }
-#smartPage .nav-hotspot[data-tab="smart"] { left:37%; top:84%; width:26%; height:16%; z-index:5; border-radius:14px; }
-#smartPage .nav-hotspot[data-tab="vip"] { left:65%; top:84%; width:24%; height:16%; z-index:5; border-radius:14px; }
+#smartPage .nav-hotspot[data-tab="study"] { left:34%; top:84%; width:12%; height:16%; z-index:5; border-radius:14px; }
+#smartPage .nav-hotspot[data-tab="smart"] { left:46%; top:84%; width:9%; height:16%; z-index:5; border-radius:14px; }
+#smartPage .nav-hotspot[data-tab="vip"] { left:55%; top:84%; width:11.5%; height:16%; z-index:5; border-radius:14px; }
 
 /* Personal center visible feedback entry positioned between existing hotspots. */
 #homePage .topbar .feedback-entry {
