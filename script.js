@@ -887,6 +887,7 @@ document.querySelectorAll("[data-survey-choice]").forEach((button) => button.add
 document.querySelector("#submitSurvey").addEventListener("click", () => {
   const selected = document.querySelector("[data-survey-choice].is-selected");
   if (!selected) { showToast("请选择满意度后再提交"); return; }
+  surveyH5.scrollTop = 0;
   document.querySelector("#surveyComplete").hidden = false;
   document.querySelector("#submitSurvey").hidden = true;
   const state = getRatingState();
