@@ -761,7 +761,16 @@ document.querySelectorAll(".nav-hotspot").forEach((button) => {
   });
 });
 
-document.querySelector("#closeRating").addEventListener("click", dismissRatingPrompt);
+const closeRatingButton = document.querySelector("#closeRating");
+closeRatingButton.addEventListener("touchend", (event) => {
+  event.preventDefault();
+  event.stopPropagation();
+  dismissRatingPrompt();
+}, { passive: false });
+closeRatingButton.addEventListener("click", (event) => {
+  event.stopPropagation();
+  dismissRatingPrompt();
+});
 document.querySelectorAll("[data-rating]").forEach((button) => button.addEventListener("click", () => {
   const rating = button.dataset.rating;
   if (rating === "positive") setRatingStep("praise");
