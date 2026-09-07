@@ -357,6 +357,7 @@
   top:5.3%;
   width:5%;
   touch-action:none;
+  opacity:0;
 }
 #lessonsPage .lesson-heading,#lessonsPage .lesson-header > span { display:none; }
 #lessonsPage .lesson-content {
@@ -388,7 +389,7 @@
   box-shadow:none;
   touch-action:none;
 }
-#lessonsPage .lesson-card::before,#lessonsPage .lesson-card > *:not(.lesson-count) { display:none; }
+#lessonsPage .lesson-card::before,#lessonsPage .lesson-card::after,#lessonsPage .lesson-card > *:not(.lesson-count) { display:none; }
 #lessonsPage .lesson-count {
   position:absolute;
   inset:0;
@@ -396,8 +397,14 @@
   height:100%;
   min-width:0;
   padding:0;
+  border:0;
+  border-radius:0;
+  color:transparent;
+  background:transparent;
+  box-shadow:none;
   touch-action:none;
 }
+#lessonsPage .lesson-count i { display:none; }
 #lessonsPage .lesson-note { display:none; }
 
 /* Personal center uses the approved final artwork with live interaction zones. */
