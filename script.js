@@ -87,6 +87,9 @@ const homePage = document.querySelector("#homePage");
 const studyPage = document.querySelector("#studyPage");
 const smartPage = document.querySelector("#smartPage");
 const vipPage = document.querySelector("#vipPage");
+const vipScrollPane = document.querySelector("#vipPage .vip-scroll-pane");
+const vipMembershipTab = document.querySelector("#vipMembershipTab");
+const vipCoinTab = document.querySelector("#vipCoinTab");
 const lessonsPage = document.querySelector("#lessonsPage");
 const lessonEntry = document.querySelector("#lessonEntry");
 const backToHome = document.querySelector("#backToHome");
@@ -462,6 +465,16 @@ function navTo(tabId) {
   else showPage(vipPage, "#vip");
 }
 
+function showVipPlan(plan) {
+  const isCoinPlan = plan === "coin";
+  vipPage.classList.toggle("is-coin-plan", isCoinPlan);
+  vipMembershipTab.classList.toggle("is-active", !isCoinPlan);
+  vipMembershipTab.setAttribute("aria-selected", String(!isCoinPlan));
+  vipCoinTab.classList.toggle("is-active", isCoinPlan);
+  vipCoinTab.setAttribute("aria-selected", String(isCoinPlan));
+  if (!isCoinPlan) vipScrollPane.scrollTop = 0;
+}
+
 function syncChrome(targetPage) {
   tabBar.hidden = true;
 }
@@ -760,6 +773,23 @@ document.querySelectorAll(".nav-hotspot").forEach((button) => {
       return;
     }
     navTo(button.dataset.tab);
+  });
+});
+
+[vipMembershipTab, vipCoinTab].forEach((button) => {
+  let handledByTouch = false;
+
+  button.addEventListener("touchend", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    handledByTouch = true;
+    showVipPlan(button === vipCoinTab ? "coin" : "membership");
+    window.setTimeout(() => { handledByTouch = false; }, 500);
+  }, { passive: false });
+
+  button.addEventListener("click", () => {
+    if (handledByTouch) return;
+    showVipPlan(button === vipCoinTab ? "coin" : "membership");
   });
 });
 
