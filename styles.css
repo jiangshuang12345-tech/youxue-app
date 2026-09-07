@@ -1001,8 +1001,7 @@ button { border: 0; cursor: pointer; }
 }
 .feedback-success h2 { margin: 0 0 8px; }
 .feedback-success p { margin: 0 0 6px; color: #6f828c; }
-.feedback-ticket { margin: 18px 0 26px; padding: 14px; border-radius: 14px; background: #f3f8fa; font-size: 14px; }
-.feedback-ticket strong { color: #ff6428; font-size: 18px; }
+.feedback-success .feedback-submit { margin-top: 24px; }
 
 /* Toast */
 .app-toast {
