@@ -730,7 +730,7 @@ document.querySelector("#smartPage .smart-zones").addEventListener("click", (eve
 let _touched = false;
 document.addEventListener("touchend", (event) => {
   const el = event.target.closest(
-    ".study-hotspot, .smart-hotspot, .study-avatar, .icon-button, .logout-button, .lesson-card, .lesson-count, #lessonEntry, #orderEntry, .feedback-entry"
+    ".study-hotspot, .smart-hotspot, .study-avatar, .icon-button, .logout-button, .lesson-card, .lesson-count, #lessonEntry, #orderEntry, .feedback-entry, .rating-close, .feedback-close, .payment-close"
   );
   if (!el) return;
   event.preventDefault();
