@@ -12,7 +12,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="final-ui.css?v=19" />
+    <link rel="stylesheet" href="final-ui.css?v=20" />
   </head>
   <body>
     <div class="device-stage">
@@ -235,6 +235,14 @@
         <button class="nav-hotspot" data-tab="vip" type="button" aria-label="会员订阅"></button>
       </main>
 
+      <main class="page page--vip" id="vipPage" aria-labelledby="vipTitle" hidden>
+        <h1 class="sr-only" id="vipTitle">会员订阅</h1>
+        <div class="vip-scroll-pane" aria-label="会员权益介绍，可向下滑动">
+          <img src="会员订阅/会员长图.webp" alt="会员权益介绍" draggable="false" />
+        </div>
+        <button class="nav-hotspot vip-back" data-tab="study" type="button" aria-label="返回优学中心"></button>
+      </main>
+
       <nav class="tab-bar" id="tabBar" aria-label="底部导航" hidden>
         <button class="is-active" type="button" data-tab="study">
           <span class="tab-icon" aria-hidden="true">🏠</span>
@@ -393,6 +401,6 @@
       <p class="device-caption"><span></span> iPhone · 横屏交互原型</p>
     </div>
 
-    <script src="script.js?v=10"></script>
+    <script src="script.js?v=11"></script>
   </body>
 </html>
