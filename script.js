@@ -86,6 +86,7 @@ const FEEDBACK_TYPE_LABELS = {
 const homePage = document.querySelector("#homePage");
 const studyPage = document.querySelector("#studyPage");
 const smartPage = document.querySelector("#smartPage");
+const vipPage = document.querySelector("#vipPage");
 const lessonsPage = document.querySelector("#lessonsPage");
 const lessonEntry = document.querySelector("#lessonEntry");
 const backToHome = document.querySelector("#backToHome");
@@ -101,7 +102,7 @@ const tabBar = document.querySelector("#tabBar");
 const ratingModal = document.querySelector("#ratingModal");
 const feedbackModal = document.querySelector("#feedbackModal");
 const appToast = document.querySelector("#appToast");
-const pages = [studyPage, homePage, lessonsPage, lessonDetailsPage, ordersPage, orderDetailPage, smartPage];
+const pages = [studyPage, homePage, lessonsPage, lessonDetailsPage, ordersPage, orderDetailPage, smartPage, vipPage];
 let ledgerTab = "all";
 let incomeFilter = "all";
 let orderTab = "all";
@@ -455,9 +456,10 @@ function showPage(targetPage, hash) {
 function navTo(tabId) {
   if (tabId === "study" && !studyPage.hidden) return;
   if (tabId === "smart" && !smartPage.hidden) return;
+  if (tabId === "vip" && !vipPage.hidden) return;
   if (tabId === "study") showPage(studyPage, "#study");
   else if (tabId === "smart") showPage(smartPage, "#smart");
-  else showToast("会员订阅功能即将上线");
+  else showPage(vipPage, "#vip");
 }
 
 function syncChrome(targetPage) {
@@ -810,7 +812,7 @@ renderOrders();
 renderStudyCards();
 renderSmartLessons();
 
-const initialRoutes = { "#study": studyPage, "#lessons": lessonsPage, "#orders": ordersPage, "#smart": smartPage, "#home": homePage };
+const initialRoutes = { "#study": studyPage, "#lessons": lessonsPage, "#orders": ordersPage, "#smart": smartPage, "#vip": vipPage, "#home": homePage };
 if (window.location.hash === "#validity") showLessonDetailTab("validity");
 else if (window.location.hash === "#ledger") showLessonDetailTab("ledger");
 else if (initialRoutes[window.location.hash]) showPage(initialRoutes[window.location.hash], window.location.hash);
