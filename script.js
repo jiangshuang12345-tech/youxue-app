@@ -705,6 +705,19 @@ function submitFeedback() {
 
 paymentModal.addEventListener("click", (event) => { if (event.target === paymentModal) closePayment(); });
 ratingModal.addEventListener("click", (event) => { if (event.target === ratingModal) dismissRatingPrompt(); });
+ratingModal.addEventListener("touchend", (event) => {
+  if (ratingModal.hidden) return;
+  const dialog = ratingModal.querySelector(".rating-dialog");
+  const touch = event.changedTouches?.[0];
+  if (!dialog || !touch) return;
+  const rect = dialog.getBoundingClientRect();
+  const isCloseArea = touch.clientX >= rect.right - 68 && touch.clientX <= rect.right + 8
+    && touch.clientY >= rect.top - 8 && touch.clientY <= rect.top + 68;
+  if (!isCloseArea) return;
+  event.preventDefault();
+  event.stopPropagation();
+  dismissRatingPrompt();
+}, { capture: true, passive: false });
 feedbackModal.addEventListener("click", (event) => { if (event.target === feedbackModal) closeFeedback(); });
 document.addEventListener("keydown", (event) => {
   if (event.key !== "Escape") return;
@@ -794,13 +807,20 @@ document.querySelectorAll(".nav-hotspot").forEach((button) => {
 });
 
 const closeRatingButton = document.querySelector("#closeRating");
-closeRatingButton.addEventListener("touchend", (event) => {
+closeRatingButton.addEventListener("touchstart", (event) => {
   event.preventDefault();
   event.stopPropagation();
   dismissRatingPrompt();
 }, { passive: false });
+closeRatingButton.addEventListener("touchend", (event) => {
+  event.preventDefault();
+  event.stopPropagation();
+  if (ratingModal.hidden) return;
+  dismissRatingPrompt();
+}, { passive: false });
 closeRatingButton.addEventListener("click", (event) => {
   event.stopPropagation();
+  if (ratingModal.hidden) return;
   dismissRatingPrompt();
 });
 document.querySelectorAll("[data-rating]").forEach((button) => button.addEventListener("click", () => {

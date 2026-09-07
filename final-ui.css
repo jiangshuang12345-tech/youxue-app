@@ -786,6 +786,7 @@
 
 /* Rating and feedback dialogs scale to the iPhone canvas. */
 .rating-dialog { width: min(88%, 400px); padding: 28px 24px 24px; border-radius: 28px; }
+.rating-close { z-index: 10; width: 52px; height: 52px; top: 7px; right: 7px; }
 .rating-options button { padding: 16px 12px; border-radius: 18px; }
 .feedback-dialog { width: min(90%, 480px); padding: 24px; border-radius: 26px; }
 .feedback-types button { padding: 7px 14px; font-size: clamp(12px, 1.5vh, 15px); }
