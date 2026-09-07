@@ -832,6 +832,7 @@
 #surveyChoices button.is-selected::before { content:"●"; }
 .survey-submit { display:block; width:42%; min-width:220px; margin:6px auto 34px; }
 .survey-complete { position:absolute; inset:0; display:grid; align-content:center; justify-items:center; padding:11% 16%; color:#ff5620; background:rgba(0,0,0,.58); text-align:center; }
+.survey-complete[hidden] { display:none; }
 .survey-complete > div { display:grid; width:120px; height:120px; margin-bottom:18px; place-items:center; border:9px solid currentColor; border-radius:50%; font-size:72px; line-height:1; }
 .survey-complete h2 { margin:0 0 10px; font-size:clamp(28px,4vw,50px); }
 .survey-complete p { margin:0 0 26px; font-size:clamp(19px,2.5vw,32px); font-weight:800; line-height:1.32; }
