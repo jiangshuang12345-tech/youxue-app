@@ -630,7 +630,8 @@
 .page--study,
 .page--smart { display:flex; flex-direction:column; }
 .page--study[hidden],
-.page--smart[hidden] { display:none; }
+.page--smart[hidden],
+.page--vip[hidden] { display:none; }
 
 #studyPage {
   padding:0;
@@ -698,6 +699,44 @@
 #smartPage .nav-hotspot[data-tab="study"] { left:34%; top:84%; width:12%; height:16%; z-index:5; border-radius:14px; }
 #smartPage .nav-hotspot[data-tab="smart"] { left:46%; top:84%; width:9%; height:16%; z-index:5; border-radius:14px; }
 #smartPage .nav-hotspot[data-tab="vip"] { left:55%; top:84%; width:11.5%; height:16%; z-index:5; border-radius:14px; }
+
+/* Membership: scroll the long benefits artwork on the left; keep plans fixed on the right. */
+#vipPage {
+  padding:0;
+  overflow:hidden;
+  background-image:url("会员订阅/会员套餐.png");
+  background-size:100% 100%;
+  background-position:center;
+  background-repeat:no-repeat;
+}
+#vipPage .vip-scroll-pane {
+  position:absolute;
+  inset:0 auto 0 0;
+  z-index:2;
+  width:61.576%;
+  overflow-x:hidden;
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;
+  touch-action:pan-y;
+}
+#vipPage .vip-scroll-pane::-webkit-scrollbar { display:none; }
+#vipPage .vip-scroll-pane img {
+  display:block;
+  width:100%;
+  height:auto;
+  user-select:none;
+  -webkit-user-drag:none;
+}
+#vipPage .vip-back {
+  left:1.2%;
+  top:5.3%;
+  z-index:5;
+  width:5%;
+  height:10.7%;
+  border-radius:50%;
+}
 
 /* Personal center visible feedback entry positioned between existing hotspots. */
 #homePage .topbar .feedback-entry {
