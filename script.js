@@ -851,7 +851,12 @@ closeRatingButton.addEventListener("click", (event) => {
 });
 document.querySelectorAll("[data-rating]").forEach((button) => button.addEventListener("click", () => {
   const rating = button.dataset.rating;
-  if (rating === "positive") setRatingStep("praise");
+  if (rating === "positive") {
+    document.querySelectorAll("[data-star]").forEach((star) => { star.textContent = "☆"; star.classList.remove("is-selected"); });
+    document.querySelector("#ratingStarCopy").textContent = "尚未评分";
+    document.querySelector("#submitAppStoreRating").hidden = true;
+    setRatingStep("praise");
+  }
   else if (rating === "negative") openSurveyInvite();
   else dismissRatingPrompt();
 }));
@@ -863,10 +868,15 @@ document.querySelectorAll("[data-star]").forEach((button) => button.addEventList
     star.classList.toggle("is-selected", selected);
   });
   document.querySelector("#ratingStarCopy").textContent = `已选择 ${score} 星，感谢你的好评！`;
+  document.querySelector("#submitAppStoreRating").hidden = false;
   const state = getRatingState();
   state.status = "rated";
   setRatingState(state);
 }));
+document.querySelector("#submitAppStoreRating").addEventListener("click", () => {
+  closeRatingPrompt();
+  showToast("已提交好评，感谢你的支持！");
+});
 document.querySelector("#skipAppStore").addEventListener("click", dismissRatingPrompt);
 document.querySelector("#closeSurveyInvite").addEventListener("click", closeSurveyInvite);
 document.querySelector("#openSurveyH5").addEventListener("click", openSurveyH5);
@@ -885,7 +895,7 @@ document.querySelector("#submitSurvey").addEventListener("click", () => {
 });
 document.querySelector("#finishSurvey").addEventListener("click", closeSurveyH5);
 
-document.querySelectorAll(".rating-options button, [data-star], #skipAppStore, #closeSurveyInvite, #openSurveyH5, #closeSurveyH5, [data-survey-choice], #submitSurvey, #finishSurvey").forEach((button) => {
+document.querySelectorAll(".rating-options button, [data-star], #submitAppStoreRating, #skipAppStore, #closeSurveyInvite, #openSurveyH5, #closeSurveyH5, [data-survey-choice], #submitSurvey, #finishSurvey").forEach((button) => {
   let touched = false;
   button.addEventListener("touchend", (event) => {
     event.preventDefault();

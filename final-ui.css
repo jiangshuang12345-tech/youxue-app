@@ -800,16 +800,15 @@
 .rating-stars--selectable button { padding:0; color:#3388e8; background:transparent; font-size:clamp(35px,4vw,48px); line-height:1; transition:transform .15s,color .15s; }
 .rating-stars--selectable button.is-selected { color:#ffb300; transform:scale(1.1); }
 .rating-star-copy { min-height:20px; color:#8a939b; font-size:13px; }
+.rating-submit-store { margin:8px 0 2px; }
 
-.survey-invite-modal { position:absolute; inset:0; z-index:270; display:grid; place-items:center; background:rgba(0,0,0,.78); }
+.survey-invite-modal { position:absolute; inset:0; z-index:270; display:grid; place-items:center; background:transparent; }
 .survey-invite-modal[hidden], .survey-h5[hidden] { display:none; }
-.survey-invite-dialog { position:relative; width:min(48%,410px); min-width:310px; padding:32px 42px 38px; border-radius:28px; background:#fff; text-align:center; box-shadow:0 24px 70px rgba(0,0,0,.28); }
-.survey-close { position:absolute; top:13px; right:13px; display:grid; width:38px; height:38px; place-items:center; border-radius:50%; color:#70757c; background:#f1f1f1; font-size:25px; }
-.survey-invite-dialog h2 { margin:0 0 10px; color:#25282d; font-size:clamp(19px,2vw,25px); }
-.survey-invite-dialog p { margin:0 0 20px; color:#74777d; font-size:clamp(14px,1.45vw,18px); }
-.survey-invite-dialog p strong { color:#ff562a; }
-.survey-gift { display:grid; width:180px; height:150px; margin:0 auto 18px; place-items:center; border-radius:22px; background:#fff0e6; font-size:78px; }
-.survey-primary, .survey-submit, .survey-complete button { width:100%; border-radius:999px; padding:13px 20px; color:#fff; background:#ff8500; font-size:clamp(16px,1.8vw,21px); font-weight:800; }
+.survey-invite-dialog { position:relative; width:100%; height:100%; padding:0; border-radius:0; background:url("优学首页&智学/邀请填写问卷.png") center/100% 100% no-repeat; }
+.survey-invite-dialog h2, .survey-invite-dialog p, .survey-gift { display:none; }
+.survey-close { position:absolute; top:19.8%; right:30.3%; z-index:2; width:5%; height:9%; padding:0; border-radius:50%; color:transparent; background:transparent; }
+.survey-primary { position:absolute; left:38%; top:70.3%; width:24.5%; height:12%; padding:0; color:transparent; background:transparent; }
+.survey-submit, .survey-complete button { width:100%; border-radius:999px; padding:13px 20px; color:#fff; background:#ff8500; font-size:clamp(16px,1.8vw,21px); font-weight:800; }
 
 .survey-h5 { position:absolute; inset:0; z-index:275; overflow:auto; background:linear-gradient(145deg,#ff7e0e,#ffad00 46%,#f87b07); color:#161616; scrollbar-width:none; }
 .survey-h5::-webkit-scrollbar { display:none; }
@@ -832,6 +831,7 @@
 #surveyChoices button.is-selected::before { content:"●"; }
 .survey-submit { display:block; width:42%; min-width:220px; margin:6px auto 34px; }
 .survey-complete { position:absolute; inset:0; display:grid; align-content:center; justify-items:center; padding:11% 16%; color:#ff5620; background:rgba(0,0,0,.58); text-align:center; }
+.survey-complete[hidden] { display:none; }
 .survey-complete > div { display:grid; width:120px; height:120px; margin-bottom:18px; place-items:center; border:9px solid currentColor; border-radius:50%; font-size:72px; line-height:1; }
 .survey-complete h2 { margin:0 0 10px; font-size:clamp(28px,4vw,50px); }
 .survey-complete p { margin:0 0 26px; font-size:clamp(19px,2.5vw,32px); font-weight:800; line-height:1.32; }
