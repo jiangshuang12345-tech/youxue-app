@@ -45,12 +45,41 @@
       <main class="page page--course-select" id="courseSelectPage" aria-labelledby="courseSelectTitle" hidden>
         <header class="course-select-header"><button id="backToStudyFromCourses" type="button" aria-label="返回优学中心">‹</button><h1 id="courseSelectTitle">选择课程</h1></header>
         <div class="course-select-list" aria-label="课程列表">
-          <article class="course-choice-card course-choice-card--expert"><span class="course-choice-mark">EXPERT</span><h2>专家指导拔尖</h2><p>权威专家指导　助力学生能力提升</p><button type="button">开始学习</button></article>
-          <article class="course-choice-card course-choice-card--sync"><span class="course-choice-mark">SYNC</span><h2>校内学习同步</h2><p>紧跟校内进度　学习更有方向</p><button type="button">开始学习</button></article>
-          <article class="course-choice-card course-choice-card--exam"><span class="course-choice-mark">EXAM</span><h2>考试能力提升</h2><p>针对性练习　从容迎接考试</p><button type="button">开始学习</button></article>
-          <article class="course-choice-card course-choice-card--quality"><span class="course-choice-mark">GROW</span><h2>校外素质拓展</h2><p>拓展兴趣视野　点亮更多可能</p><button type="button">开始学习</button></article>
-          <article class="course-choice-card course-choice-card--dino"><span class="course-choice-mark">DINO</span><h2>Dino绘本</h2><p>趣味绘本阅读　陪伴快乐成长</p><button type="button">开始学习</button></article>
+          <article class="course-choice-card course-choice-card--expert"><img src="assets/course-expert.png" alt="" /><span class="course-choice-mark">EXPERT</span><h2>专家指导拔尖</h2><p>权威专家指导　助力学生能力提升</p><button type="button" data-open-expert-courses>开始学习</button></article>
+          <article class="course-choice-card course-choice-card--sync"><img src="assets/course-sync.png" alt="" /><span class="course-choice-mark">SYNC</span><h2>校内学习同步</h2><p>紧跟校内进度　学习更有方向</p><button type="button">开始学习</button></article>
+          <article class="course-choice-card course-choice-card--exam"><img src="assets/course-exam.png" alt="" /><span class="course-choice-mark">EXAM</span><h2>考试能力提升</h2><p>针对性练习　从容迎接考试</p><button type="button">开始学习</button></article>
+          <article class="course-choice-card course-choice-card--quality"><img src="assets/course-quality.png" alt="" /><span class="course-choice-mark">GROW</span><h2>校外素质拓展</h2><p>拓展兴趣视野　点亮更多可能</p><button type="button">开始学习</button></article>
+          <article class="course-choice-card course-choice-card--dino"><img src="assets/course-dino.png" alt="" /><span class="course-choice-mark">DINO</span><h2>Dino绘本</h2><p>趣味绘本阅读　陪伴快乐成长</p><button type="button">开始学习</button></article>
         </div>
+        <nav class="course-tab-bar" aria-label="底部导航">
+          <button class="nav-hotspot is-active" data-tab="study" type="button"><span aria-hidden="true">⌂</span><b>优学中心</b></button>
+          <button class="nav-hotspot" data-tab="smart" type="button"><span aria-hidden="true">◆</span><b>双师智学</b></button>
+          <button class="nav-hotspot" data-tab="vip" type="button"><span aria-hidden="true">♛</span><b>会员订阅</b></button>
+        </nav>
+      </main>
+
+      <main class="page page--expert-courses" id="expertCoursesPage" aria-labelledby="expertCoursesTitle" hidden>
+        <header class="expert-course-header">
+          <button id="backToCourseSelect" type="button" aria-label="返回选择课程">‹</button>
+          <div><h1 id="expertCoursesTitle" tabindex="-1">专家指导拔尖</h1><p>选择适合的年级与主题，开始专属课程</p></div>
+        </header>
+        <section class="expert-course-panel">
+          <div class="expert-course-filters">
+            <div class="grade-filter" role="group" aria-label="年级筛选">
+              <button class="is-active" type="button" data-grade="学龄前">学龄前</button>
+              <button type="button" data-grade="一年级">一年级</button><button type="button" data-grade="二年级">二年级</button>
+              <button type="button" data-grade="三年级">三年级</button><button type="button" data-grade="四年级">四年级</button>
+              <button type="button" data-grade="五年级">五年级</button><button type="button" data-grade="六年级">六年级</button>
+            </div>
+            <label class="expert-course-search"><span aria-hidden="true">⌕</span><input type="search" placeholder="搜索课程名称" aria-label="搜索课程名称" /></label>
+            <label class="course-status-filter"><input type="checkbox" /> 仅看进行中</label>
+          </div>
+          <div class="expert-course-grid" aria-live="polite">
+            <article data-progress="active"><img src="assets/course-sync.png" alt="" /><span>UNIT 1</span><h2>学习方法启蒙</h2><p>建立高效学习习惯</p><button type="button">继续学习</button></article>
+            <article><img src="assets/course-exam.png" alt="" /><span>UNIT 2</span><h2>思维能力进阶</h2><p>专家带练，突破关键能力</p><button type="button">开始学习</button></article>
+            <article><img src="assets/course-quality.png" alt="" /><span>UNIT 3</span><h2>综合素养拓展</h2><p>打开视野，提升表达与创造力</p><button type="button">开始学习</button></article>
+          </div>
+        </section>
       </main>
 
       <main class="page page--home" id="homePage" aria-labelledby="homeTitle" hidden>
