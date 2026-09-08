@@ -631,12 +631,13 @@
 .page--smart { display:flex; flex-direction:column; }
 .page--study[hidden],
 .page--smart[hidden],
+.page--course-select[hidden],
 .page--vip[hidden] { display:none; }
 
 #studyPage {
   padding:0;
   overflow:hidden;
-  background-image:url("优学首页&智学/首页.PNG");
+  background-image:url("优学首页&智学/优学中心-清晰.webp");
   background-size:100% 100%;
   background-position:center;
   background-repeat:no-repeat;
@@ -670,35 +671,64 @@
   -webkit-tap-highlight-color:transparent;
   touch-action:manipulation;
 }
-.study-hotspot[data-study-card="map"] { left:51%; top:17%; width:44%; height:22%; border-radius:20px; }
-.study-hotspot[data-study-card="continue"] { left:51%; top:43%; width:44%; height:22%; border-radius:20px; }
-.study-hotspot[data-study-card="custom"] { left:51%; top:68%; width:44%; height:22%; border-radius:20px; }
+.study-hotspot[data-study-card="map"] { left:65.4%; top:24.5%; width:31.4%; height:31%; border-radius:20px; }
+.study-hotspot[data-study-card="continue"] { left:65.4%; top:57.5%; width:14.5%; height:29%; border-radius:20px; }
+.study-hotspot[data-study-card="custom"] { left:81%; top:57.5%; width:15.8%; height:29%; border-radius:20px; }
 #studyPage .nav-hotspot[data-tab="study"] { left:34%; top:84%; width:12%; height:16%; border-radius:14px; }
 #studyPage .nav-hotspot[data-tab="smart"] { left:46%; top:84%; width:9%; height:16%; border-radius:14px; }
 #studyPage .nav-hotspot[data-tab="vip"] { left:55%; top:84%; width:11.5%; height:16%; border-radius:14px; }
+
+/* Course selection continues the adventure-map visual language with five live cards. */
+#courseSelectPage { padding:4% 8% 7%; overflow:hidden; color:#fff; background:radial-gradient(circle at 54% 12%,#9f91ff 0,rgba(159,145,255,.1) 29%),linear-gradient(135deg,#2546b8,#5c75e9 52%,#4e62d7); }
+.course-select-header { position:relative; display:flex; align-items:center; justify-content:center; min-height:13%; }
+.course-select-header h1 { margin:0; font-size:clamp(26px,3.2vw,44px); letter-spacing:.04em; }
+.course-select-header button { position:absolute; left:0; top:0; width:52px; height:52px; padding:0; border-radius:50%; color:#6558eb; background:#fff; font-size:48px; line-height:.8; }
+.course-select-list { display:flex; gap:3%; height:80%; padding:3% 1% 4%; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; touch-action:pan-x; -webkit-overflow-scrolling:touch; }
+.course-select-list::-webkit-scrollbar { display:none; }
+.course-choice-card { position:relative; flex:0 0 41%; min-width:330px; min-height:100%; padding:9% 7%; overflow:hidden; border:1px solid rgba(255,255,255,.78); border-radius:34px; color:#1d3157; background:linear-gradient(145deg,#e2f4ff,#b8e7ff 58%,#fff 100%); box-shadow:0 18px 34px rgba(20,38,122,.22); scroll-snap-align:center; }
+.course-choice-card::after { content:""; position:absolute; right:-14%; bottom:-23%; width:52%; aspect-ratio:1; border-radius:50%; background:rgba(255,255,255,.42); }
+.course-choice-card h2 { position:relative; z-index:1; max-width:72%; margin:12% 0 14px; font-size:clamp(24px,3vw,39px); }
+.course-choice-card p { position:relative; z-index:1; max-width:82%; margin:0; color:#5c6d86; font-size:clamp(15px,1.7vw,22px); line-height:1.5; }
+.course-choice-card button { position:absolute; left:7%; bottom:9%; z-index:2; min-width:48%; padding:13px 22px; border-radius:999px; color:#fff; background:linear-gradient(135deg,#21cbf5,#3489f4); font-size:clamp(16px,1.8vw,22px); font-weight:800; box-shadow:0 10px 20px rgba(35,133,237,.28); }
+.course-choice-mark { position:relative; z-index:1; display:inline-block; padding:7px 12px; border-radius:999px; color:#fff; background:rgba(42,106,190,.58); font-size:clamp(12px,1.4vw,16px); font-weight:800; letter-spacing:.08em; }
+.course-choice-card--sync { background:linear-gradient(145deg,#fff4c9,#ffdb91 55%,#fffdf2); }.course-choice-card--sync button { background:linear-gradient(135deg,#ffba31,#ff7b3e); }
+.course-choice-card--exam { background:linear-gradient(145deg,#dbe6ff,#c8c8ff 58%,#fdfaff); }.course-choice-card--exam button { background:linear-gradient(135deg,#7868f5,#a96eea); }
+.course-choice-card--quality { background:linear-gradient(145deg,#ddfbe0,#a9efcf 57%,#f8fffc); }.course-choice-card--quality button { background:linear-gradient(135deg,#23c997,#35a8e4); }
+.course-choice-card--dino { background:linear-gradient(145deg,#ffe9ce,#ffc8ad 58%,#fff9ee); }.course-choice-card--dino button { background:linear-gradient(135deg,#ff8357,#f65265); }
 
 /* Smart page: 1:1 match using the approved 智学 artwork as background. */
 #smartPage {
   padding:0;
   overflow:hidden;
-  background-image:url("优学首页&智学/智学.png");
-  background-size:100% 100%;
-  background-position:center;
+  background-image:url("优学首页&智学/智学课表-已完课.webp");
+  background-size:136% 100%;
+  background-position:50% center;
   background-repeat:no-repeat;
+  transition:background-position .28s ease-out;
 }
+.page--smart.is-cards-shifted { background-position:85% center; }
 .smart-zones {
   position:absolute;
-  inset:0 0 16%;
-  z-index:4;
-  touch-action:none;
+  inset:0 0 16%; z-index:5; pointer-events:none;
 }
 .smart-hotspot--contact { left:24%; top:4%; width:52%; height:8%; border-radius:999px; }
-.smart-hotspot--lesson-left { left:3%; top:20%; width:30%; height:53%; border-radius:22px; }
-.smart-hotspot--lesson-center { left:35%; top:18%; width:31%; height:57%; border-radius:22px; }
-.smart-hotspot--lesson-right { left:68%; top:20%; width:30%; height:53%; border-radius:22px; }
+.smart-hotspot--contact { pointer-events:auto; }
+.smart-carousel { position:absolute; left:0; right:0; top:20%; z-index:4; height:58%; overflow:hidden; touch-action:pan-x; }
+.smart-carousel-track { display:flex; width:100%; height:100%; padding:0 2%; gap:2%; }
+.smart-course-hit { flex:0 0 31%; height:100%; padding:0; border:0; border-radius:28px; background:transparent; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+.smart-course-hit:focus-visible { outline:4px solid rgba(83,123,255,.9); outline-offset:-6px; }
+.smart-course-hit--locked { cursor:default; }
+.smart-course-hit--done { position:relative; }
+.smart-course-hit--done::after { content:"课程报告"; position:absolute; right:8%; bottom:11%; padding:.6em 1.2em; border-radius:999px; color:transparent; background:transparent; }
 #smartPage .nav-hotspot[data-tab="study"] { left:34%; top:84%; width:12%; height:16%; z-index:5; border-radius:14px; }
 #smartPage .nav-hotspot[data-tab="smart"] { left:46%; top:84%; width:9%; height:16%; z-index:5; border-radius:14px; }
 #smartPage .nav-hotspot[data-tab="vip"] { left:55%; top:84%; width:11.5%; height:16%; z-index:5; border-radius:14px; }
+
+/* Completed lesson report: retain the portrait report artwork without stretching it. */
+#courseReportPage { padding:0; overflow:hidden; background:#6458f6; }
+#courseReportPage::before { content:""; position:absolute; inset:0; background:url("优学首页&智学/课程报告-A.webp") center top/auto 100% no-repeat; }
+.course-report-back { position:absolute; left:3%; top:14%; z-index:2; width:11%; height:15%; padding:0; border:0; border-radius:16px; background:transparent; cursor:pointer; }
+.course-report-back:focus-visible { outline:4px solid #fff; outline-offset:3px; }
 
 /* Membership: scroll the long benefits artwork on the left; keep plans fixed on the right. */
 #vipPage {
@@ -837,6 +867,19 @@
 .survey-complete h2 { margin:0 0 8px; font-size:clamp(23px,2.8vw,37px); }
 .survey-complete p { margin:0 0 20px; font-size:clamp(15px,1.7vw,21px); font-weight:800; line-height:1.35; }
 .survey-complete button { width:auto; min-width:180px; }
+.feedback-survey-h5 { position:absolute; inset:0; z-index:280; overflow:auto; padding:6% 8% 10%; color:#263449; background:linear-gradient(145deg,#f5f8ff,#e8f2ff 45%,#fff5eb); }
+.feedback-survey-h5[hidden] { display:none; }
+.feedback-survey-h5 header { position:relative; padding:4% 12% 8%; border-radius:28px; color:#fff; background:linear-gradient(135deg,#6d78ff,#4d9df6); text-align:center; }
+.feedback-survey-h5 header button { position:absolute; left:4%; top:7%; color:#fff; background:transparent; font-size:44px; line-height:1; }
+.feedback-survey-h5 h1 { margin:0 0 8px; font-size:clamp(25px,3vw,38px); }
+.feedback-survey-h5 header p { margin:0; font-size:clamp(14px,1.7vw,19px); }
+.feedback-survey-h5 section { margin-top:18px; padding:22px; border-radius:22px; background:#fff; box-shadow:0 10px 28px rgba(63,90,180,.12); }
+.feedback-survey-h5 h2,.feedback-survey-h5 label { display:block; margin:0 0 16px; font-size:clamp(18px,2vw,25px); font-weight:800; }
+.feedback-survey-options { display:flex; flex-wrap:wrap; gap:10px; }
+.feedback-survey-options button { padding:10px 14px; border:1px solid #d7defe; border-radius:999px; color:#5366d7; background:#f6f8ff; font-size:clamp(14px,1.6vw,18px); }
+.feedback-survey-options button.is-selected { border-color:#5266ee; color:#fff; background:#596df1; }
+.feedback-survey-h5 textarea { width:100%; min-height:100px; padding:12px; border:1px solid #dce2ed; border-radius:14px; resize:vertical; font:inherit; }
+#submitFeedbackSurveyH5 { display:block; min-width:220px; margin:22px auto 0; padding:14px 32px; border-radius:999px; color:#fff; background:#ff7d27; font-size:clamp(16px,1.8vw,21px); font-weight:800; }
 .rating-options button { padding: 16px 12px; border-radius: 18px; }
 .feedback-dialog { width: min(90%, 480px); padding: 24px; border-radius: 26px; }
 .feedback-types button { padding: 7px 14px; font-size: clamp(12px, 1.5vh, 15px); }

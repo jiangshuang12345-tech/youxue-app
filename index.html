@@ -33,12 +33,23 @@
         <h1 class="sr-only" id="studyTitle">优学中心</h1>
         <button class="study-avatar" id="profileEntry" type="button" aria-label="进入个人中心"></button>
         <div class="study-zones">
-          <button class="study-hotspot" data-study-card="map" type="button" aria-label="探险课程地图"></button>
+          <button class="study-hotspot" id="openCourseMap" data-study-card="map" type="button" aria-label="探险课程地图"></button>
           <button class="study-hotspot" data-study-card="continue" type="button" aria-label="继续上次的探险"></button>
           <button class="study-hotspot" data-study-card="custom" type="button" aria-label="打造专属探险"></button>
           <button class="nav-hotspot" data-tab="study" type="button" aria-label="优学中心"></button>
           <button class="nav-hotspot" data-tab="smart" type="button" aria-label="双师智学"></button>
           <button class="nav-hotspot" data-tab="vip" type="button" aria-label="会员订阅"></button>
+        </div>
+      </main>
+
+      <main class="page page--course-select" id="courseSelectPage" aria-labelledby="courseSelectTitle" hidden>
+        <header class="course-select-header"><button id="backToStudyFromCourses" type="button" aria-label="返回优学中心">‹</button><h1 id="courseSelectTitle">选择课程</h1></header>
+        <div class="course-select-list" aria-label="课程列表">
+          <article class="course-choice-card course-choice-card--expert"><span class="course-choice-mark">EXPERT</span><h2>专家指导拔尖</h2><p>权威专家指导　助力学生能力提升</p><button type="button">开始学习</button></article>
+          <article class="course-choice-card course-choice-card--sync"><span class="course-choice-mark">SYNC</span><h2>校内学习同步</h2><p>紧跟校内进度　学习更有方向</p><button type="button">开始学习</button></article>
+          <article class="course-choice-card course-choice-card--exam"><span class="course-choice-mark">EXAM</span><h2>考试能力提升</h2><p>针对性练习　从容迎接考试</p><button type="button">开始学习</button></article>
+          <article class="course-choice-card course-choice-card--quality"><span class="course-choice-mark">GROW</span><h2>校外素质拓展</h2><p>拓展兴趣视野　点亮更多可能</p><button type="button">开始学习</button></article>
+          <article class="course-choice-card course-choice-card--dino"><span class="course-choice-mark">DINO</span><h2>Dino绘本</h2><p>趣味绘本阅读　陪伴快乐成长</p><button type="button">开始学习</button></article>
         </div>
       </main>
 
@@ -224,15 +235,23 @@
 
       <main class="page page--smart" id="smartPage" aria-labelledby="smartTitle" hidden>
         <h1 class="sr-only" id="smartTitle">双师智学</h1>
+        <div class="smart-carousel" aria-label="双师智学课程，支持左右滑动">
+          <div class="smart-carousel-track">
+            <button class="smart-course-hit smart-course-hit--locked" type="button" aria-label="未解锁课程"></button>
+            <button class="smart-course-hit smart-course-hit--done" data-course-report type="button" aria-label="查看已完课课程报告"></button>
+            <button class="smart-course-hit" type="button" aria-label="查看课程"></button>
+          </div>
+        </div>
         <div class="smart-zones">
           <button class="smart-hotspot smart-hotspot--contact" type="button" aria-label="联系班主任"></button>
-          <button class="smart-hotspot smart-hotspot--lesson-left" data-lesson-action="start" type="button" aria-label="去上课"></button>
-          <button class="smart-hotspot smart-hotspot--lesson-center" data-lesson-action="start" type="button" aria-label="去上课"></button>
-          <button class="smart-hotspot smart-hotspot--lesson-right" data-lesson-action="start" type="button" aria-label="去上课"></button>
         </div>
         <button class="nav-hotspot" data-tab="study" type="button" aria-label="优学中心"></button>
         <button class="nav-hotspot" data-tab="smart" type="button" aria-label="双师智学"></button>
         <button class="nav-hotspot" data-tab="vip" type="button" aria-label="会员订阅"></button>
+      </main>
+
+      <main class="page page--course-report" id="courseReportPage" aria-label="课程报告" hidden>
+        <button class="course-report-back" id="backToSmartFromReport" type="button" aria-label="返回双师智学"></button>
       </main>
 
       <main class="page page--vip" id="vipPage" aria-labelledby="vipTitle" hidden>
@@ -307,6 +326,13 @@
         <section class="survey-question"><small>单选</small><h2>1. 您对双师智学课程的整体满意度是？ <i>*</i></h2><div id="surveyChoices"><button type="button" data-survey-choice="非常不满意">非常不满意</button><button type="button" data-survey-choice="不太满意">不太满意</button><button type="button" data-survey-choice="一般">一般</button><button type="button" data-survey-choice="满意">满意</button></div></section>
         <button class="survey-submit" id="submitSurvey" type="button">提交问卷</button>
         <div class="survey-complete" id="surveyComplete" hidden><div class="survey-complete-card"><div class="survey-complete-icon">✓</div><h2>感谢您的反馈！</h2><p>1个月优学会员将在 10 分钟内发放至你的账户，请在「个人中心」查看。</p><button id="finishSurvey" type="button">完成</button></div></div>
+      </main>
+
+      <main class="feedback-survey-h5" id="feedbackSurveyH5" hidden aria-labelledby="feedbackSurveyTitle">
+        <header><button id="closeFeedbackSurveyH5" type="button" aria-label="关闭吐槽问卷">‹</button><span>优学体验反馈</span><h1 id="feedbackSurveyTitle">告诉我们哪里不好用</h1><p>你的反馈将帮助我们持续优化优学 App。</p></header>
+        <section><h2>你遇到的问题是？</h2><div class="feedback-survey-options" id="feedbackSurveyOptions"><button type="button">双师智学课程</button><button type="button">AI 功能体验</button><button type="button">会员与课时</button><button type="button">个人中心/订单</button><button type="button">性能与稳定性</button><button type="button">其他建议</button></div></section>
+        <section><label for="feedbackSurveyDesc">具体说说吧</label><textarea id="feedbackSurveyDesc" maxlength="300" placeholder="请描述问题或建议（选填）"></textarea></section>
+        <button id="submitFeedbackSurveyH5" type="button">提交反馈</button>
       </main>
 
       <div class="feedback-modal" id="feedbackModal" hidden>

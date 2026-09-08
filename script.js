@@ -85,7 +85,11 @@ const FEEDBACK_TYPE_LABELS = {
 
 const homePage = document.querySelector("#homePage");
 const studyPage = document.querySelector("#studyPage");
+const openCourseMap = document.querySelector("#openCourseMap");
+const courseSelectPage = document.querySelector("#courseSelectPage");
 const smartPage = document.querySelector("#smartPage");
+const smartCarousel = document.querySelector("#smartPage .smart-carousel");
+const courseReportPage = document.querySelector("#courseReportPage");
 const vipPage = document.querySelector("#vipPage");
 const vipScrollPane = document.querySelector("#vipPage .vip-scroll-pane");
 const vipMembershipTab = document.querySelector("#vipMembershipTab");
@@ -105,9 +109,10 @@ const tabBar = document.querySelector("#tabBar");
 const ratingModal = document.querySelector("#ratingModal");
 const surveyInviteModal = document.querySelector("#surveyInviteModal");
 const surveyH5 = document.querySelector("#surveyH5");
+const feedbackSurveyH5 = document.querySelector("#feedbackSurveyH5");
 const feedbackModal = document.querySelector("#feedbackModal");
 const appToast = document.querySelector("#appToast");
-const pages = [studyPage, homePage, lessonsPage, lessonDetailsPage, ordersPage, orderDetailPage, smartPage, vipPage];
+const pages = [studyPage, courseSelectPage, homePage, lessonsPage, lessonDetailsPage, ordersPage, orderDetailPage, smartPage, courseReportPage, vipPage];
 let ledgerTab = "all";
 let incomeFilter = "all";
 let orderTab = "all";
@@ -458,6 +463,19 @@ function showPage(targetPage, hash) {
   }, 120);
 }
 
+function openCourseReport() {
+  showPage(courseReportPage, "#course-report");
+}
+
+function openCourseSelection() {
+  showPage(courseSelectPage, "#courses");
+}
+
+function returnToSmartFromReport() {
+  showPage(smartPage, "#smart");
+  window.setTimeout(() => maybePromptRating(true), 360);
+}
+
 function navTo(tabId) {
   if (tabId === "study" && !studyPage.hidden) return;
   if (tabId === "smart" && !smartPage.hidden) return;
@@ -649,6 +667,17 @@ function closeSurveyH5() {
   surveyH5.hidden = true;
 }
 
+function openFeedbackSurveyH5() {
+  closeRatingPrompt();
+  feedbackSurveyH5.hidden = false;
+  document.querySelectorAll("#feedbackSurveyOptions button").forEach((button) => button.classList.remove("is-selected"));
+  document.querySelector("#feedbackSurveyDesc").value = "";
+}
+
+function closeFeedbackSurveyH5() {
+  feedbackSurveyH5.hidden = true;
+}
+
 function dismissRatingPrompt() {
   const state = getRatingState();
   state.status = "dismissed";
@@ -747,6 +776,7 @@ document.addEventListener("keydown", (event) => {
   if (event.key !== "Escape") return;
   if (!feedbackModal.hidden) { closeFeedback(); return; }
   if (!surveyInviteModal.hidden) { closeSurveyInvite(); return; }
+  if (!feedbackSurveyH5.hidden) { closeFeedbackSurveyH5(); return; }
   if (!surveyH5.hidden) { closeSurveyH5(); return; }
   if (!ratingModal.hidden) { dismissRatingPrompt(); return; }
   if (!paymentModal.hidden) { closePayment(); return; }
@@ -763,28 +793,74 @@ document.querySelector("#confirmCancel").addEventListener("click", () => {
 
 profileEntry.addEventListener("click", () => showPage(homePage, "#home"));
 document.querySelector("#backFromProfile").addEventListener("click", () => showPage(studyPage, "#study"));
+document.querySelector("#backToStudyFromCourses").addEventListener("click", () => showPage(studyPage, "#study"));
+document.querySelector("#backToSmartFromReport").addEventListener("click", returnToSmartFromReport);
 document.querySelector("#profileFeedbackEntry").addEventListener("click", () => openFeedback("personal-center"));
 document.querySelector("#studyPage .study-zones").addEventListener("click", (event) => {
   const card = event.target.closest("[data-study-card]");
   if (!card) return;
   const id = card.dataset.studyCard;
-  if (id === "map") showPage(smartPage, "#smart");
+  if (id === "map") openCourseSelection();
   else showToast("该功能正在开发中，敬请期待");
 });
+let courseMapTouched = false;
+openCourseMap.addEventListener("touchend", (event) => {
+  event.preventDefault();
+  event.stopPropagation();
+  courseMapTouched = true;
+  openCourseSelection();
+  window.setTimeout(() => { courseMapTouched = false; }, 500);
+}, { passive: false });
+openCourseMap.addEventListener("click", (event) => {
+  event.preventDefault();
+  event.stopPropagation();
+  if (courseMapTouched) return;
+  openCourseSelection();
+});
+document.querySelectorAll(".course-choice-card button").forEach((button) => button.addEventListener("click", () => {
+  const title = button.closest(".course-choice-card")?.querySelector("h2")?.textContent || "课程";
+  showToast(`已选择「${title}」，即将开始学习`);
+}));
 document.querySelector("#smartPage .smart-zones").addEventListener("click", (event) => {
   if (event.target.closest(".smart-hotspot--contact")) {
     showToast("正在为你联系班主任…");
     return;
   }
-  if (event.target.closest("[data-lesson-action]")) {
-    maybePromptRating(true);
-  }
 });
+document.querySelector("#smartPage .smart-carousel").addEventListener("click", (event) => {
+  if (smartSwipeMoved) {
+    event.preventDefault();
+    smartSwipeMoved = false;
+    return;
+  }
+  if (event.target.closest("[data-course-report]")) openCourseReport();
+});
+let smartSwipeStartX = null;
+let smartSwipeMoved = false;
+smartCarousel.addEventListener("touchstart", (event) => {
+  smartSwipeStartX = event.touches[0]?.clientX ?? null;
+  smartSwipeMoved = false;
+}, { passive: true });
+smartCarousel.addEventListener("touchmove", (event) => {
+  if (smartSwipeStartX === null) return;
+  const currentX = event.touches[0]?.clientX;
+  if (typeof currentX === "number" && Math.abs(currentX - smartSwipeStartX) > 12) smartSwipeMoved = true;
+}, { passive: true });
+smartCarousel.addEventListener("touchend", (event) => {
+  const endX = event.changedTouches[0]?.clientX;
+  if (smartSwipeStartX === null || typeof endX !== "number") return;
+  const delta = endX - smartSwipeStartX;
+  if (Math.abs(delta) >= 36) {
+    event.preventDefault();
+    smartPage.classList.toggle("is-cards-shifted", delta < 0);
+  }
+  smartSwipeStartX = null;
+}, { passive: false });
 
 let _touched = false;
 document.addEventListener("touchend", (event) => {
   const el = event.target.closest(
-    ".study-hotspot, .smart-hotspot, .study-avatar, .icon-button, .logout-button, .lesson-card, .lesson-count, #lessonEntry, #orderEntry, .feedback-entry, .rating-close, .feedback-close, .payment-close"
+    ".study-hotspot, .smart-hotspot, .course-report-back, .study-avatar, .icon-button, .logout-button, .lesson-card, .lesson-count, #lessonEntry, #orderEntry, .feedback-entry, .rating-close, .feedback-close, .payment-close"
   );
   if (!el) return;
   event.preventDefault();
@@ -857,7 +933,7 @@ document.querySelectorAll("[data-rating]").forEach((button) => button.addEventLi
     document.querySelector("#submitAppStoreRating").hidden = true;
     setRatingStep("praise");
   }
-  else if (rating === "negative") openSurveyInvite();
+  else if (rating === "negative") openFeedbackSurveyH5();
   else dismissRatingPrompt();
 }));
 document.querySelectorAll("[data-star]").forEach((button) => button.addEventListener("click", () => {
@@ -895,8 +971,16 @@ document.querySelector("#submitSurvey").addEventListener("click", () => {
   setRatingState(state);
 });
 document.querySelector("#finishSurvey").addEventListener("click", closeSurveyH5);
+document.querySelector("#closeFeedbackSurveyH5").addEventListener("click", closeFeedbackSurveyH5);
+document.querySelectorAll("#feedbackSurveyOptions button").forEach((button) => button.addEventListener("click", () => {
+  document.querySelectorAll("#feedbackSurveyOptions button").forEach((item) => item.classList.toggle("is-selected", item === button));
+}));
+document.querySelector("#submitFeedbackSurveyH5").addEventListener("click", () => {
+  closeFeedbackSurveyH5();
+  showToast("反馈已提交，感谢你的建议！");
+});
 
-document.querySelectorAll(".rating-options button, [data-star], #submitAppStoreRating, #skipAppStore, #closeSurveyInvite, #openSurveyH5, #closeSurveyH5, [data-survey-choice], #submitSurvey, #finishSurvey").forEach((button) => {
+document.querySelectorAll(".rating-options button, [data-star], #submitAppStoreRating, #skipAppStore, #closeSurveyInvite, #openSurveyH5, #closeSurveyH5, [data-survey-choice], #submitSurvey, #finishSurvey, #closeFeedbackSurveyH5, #feedbackSurveyOptions button, #submitFeedbackSurveyH5").forEach((button) => {
   let touched = false;
   button.addEventListener("touchend", (event) => {
     event.preventDefault();
@@ -928,7 +1012,7 @@ renderOrders();
 renderStudyCards();
 renderSmartLessons();
 
-const initialRoutes = { "#study": studyPage, "#lessons": lessonsPage, "#orders": ordersPage, "#smart": smartPage, "#vip": vipPage, "#home": homePage };
+const initialRoutes = { "#study": studyPage, "#courses": courseSelectPage, "#lessons": lessonsPage, "#orders": ordersPage, "#smart": smartPage, "#course-report": courseReportPage, "#vip": vipPage, "#home": homePage };
 if (window.location.hash === "#validity") showLessonDetailTab("validity");
 else if (window.location.hash === "#ledger") showLessonDetailTab("ledger");
 else if (initialRoutes[window.location.hash]) showPage(initialRoutes[window.location.hash], window.location.hash);
