@@ -12,7 +12,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="final-ui.css?v=28" />
+    <link rel="stylesheet" href="final-ui.css?v=30" />
   </head>
   <body>
     <div class="device-stage">
@@ -54,6 +54,17 @@
           <article class="course-choice-card course-choice-card--dino"><img src="assets/course-dino.png" alt="" /><h2>Dino绘本</h2><p>趣味绘本阅读　陪伴快乐成长</p><button type="button">开始学习</button></article>
         </div>
         <div class="course-swipe-cue" aria-hidden="true"><span>滑动查看更多</span><b>›</b></div>
+        <div class="expert-guide" id="expertGuide" hidden>
+          <div class="expert-guide-card" role="dialog" aria-modal="true" aria-labelledby="expertGuideTitle">
+            <img src="assets/course-expert.png" alt="" />
+            <div>
+              <h2 id="expertGuideTitle">认识专家指导课</h2>
+              <p>跟着权威专家掌握关键方法，针对学习薄弱点逐步提升。选择适合的年级，开启你的专属进阶课程吧！</p>
+            </div>
+            <button id="dismissExpertGuide" type="button">我知道了</button>
+          </div>
+          <span class="expert-guide-pointer" aria-hidden="true"></span>
+        </div>
         <nav class="course-tab-bar" aria-label="底部导航">
           <button class="nav-hotspot is-active" data-tab="study" type="button"><span aria-hidden="true">AI</span><b>优学中心</b></button>
           <button class="nav-hotspot" data-tab="smart" type="button"><span aria-hidden="true">✦</span><b>双师智学</b></button>
@@ -474,6 +485,7 @@
       <p class="device-caption"><span></span> iPhone · 横屏交互原型</p>
     </div>
 
-    <script src="script.js?v=15"></script>
+    <script src="script.js?v=17"></script>
+    <script src="expert-guide.js?v=1"></script>
   </body>
 </html>
