@@ -678,10 +678,7 @@
 #studyPage .nav-hotspot[data-tab="study"] { left:34%; top:84%; width:12%; height:16%; border-radius:14px; }
 #studyPage .nav-hotspot[data-tab="smart"] { left:46%; top:84%; width:9%; height:16%; border-radius:14px; }
 #studyPage .nav-hotspot[data-tab="vip"] { left:55%; top:84%; width:11.5%; height:16%; border-radius:14px; }
-.study-tab-bar { position:absolute; left:50%; bottom:0; z-index:12; display:flex; width:29%; min-width:350px; height:13%; min-height:68px; padding:0; overflow:hidden; border-radius:32px 32px 0 0; background-image:url("assets/study-tab-reference.png"); background-size:355.6% 687.2%; background-position:48.4% 100%; background-repeat:no-repeat; box-shadow:0 -6px 24px rgba(27,77,67,.14); transform:translateX(-50%); }
-#studyPage .study-tab-bar .nav-hotspot { position:relative; inset:auto; display:block; flex:1; width:auto; height:100%; border-radius:14px; color:transparent; background:transparent; font-size:0; }
-#studyPage .study-tab-bar .nav-hotspot span,
-#studyPage .study-tab-bar .nav-hotspot b { visibility:hidden; }
+.study-tab-bar { position:absolute; left:50%; bottom:0; z-index:12; display:flex; width:29%; min-width:350px; height:13%; min-height:68px; padding:4px 16px 3px; overflow:hidden; border-radius:32px 32px 0 0; background:rgba(226,244,216,.92); box-shadow:0 -6px 24px rgba(27,77,67,.14); transform:translateX(-50%); backdrop-filter:blur(12px); }
 
 /* Course selection continues the adventure-map visual language with five live cards. */
 #courseSelectPage { display:flex; flex-direction:column; padding:clamp(12px,2.2vh,22px) 8% clamp(72px,14vh,108px); overflow:hidden; color:#fff; background:radial-gradient(circle at 54% 12%,#9f91ff 0,rgba(159,145,255,.1) 29%),linear-gradient(135deg,#2546b8,#5c75e9 52%,#4e62d7); }
@@ -705,10 +702,19 @@
 .course-swipe-cue { position:absolute; right:3.8%; top:48%; z-index:7; display:flex; align-items:center; gap:7px; color:#fff; filter:drop-shadow(0 3px 8px rgba(29,45,120,.28)); pointer-events:none; transform:translateY(-50%); }
 .course-swipe-cue span { padding:7px 11px; border-radius:999px; background:rgba(37,55,143,.72); font-size:clamp(12px,1.05vw,14px); font-weight:700; }
 .course-swipe-cue b { display:grid; place-items:center; width:38px; height:38px; border-radius:50%; background:rgba(255,255,255,.94); color:#5969db; font-size:32px; line-height:1; }
-.course-tab-bar { position:absolute; left:50%; bottom:0; z-index:12; display:flex; width:29%; min-width:350px; height:13%; min-height:68px; padding:0; overflow:hidden; border-radius:32px 32px 0 0; background-image:url("assets/study-tab-reference.png"); background-size:355.6% 687.2%; background-position:48.4% 100%; background-repeat:no-repeat; box-shadow:0 -6px 24px rgba(27,77,67,.14); transform:translateX(-50%); }
-.course-tab-bar .nav-hotspot { position:relative; inset:auto; display:block; flex:1; width:auto; height:100%; color:transparent; background:transparent; font-size:0; }
+.course-tab-bar { position:absolute; left:50%; bottom:0; z-index:12; display:flex; width:29%; min-width:350px; height:13%; min-height:68px; padding:4px 16px 3px; overflow:hidden; border-radius:32px 32px 0 0; background:rgba(226,244,216,.94); box-shadow:0 -6px 24px rgba(27,77,67,.14); transform:translateX(-50%); backdrop-filter:blur(12px); }
+.course-tab-bar .nav-hotspot,
+#studyPage .study-tab-bar .nav-hotspot { position:relative; inset:auto; display:flex; flex:1; flex-direction:column; align-items:center; justify-content:center; gap:1px; width:auto; height:100%; border-radius:14px; color:#52655e; background:transparent; font-size:inherit; }
 .course-tab-bar .nav-hotspot span,
-.course-tab-bar .nav-hotspot b { visibility:hidden; }
+#studyPage .study-tab-bar .nav-hotspot span { display:grid; place-items:center; width:29px; height:25px; border-radius:8px; color:#fff; background:linear-gradient(135deg,#ffb522,#ff733c); font-size:13px; font-weight:900; line-height:1; box-shadow:0 3px 8px rgba(44,75,70,.18); }
+.course-tab-bar .nav-hotspot[data-tab="smart"] span,
+#studyPage .study-tab-bar .nav-hotspot[data-tab="smart"] span { background:linear-gradient(135deg,#4a7cff,#674ee8); font-size:18px; }
+.course-tab-bar .nav-hotspot[data-tab="vip"] span,
+#studyPage .study-tab-bar .nav-hotspot[data-tab="vip"] span { background:linear-gradient(135deg,#ff9a31,#ee5d3e); font-size:16px; }
+.course-tab-bar .nav-hotspot b,
+#studyPage .study-tab-bar .nav-hotspot b { visibility:visible; font-size:clamp(12px,1.15vw,15px); font-weight:600; }
+.course-tab-bar .nav-hotspot.is-active,
+#studyPage .study-tab-bar .nav-hotspot.is-active { color:#213e34; }
 
 /* Expert course catalog: grades lead the page, while search and status stay secondary. */
 #expertCoursesPage { display:flex; flex-direction:column; padding:clamp(14px,2.4vh,24px) 7% clamp(76px,13vh,106px); overflow:hidden; color:#17305b; background:linear-gradient(135deg,#c9f5ef 0,#e8f8ff 48%,#e6e8ff 100%); }
