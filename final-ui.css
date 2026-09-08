@@ -702,16 +702,17 @@
 .course-choice-card--exam button { background:linear-gradient(135deg,#7868f5,#a96eea); }
 .course-choice-card--quality button { background:linear-gradient(135deg,#23c997,#35a8e4); }
 .course-choice-card--dino button { background:linear-gradient(135deg,#ff8357,#f65265); }
-.course-tab-bar { position:absolute; left:50%; bottom:1.8%; z-index:8; display:flex; width:30%; min-width:360px; height:11%; min-height:58px; padding:5px 18px 4px; border-radius:28px 28px 0 0; background:rgba(238,243,255,.92); box-shadow:0 -6px 24px rgba(37,55,143,.18); transform:translateX(-50%); }
-.course-tab-bar .nav-hotspot { position:relative; inset:auto; display:flex; flex:1; flex-direction:column; align-items:center; justify-content:center; gap:1px; width:auto; height:auto; color:#7a8298; background:transparent; font-size:19px; }
-.course-tab-bar .nav-hotspot b { font-size:clamp(12px,1.25vw,16px); font-weight:600; }
-.course-tab-bar .nav-hotspot.is-active { color:#4e5edb; }
+.course-tab-bar { position:absolute; left:50%; bottom:0; z-index:12; display:flex; width:29%; min-width:350px; height:13%; min-height:68px; padding:0; overflow:hidden; border-radius:32px 32px 0 0; background-image:url("assets/study-tab-reference.png"); background-size:355.6% 687.2%; background-position:48.4% 100%; background-repeat:no-repeat; box-shadow:0 -6px 24px rgba(27,77,67,.14); transform:translateX(-50%); }
+.course-tab-bar .nav-hotspot { position:relative; inset:auto; display:block; flex:1; width:auto; height:100%; color:transparent; background:transparent; font-size:0; }
+.course-tab-bar .nav-hotspot span,
+.course-tab-bar .nav-hotspot b { visibility:hidden; }
 
 /* Expert course catalog: grades lead the page, while search and status stay secondary. */
-#expertCoursesPage { display:flex; flex-direction:column; padding:clamp(14px,2.4vh,24px) 7% 4%; overflow:hidden; color:#17305b; background:linear-gradient(135deg,#c9f5ef 0,#e8f8ff 48%,#e6e8ff 100%); }
+#expertCoursesPage { display:flex; flex-direction:column; padding:clamp(14px,2.4vh,24px) 7% clamp(76px,13vh,106px); overflow:hidden; color:#17305b; background:linear-gradient(135deg,#c9f5ef 0,#e8f8ff 48%,#e6e8ff 100%); }
 #expertCoursesPage[hidden] { display:none; }
 .expert-course-header { position:relative; display:flex; flex:none; align-items:center; justify-content:center; height:clamp(58px,12vh,86px); text-align:center; }
-.expert-course-header > button { position:absolute; left:0; top:50%; width:48px; height:48px; padding:0; border-radius:50%; color:#5f66dd; background:#fff; font-size:42px; line-height:.8; transform:translateY(-50%); box-shadow:0 8px 18px rgba(42,68,135,.15); }
+.expert-course-header > button { position:absolute; left:clamp(0px,.8vw,12px); top:50%; display:grid; place-items:center; width:clamp(44px,4vw,54px); height:clamp(44px,4vw,54px); padding:0; border-radius:50%; color:transparent; background:#fff; font-size:0; line-height:1; transform:translateY(-50%); box-shadow:0 8px 18px rgba(42,68,135,.15); }
+.expert-course-header > button::before { content:""; width:12px; height:12px; border-left:3px solid #6670e8; border-bottom:3px solid #6670e8; transform:translateX(2px) rotate(45deg); }
 .expert-course-header h1 { margin:0; font-size:clamp(25px,2.8vw,40px); line-height:1.1; }
 .expert-course-header p { margin:5px 0 0; color:#657895; font-size:clamp(13px,1.2vw,16px); }
 .expert-course-panel { display:flex; flex:1; min-height:0; flex-direction:column; padding:16px 20px 18px; border:1px solid rgba(255,255,255,.9); border-radius:30px; background:rgba(255,255,255,.9); box-shadow:0 18px 42px rgba(40,75,132,.16); }
