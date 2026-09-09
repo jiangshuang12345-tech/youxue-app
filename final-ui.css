@@ -789,20 +789,20 @@
 }
 
 /* Expert journey uses the approved reference artwork verbatim; only invisible hit areas sit above it. */
-#expertJourneyPage { display:block; padding:0; overflow:hidden; background:url("assets/expert-journey-reference.webp") center 30%/107% 117% no-repeat; }
+#expertJourneyPage { display:block; padding:0; overflow:hidden; background:url("assets/expert-journey-reference.webp") center 18%/107% 117% no-repeat; }
 #expertJourneyPage[hidden] { display:none; }
 .expert-journey-header { position:absolute; inset:0; z-index:3; pointer-events:none; }
 .expert-journey-header > div { display:none; }
-.expert-journey-header > #backToExpertCourses { position:absolute; left:5%; top:14%; width:7%; height:13%; padding:0; opacity:0; pointer-events:auto; }
-.journey-expert-entry { position:absolute; right:4%; top:13%; width:15%; height:13%; padding:0; opacity:0; pointer-events:auto; }
+.expert-journey-header > #backToExpertCourses { position:absolute; left:4.5%; top:7%; width:8%; height:14%; padding:0; opacity:0; cursor:pointer; pointer-events:auto; }
+.journey-expert-entry { position:absolute; right:3.5%; top:7%; width:16%; height:14%; padding:0; opacity:0; cursor:pointer; pointer-events:auto; }
 .journey-track { position:absolute; inset:0; z-index:2; padding:0; overflow:hidden; pointer-events:none; }
 .journey-track::after,.journey-track > * { display:none; }
-.journey-track > .journey-step:first-child { position:absolute; left:13%; top:36%; display:block; width:21%; height:52%; opacity:0; cursor:pointer; pointer-events:auto; }
+.journey-track > .journey-step:first-child { position:absolute; left:13%; top:32%; display:block; width:21%; height:52%; opacity:0; cursor:pointer; pointer-events:auto; }
 .journey-track > .journey-step:first-child:focus-visible { opacity:.12; outline:4px solid #ffd94e; }
-.journey-track > .journey-task-card { position:absolute; left:68.5%; top:37%; z-index:5; display:grid; width:13.5%; height:42%; min-height:0; grid-template-rows:auto 1fr auto; gap:7px; box-sizing:border-box; margin:0; padding:11px; overflow:hidden; border:2px solid rgba(255,255,255,.78); border-radius:22px; color:#243758; background:rgba(255,255,255,.95); box-shadow:0 14px 30px rgba(50,74,110,.2); pointer-events:none; }
-.journey-task-card h2 { margin:0; font-size:clamp(13px,1.18vw,19px); line-height:1.25; }
-.journey-task-card img { width:100%; height:100%; min-height:0; border-radius:13px; object-fit:cover; }
-.journey-task-card p { margin:0; color:#62718a; font-size:clamp(10px,.78vw,13px); line-height:1.4; }
+.journey-track > .journey-task-card { position:absolute; left:72.1%; top:35%; z-index:5; display:grid; width:7.8%; height:39%; min-height:0; grid-template-rows:auto auto 1fr; gap:6px; box-sizing:border-box; margin:0; padding:9px; overflow:hidden; border:2px solid rgba(255,220,95,.72); border-radius:18px; color:#243758; background:rgba(255,255,255,.96); box-shadow:0 12px 28px rgba(50,74,110,.19); pointer-events:none; }
+.journey-task-card h2 { margin:0; font-size:clamp(11px,.82vw,15px); line-height:1.28; }
+.journey-task-card img { display:block; width:100%; height:auto; aspect-ratio:1.35; min-height:0; border-radius:10px; object-fit:cover; }
+.journey-task-card p { margin:0; overflow:hidden; color:#62718a; font-size:clamp(9px,.64vw,12px); line-height:1.35; }
 
 /* Pre-class guide introduces all five stages before the original word-learning screen. */
 #expertPreclassPage { display:block; overflow:hidden; color:#fff; background:linear-gradient(rgba(15,40,72,.22),rgba(15,40,72,.34)),url("assets/mall-preclass-bg.webp") center/cover no-repeat; }
