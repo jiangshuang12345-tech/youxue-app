@@ -7,13 +7,22 @@
   if (!gradeButton || !gradeMenu || !searchInput) return;
 
   const closeMenu = () => { gradeMenu.hidden = true; gradeButton.setAttribute("aria-expanded", "false"); };
+  const setSelectedGrade = (grade) => {
+    if (gradeLabel) gradeLabel.textContent = grade;
+    gradeMenu.querySelectorAll("button").forEach((item) => {
+      const selected = item.textContent.trim() === grade;
+      item.classList.toggle("is-selected", selected);
+      item.setAttribute("aria-current", selected ? "true" : "false");
+    });
+  };
+  setSelectedGrade(gradeLabel?.textContent.trim() || "二年级");
   gradeButton.addEventListener("click", () => {
     const open = gradeMenu.hidden;
     gradeMenu.hidden = !open;
     gradeButton.setAttribute("aria-expanded", String(open));
   });
   gradeMenu.querySelectorAll("button").forEach((item) => item.addEventListener("click", () => {
-    if (gradeLabel) gradeLabel.textContent = item.textContent.trim();
+    setSelectedGrade(item.textContent.trim());
     closeMenu();
   }));
   document.addEventListener("click", (event) => {
