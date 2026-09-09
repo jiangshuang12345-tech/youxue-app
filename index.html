@@ -12,7 +12,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="final-ui.css?v=33" />
+    <link rel="stylesheet" href="final-ui.css?v=34" />
   </head>
   <body>
     <div class="device-stage">
@@ -100,9 +100,9 @@
             <label class="course-status-filter"><input type="checkbox" /> 仅看进行中</label>
           </div>
           <div class="expert-course-grid" aria-live="polite">
-            <article data-progress="active" data-status="进行中" data-open-expert-journey role="button" tabindex="0" aria-label="进入商场标识认知课程"><div class="expert-course-cover"><img src="assets/course-sync.png" alt="" /><span>UNIT 1</span></div><h2>学习方法启蒙</h2><p>建立高效学习习惯</p></article>
-            <article data-status="限时体验"><div class="expert-course-cover"><img src="assets/course-exam.png" alt="" /><span>UNIT 2</span></div><h2>思维能力进阶</h2><p>专家带练，突破关键能力</p></article>
-            <article data-status="限时体验"><div class="expert-course-cover"><img src="assets/course-quality.png" alt="" /><span>UNIT 3</span></div><h2>综合素养拓展</h2><p>打开视野，提升表达与创造力</p></article>
+            <article data-progress="active" data-status="进行中" data-open-expert-journey role="button" tabindex="0" aria-label="进入商场标识认知课程"><div class="expert-course-cover"><img src="assets/preschool-unit1.webp" alt="" /><span>UNIT 1</span></div><h2>商场标识认知</h2><p>认识商场常见标识，学会在真实场景中运用</p></article>
+            <article data-status="限时体验"><div class="expert-course-cover"><img src="assets/preschool-unit2.webp" alt="" /><span>UNIT 2</span></div><h2>飞行之旅启航</h2><p>认识机场与机舱标识，开启飞行探索</p></article>
+            <article data-status="限时体验"><div class="expert-course-cover"><img src="assets/preschool-unit3.webp" alt="" /><span>UNIT 3</span></div><h2>寻找合适衣物</h2><p>认识衣物与尺码标识，完成购物挑战</p></article>
           </div>
         </section>
         <img class="expert-course-dino" src="assets/expert-dino-guide.png" alt="小恐龙探险家" />
@@ -115,12 +115,34 @@
           <strong>专家指导</strong>
         </header>
         <section class="journey-track" aria-label="课程任务进度">
-          <article class="journey-step is-active"><img src="assets/course-quality.png" alt="商场场景" /><span>进行中</span><h2>探索商场的秘密标识</h2></article>
-          <article class="journey-step is-locked"><img src="assets/course-exam.png" alt="停车场场景" /><i aria-hidden="true">🔒</i><h2>寻找停车区的最佳位置</h2></article>
-          <article class="journey-step is-locked"><img src="assets/course-dino.png" alt="商场电梯场景" /><i aria-hidden="true">🔒</i><h2>乘电梯到目标楼层</h2></article>
+          <article class="journey-step is-active" data-open-preclass role="button" tabindex="0" aria-label="开始探索商场的秘密标识"><img src="assets/journey-mall.webp" alt="商场场景" /><span>进行中</span><h2>探索商场的秘密标识</h2></article>
+          <article class="journey-step is-locked"><img src="assets/journey-parking.webp" alt="停车场场景" /><i aria-hidden="true">🔒</i><h2>寻找停车区的最佳位置</h2></article>
+          <article class="journey-step is-locked"><img src="assets/journey-elevator.webp" alt="商场电梯场景" /><i aria-hidden="true">🔒</i><h2>乘电梯到目标楼层</h2></article>
           <article class="journey-task-card"><h2>本次探险旅程任务卡</h2><img src="assets/expert-task-card.png" alt="和爸爸妈妈一起探索商场标识" /><p>快去和爸爸妈妈一起去商场里探索一下商场标识吧</p></article>
           <article class="journey-finish"><img src="assets/expert-dino-guide.png" alt="小恐龙为你加油" /><h2>终点就在前面</h2><p>继续加油！</p></article>
         </section>
+      </main>
+
+      <main class="page page--preclass" id="expertPreclassPage" aria-labelledby="preclassTitle" hidden>
+        <button class="preclass-back" id="backToJourney" type="button" aria-label="返回课程任务"></button>
+        <section class="preclass-intro">
+          <span>课前探险指南</span>
+          <h1 id="preclassTitle">商场标识认知</h1>
+          <p>本节课我们要认识商场里常见的英文标识，一共完成 5 个学习环节。准备好就出发吧！</p>
+        </section>
+        <img class="preclass-dino" src="assets/expert-dino-guide.png" alt="小恐龙探险家" />
+        <ol class="preclass-steps" aria-label="本节课五个学习环节">
+          <li><i aria-hidden="true">A</i><span>学习单词</span></li>
+          <li><i aria-hidden="true">▤</i><span>认识标识</span></li>
+          <li><i aria-hidden="true">✎</i><span>练习表达</span></li>
+          <li><i aria-hidden="true">★</i><span>场景挑战</span></li>
+          <li><i aria-hidden="true">•••</i><span>总结反馈</span></li>
+        </ol>
+        <button class="preclass-ready" id="startMallLesson" type="button">Ready Go <b aria-hidden="true">›</b></button>
+      </main>
+
+      <main class="page page--mall-learning" id="mallLearningPage" aria-label="商场标识认知学习环节" hidden>
+        <button class="mall-learning-back" id="backToPreclass" type="button" aria-label="返回课前引导"></button>
       </main>
 
       <main class="page page--home" id="homePage" aria-labelledby="homeTitle" hidden>
@@ -509,7 +531,7 @@
 
     <script src="script.js?v=17"></script>
     <script src="expert-guide.js?v=2"></script>
-    <script src="expert-journey.js?v=1"></script>
+    <script src="expert-journey.js?v=2"></script>
     <script src="parent-expert.js?v=1"></script>
   </body>
 </html>
