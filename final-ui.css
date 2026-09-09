@@ -566,7 +566,7 @@
   overflow:auto;
 }
 #ledgerPanel:has(.secondary-tabs:not([hidden])) .ledger-list {
-  padding-top:clamp(68px,11vh,92px);
+  padding-top:clamp(44px,7vh,64px);
 }
 #ledgerPanel .ledger-list h3 { padding:10px 18px; font-size:clamp(13px,1.5vw,21px); }
 #ledgerPanel .ledger-row { min-height:clamp(54px,9vh,78px); padding:10px 18px; }
@@ -803,6 +803,36 @@
 .journey-task-card h2 { margin:0; font-size:clamp(11px,.82vw,15px); line-height:1.28; }
 .journey-task-card img { display:block; width:100%; height:auto; aspect-ratio:1.35; min-height:0; border-radius:10px; object-fit:cover; }
 .journey-task-card p { margin:0; overflow:hidden; color:#62718a; font-size:clamp(9px,.64vw,12px); line-height:1.35; }
+
+/* Journey finish encouragement modal: transparent overlay with centered dinosaur + copy. */
+.journey-track > .journey-finish:not([hidden]) {
+  position:absolute;
+  inset:0;
+  z-index:10;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  background:transparent;
+  pointer-events:none;
+}
+.journey-finish img {
+  width:clamp(130px,18vw,230px);
+  height:auto;
+  object-fit:contain;
+}
+.journey-finish h2 {
+  margin:12px 0 4px;
+  color:#8b5e28;
+  font-size:clamp(22px,2.6vw,36px);
+  text-align:center;
+}
+.journey-finish p {
+  margin:0;
+  color:#a67c4d;
+  font-size:clamp(16px,1.8vw,24px);
+  text-align:center;
+}
 
 /* Pre-class guide introduces all five stages before the original word-learning screen. */
 #expertPreclassPage { display:block; overflow:hidden; color:#fff; background:linear-gradient(rgba(15,40,72,.22),rgba(15,40,72,.34)),url("assets/mall-preclass-bg.webp") center/cover no-repeat; }
