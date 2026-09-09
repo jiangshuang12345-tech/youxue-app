@@ -756,8 +756,8 @@
 .course-plaza-card.is-search-match { box-shadow:0 0 0 5px #ffd963,0 12px 26px rgba(11,63,87,.3); }
 .course-plaza-card.is-search-muted { pointer-events:none; opacity:.28; }
 #courseSelectPage.is-guide-active .course-plaza-cards { pointer-events:none; }
-#courseSelectPage.is-guide-active .course-plaza-tabs { z-index:41; pointer-events:none; }
-#courseSelectPage.is-guide-active .course-plaza-tabs::before { display:none; }
+#courseSelectPage.is-guide-active .course-plaza-tabs { left:16%; z-index:41; width:20.3%; pointer-events:none; }
+#courseSelectPage.is-guide-active .course-plaza-tabs::before { content:none; display:none !important; }
 #courseSelectPage.is-guide-active .course-plaza-tabs button { visibility:hidden; }
 #courseSelectPage.is-guide-active .course-plaza-tabs button[data-course-tab="expert"] { visibility:visible; color:#25282e; background:#fff; box-shadow:0 4px 11px rgba(22,91,113,.25); font-size:clamp(14px,1.45vw,22px); font-weight:900; }
 
