@@ -13,7 +13,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="final-ui.css?v=70" />
+    <link rel="stylesheet" href="final-ui.css?v=71" />
   </head>
   <body>
     <div class="device-stage">
@@ -61,15 +61,15 @@
 
       <main class="page page--course-select" id="courseSelectPage" aria-labelledby="courseSelectTitle" hidden>
         <img class="course-plaza-artwork" src="优学首页&智学/课程广场 (1).png" alt="" aria-hidden="true" fetchpriority="high" decoding="async" />
-        <header class="course-plaza-header"><button id="backToStudyFromCourses" type="button" aria-label="返回优学中心"></button><button class="course-grade-select" id="courseGradeSelect" type="button" aria-label="选择年级"><span>二年级</span><i aria-hidden="true"></i></button><h1 id="courseSelectTitle">课程广场</h1><label class="course-plaza-search"><input type="search" placeholder="输入课程名称" aria-label="搜索课程名称" /><i aria-hidden="true"></i></label></header>
+        <header class="course-plaza-header"><button id="backToStudyFromCourses" type="button" aria-label="返回优学中心"></button><button class="course-grade-select" id="courseGradeChooser" type="button" aria-label="选择年级" aria-expanded="false" aria-controls="courseGradeMenu"><span>二年级</span><i aria-hidden="true"></i></button><div class="course-grade-menu" id="courseGradeMenu" role="menu" hidden><button type="button" role="menuitem">学龄前</button><button type="button" role="menuitem">一年级</button><button type="button" role="menuitem">二年级</button><button type="button" role="menuitem">三年级</button><button type="button" role="menuitem">四年级</button><button type="button" role="menuitem">五年级</button><button type="button" role="menuitem">六年级</button></div><h1 id="courseSelectTitle">课程广场</h1><label class="course-plaza-search-field"><input type="search" placeholder="输入课程名称" aria-label="搜索课程名称" /><i aria-hidden="true"></i></label></header>
         <nav class="course-plaza-tabs" aria-label="课程分类">
           <button class="is-active" type="button" data-course-tab="expert">专家指导拔尖</button><button type="button" data-course-tab="sync">校内学习同步</button><button type="button" data-course-tab="exam">考试能力提升</button><button type="button" data-course-tab="quality">校外素质拓展</button><button type="button" data-course-tab="reading">绘本阅读</button>
         </nav>
         <div class="course-plaza-cards" aria-label="课程列表">
-          <button class="course-plaza-card" type="button" data-course-card="0" aria-label="进入商场标识认知课程"></button>
-          <button class="course-plaza-card" type="button" data-course-card="1" aria-label="进入飞行之旅启航课程"></button>
-          <button class="course-plaza-card" type="button" data-course-card="2" aria-label="进入寻找合适衣物课程"></button>
-          <button class="course-plaza-card" type="button" data-course-card="3" aria-label="进入专家指导课程"></button>
+          <button class="course-plaza-card" type="button" data-course-card="0" data-course-name="商场标识认知 商场标识 专家指导拔尖" aria-label="进入商场标识认知课程"></button>
+          <button class="course-plaza-card" type="button" data-course-card="1" data-course-name="飞行之旅启航 飞行 专家指导拔尖" aria-label="进入飞行之旅启航课程"></button>
+          <button class="course-plaza-card" type="button" data-course-card="2" data-course-name="寻找合适衣物 衣物 专家指导拔尖" aria-label="进入寻找合适衣物课程"></button>
+          <button class="course-plaza-card" type="button" data-course-card="3" data-course-name="专家指导拔尖 专家课程" aria-label="进入专家指导课程"></button>
         </div>
         <div class="expert-guide" id="expertGuide" hidden>
           <div class="expert-guide-card" role="dialog" aria-modal="true" aria-labelledby="expertGuideTitle">
@@ -80,7 +80,7 @@
             </div>
             <button id="dismissExpertGuide" type="button">我知道了</button>
           </div>
-          <span class="expert-guide-pointer" aria-hidden="true"></span>
+          <svg class="expert-guide-pointer" viewBox="0 0 180 112" aria-hidden="true"><defs><marker id="expertGuideArrow" viewBox="0 0 14 14" refX="10" refY="7" markerWidth="11" markerHeight="11" orient="auto"><path d="M1 1 L13 7 L1 13 Z" fill="#fff" /></marker></defs><path d="M176 84 C124 84 88 72 62 48 C49 36 42 22 38 9" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-dasharray="9 8" marker-end="url(#expertGuideArrow)" /></svg>
         </div>
       </main>
 
@@ -111,7 +111,7 @@
       </main>
 
       <main class="page page--expert-journey" id="expertJourneyPage" aria-labelledby="expertJourneyTitle" hidden>
-        <img class="expert-journey-background" src="assets/expert-journey-hd.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+        <img class="expert-journey-background" src="assets/expert-journey-hd-unlocked.webp" alt="" aria-hidden="true" fetchpriority="high" decoding="async" />
         <header class="expert-journey-header">
           <button id="backToExpertCourses" type="button" aria-label="返回专家指导课程"></button>
           <div><span>专家</span><h1 id="expertJourneyTitle">商场标识认知</h1><p>学龄前　UNIT 1</p></div>
@@ -535,6 +535,7 @@
 
     <script src="script.js?v=21"></script>
     <script src="expert-guide.js?v=3"></script>
+    <script src="course-plaza-controls.js?v=1"></script>
     <script src="expert-journey.js?v=3"></script>
     <script src="parent-expert.js?v=1"></script>
   </body>
