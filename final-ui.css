@@ -682,7 +682,9 @@
 .study-tab-bar { position:absolute; left:50%; bottom:0; z-index:12; display:flex; width:29%; min-width:350px; height:13%; min-height:68px; padding:0; overflow:hidden; border-radius:32px 32px 0 0; background:transparent; box-shadow:none; transform:translateX(-50%); }
 
 /* Course selection continues the adventure-map visual language with five live cards. */
-#courseSelectPage { display:flex; flex-direction:column; padding:clamp(12px,2.2vh,22px) 8% clamp(16px,3vh,26px); overflow:hidden; color:#fff; background:radial-gradient(circle at 54% 12%,#9f91ff 0,rgba(159,145,255,.1) 29%),linear-gradient(135deg,#2546b8,#5c75e9 52%,#4e62d7); }
+#courseSelectPage { display:flex; flex-direction:column; isolation:isolate; padding:clamp(12px,2.2vh,22px) 8% clamp(16px,3vh,26px); overflow:hidden; color:#fff; background:#4bb8cd; }
+#courseSelectPage::before { content:""; position:absolute; inset:-18px; z-index:-2; background:url("assets/youxue-course-bg.png") center/cover no-repeat; filter:blur(12px) saturate(.88) brightness(.94); transform:scale(1.04); }
+#courseSelectPage::after { content:""; position:absolute; inset:0; z-index:-1; background:linear-gradient(135deg,rgba(24,123,157,.22),rgba(83,101,192,.18)); pointer-events:none; }
 #courseSelectPage[hidden] { display:none; }
 .course-select-header { position:relative; display:flex; flex:none; align-items:center; justify-content:center; height:clamp(56px,13vh,88px); }
 .course-select-header h1 { margin:0; font-size:clamp(26px,3.2vw,44px); letter-spacing:.04em; }
@@ -867,28 +869,24 @@
 #smartPage {
   padding:0;
   overflow:hidden;
-  background-image:url("优学首页&智学/智学.png");
+  background-image:url("优学首页&智学/智学-学习报告高亮.png");
   background-size:100% 100%;
   background-position:50% center;
   background-repeat:no-repeat;
-  transition:background-position .28s ease-out;
 }
-#smartPage.is-cards-shifted { background-image:url("优学首页&智学/智学课表-已完课.webp"); background-position:50% center; }
 .smart-zones {
   position:absolute;
   inset:0 0 16%; z-index:5; pointer-events:none;
 }
 .smart-hotspot--contact { left:24%; top:4%; width:52%; height:8%; border-radius:999px; }
 .smart-hotspot--contact { pointer-events:auto; }
-.smart-carousel { position:absolute; left:0; right:0; top:20%; z-index:4; height:58%; overflow:hidden; touch-action:pan-y; user-select:none; cursor:grab; }
-.smart-carousel.is-dragging { cursor:grabbing; }
+.smart-carousel { position:absolute; left:0; right:0; top:20%; z-index:4; height:58%; overflow:hidden; touch-action:manipulation; user-select:none; cursor:default; }
 .smart-carousel-track { display:flex; width:100%; height:100%; padding:0 2%; gap:2%; }
 .smart-course-hit { flex:0 0 31%; height:100%; padding:0; border:0; border-radius:28px; background:transparent; cursor:pointer; -webkit-tap-highlight-color:transparent; }
 .smart-course-hit:focus-visible { outline:4px solid rgba(83,123,255,.9); outline-offset:-6px; }
 .smart-course-hit--locked { cursor:default; }
 .smart-course-hit--done { position:relative; }
-.smart-report-hit { position:absolute; left:58%; top:61%; z-index:6; width:10%; height:27%; padding:0; border:0; border-radius:18px; background:transparent; opacity:0; pointer-events:none; cursor:pointer; -webkit-tap-highlight-color:transparent; }
-#smartPage.is-cards-shifted .smart-report-hit { opacity:1; pointer-events:auto; }
+.smart-report-hit { position:absolute; left:58%; top:61%; z-index:6; width:10%; height:27%; padding:0; border:0; border-radius:18px; background:transparent; cursor:pointer; -webkit-tap-highlight-color:transparent; }
 .smart-report-hit:focus-visible { outline:4px solid rgba(83,123,255,.9); outline-offset:-4px; }
 #smartPage .nav-hotspot[data-tab="study"] { left:34%; top:84%; width:12%; height:16%; z-index:5; border-radius:14px; }
 #smartPage .nav-hotspot[data-tab="smart"] { left:46%; top:84%; width:9%; height:16%; z-index:5; border-radius:14px; }
