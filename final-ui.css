@@ -734,6 +734,22 @@
   .expert-guide-card { top:22%; grid-template-columns:72px 1fr auto; min-width:570px; padding-block:14px; }
   .expert-guide-card > img { width:80px; height:92px; margin-top:-42px; }
 }
+@media (max-width:700px) {
+  .device-stage { min-height:100vh; min-height:100svh; padding:10px 8px 28px; overflow:hidden; }
+  .iphone { width:100%; width:min(100%,calc((100svh - 40px) * 2.164)); padding:6px; border-radius:34px; }
+  .iphone-screen { border-radius:27px; }
+  .dynamic-island { left:5px; width:17px; height:64px; }
+  .dynamic-island i { left:5px; top:9px; width:7px; height:7px; }
+  .home-indicator { right:4px; width:3px; height:72px; }
+  .device-caption { bottom:6px; font-size:9px; letter-spacing:1px; }
+  .expert-guide-card { left:23%; right:3%; top:12%; width:auto; min-width:0; grid-template-columns:48px minmax(0,1fr); gap:6px 9px; padding:10px 12px 10px 7px; border-radius:16px; }
+  .expert-guide-card > img { align-self:center; width:54px; height:62px; margin-top:-22px; }
+  .expert-guide-card h2 { margin-bottom:4px; font-size:14px; line-height:1.2; }
+  .expert-guide-card p { font-size:10px; line-height:1.38; }
+  .expert-guide-card button { grid-column:2; justify-self:start; min-width:72px; padding:5px 11px; font-size:10px; }
+  .expert-guide-pointer { left:17%; top:47%; width:58px; height:38px; border-width:0 0 2px 2px; }
+  .expert-guide-pointer::after { left:-6px; bottom:-4px; width:10px; height:10px; border-width:0 0 2px 2px; }
+}
 .course-tab-bar { position:absolute; left:50%; bottom:0; z-index:12; display:flex; width:29%; min-width:350px; height:13%; min-height:68px; padding:4px 16px 3px; overflow:hidden; border-radius:32px 32px 0 0; background:rgba(226,244,216,.94); box-shadow:0 -6px 24px rgba(27,77,67,.14); transform:translateX(-50%); backdrop-filter:blur(12px); }
 .course-tab-bar .nav-hotspot,
 #studyPage .study-tab-bar .nav-hotspot { position:relative; inset:auto; display:flex; flex:1; flex-direction:column; align-items:center; justify-content:center; gap:1px; width:auto; height:100%; border-radius:14px; color:#52655e; background:transparent; font-size:inherit; }
