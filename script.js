@@ -865,26 +865,48 @@ document.querySelector("#smartPage .smart-carousel").addEventListener("click", (
   if (event.clientY <= bounds.top + bounds.height * .56) openSurveyInvite();
 });
 let smartSwipeStartX = null;
+let smartSwipePointerId = null;
 let smartSwipeMoved = false;
-smartCarousel.addEventListener("touchstart", (event) => {
-  smartSwipeStartX = event.touches[0]?.clientX ?? null;
-  smartSwipeMoved = false;
-}, { passive: true });
-smartCarousel.addEventListener("touchmove", (event) => {
-  if (smartSwipeStartX === null) return;
-  const currentX = event.touches[0]?.clientX;
-  if (typeof currentX === "number" && Math.abs(currentX - smartSwipeStartX) > 12) smartSwipeMoved = true;
-}, { passive: true });
-smartCarousel.addEventListener("touchend", (event) => {
-  const endX = event.changedTouches[0]?.clientX;
+function finishSmartSwipe(endX) {
   if (smartSwipeStartX === null || typeof endX !== "number") return;
   const delta = endX - smartSwipeStartX;
   if (Math.abs(delta) >= 36) {
-    event.preventDefault();
+    smartSwipeMoved = true;
     smartPage.classList.toggle("is-cards-shifted", delta < 0);
   }
   smartSwipeStartX = null;
-}, { passive: false });
+  smartSwipePointerId = null;
+  smartCarousel.classList.remove("is-dragging");
+}
+
+if ("PointerEvent" in window) {
+  smartCarousel.addEventListener("pointerdown", (event) => {
+    if (!event.isPrimary) return;
+    smartSwipeStartX = event.clientX;
+    smartSwipePointerId = event.pointerId;
+    smartSwipeMoved = false;
+    smartCarousel.classList.add("is-dragging");
+    smartCarousel.setPointerCapture?.(event.pointerId);
+  });
+  smartCarousel.addEventListener("pointermove", (event) => {
+    if (event.pointerId !== smartSwipePointerId || smartSwipeStartX === null) return;
+    if (Math.abs(event.clientX - smartSwipeStartX) > 12) smartSwipeMoved = true;
+  });
+  smartCarousel.addEventListener("pointerup", (event) => {
+    if (event.pointerId === smartSwipePointerId) finishSmartSwipe(event.clientX);
+  });
+  smartCarousel.addEventListener("pointercancel", () => finishSmartSwipe(smartSwipeStartX));
+} else {
+  smartCarousel.addEventListener("touchstart", (event) => {
+    smartSwipeStartX = event.touches[0]?.clientX ?? null;
+    smartSwipeMoved = false;
+  }, { passive:true });
+  smartCarousel.addEventListener("touchmove", (event) => {
+    const currentX = event.touches[0]?.clientX;
+    if (smartSwipeStartX !== null && typeof currentX === "number" && Math.abs(currentX - smartSwipeStartX) > 12) smartSwipeMoved = true;
+  }, { passive:true });
+  smartCarousel.addEventListener("touchend", (event) => finishSmartSwipe(event.changedTouches[0]?.clientX), { passive:true });
+}
 
 let _touched = false;
 document.addEventListener("touchend", (event) => {
