@@ -716,7 +716,8 @@
 .expert-guide-card p { margin:0; font-size:clamp(15px,1.35vw,19px); line-height:1.55; }
 .expert-guide-card button { min-width:116px; padding:12px 20px; border:2px solid rgba(255,255,255,.65); border-radius:999px; color:#fff; background:#111; font-size:clamp(16px,1.5vw,21px); }
 .expert-guide-pointer { position:absolute; left:26%; top:24%; z-index:2; width:clamp(92px,9vw,150px); height:clamp(56px,13vh,104px); border-top:3px dashed #fff; border-left:3px dashed #fff; border-radius:72px 0 0 0; filter:drop-shadow(0 2px 3px rgba(7,29,57,.35)); }
-.expert-guide-pointer::after { content:""; position:absolute; left:-11px; top:-10px; width:clamp(14px,1.25vw,19px); height:clamp(14px,1.25vw,19px); background:#fff; clip-path:polygon(0 50%,100% 0,76% 50%,100% 100%); transform:rotate(225deg); }
+/* A border triangle is reliable in Safari/WebViews, unlike the previous clip-path arrow. */
+.expert-guide-pointer::after { content:""; position:absolute; left:-16px; top:-12px; z-index:3; width:0; height:0; border-top:10px solid transparent; border-right:18px solid #fff; border-bottom:10px solid transparent; transform:rotate(-38deg); filter:drop-shadow(0 2px 2px rgba(7,29,57,.35)); }
 #courseSelectPage.is-guide-active .course-choice-card--expert { z-index:42; outline:4px solid #ffd94e; box-shadow:0 0 0 8px rgba(255,217,78,.25),0 18px 34px rgba(20,38,122,.22); pointer-events:none; }
 
 /* Course plaza uses the supplied high-resolution composition. Functional controls are layered over the artwork. */
@@ -777,7 +778,7 @@
   .expert-guide-card p { font-size:10px; line-height:1.38; }
   .expert-guide-card button { grid-column:2; justify-self:start; min-width:72px; padding:5px 11px; font-size:10px; }
   .expert-guide-pointer { left:24%; top:22%; width:58px; height:42px; border-width:2px 0 0 2px; }
-  .expert-guide-pointer::after { left:-6px; top:-5px; width:10px; height:10px; border-width:0; transform:rotate(225deg); }
+  .expert-guide-pointer::after { left:-10px; top:-8px; width:0; height:0; border-top-width:7px; border-right-width:12px; border-bottom-width:7px; transform:rotate(-38deg); }
 }
 .course-tab-bar { position:absolute; left:50%; bottom:0; z-index:12; display:flex; width:29%; min-width:350px; height:13%; min-height:68px; padding:4px 16px 3px; overflow:hidden; border-radius:32px 32px 0 0; background:rgba(226,244,216,.94); box-shadow:0 -6px 24px rgba(27,77,67,.14); transform:translateX(-50%); backdrop-filter:blur(12px); }
 .course-tab-bar .nav-hotspot,
