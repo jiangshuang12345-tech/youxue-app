@@ -12,7 +12,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="final-ui.css?v=30" />
+    <link rel="stylesheet" href="final-ui.css?v=31" />
   </head>
   <body>
     <div class="device-stage">
@@ -45,7 +45,7 @@
       </main>
 
       <main class="page page--course-select" id="courseSelectPage" aria-labelledby="courseSelectTitle" hidden>
-        <header class="course-select-header"><button id="backToStudyFromCourses" type="button" aria-label="返回优学中心">‹</button><h1 id="courseSelectTitle">选择课程</h1></header>
+        <header class="course-select-header"><button id="backToStudyFromCourses" type="button" aria-label="返回优学中心"></button><h1 id="courseSelectTitle">选择课程</h1></header>
         <div class="course-select-list" aria-label="课程列表">
           <article class="course-choice-card course-choice-card--expert"><img src="assets/course-expert.png" alt="" /><h2>专家指导拔尖</h2><p>权威专家指导　助力学生能力提升</p><button type="button" data-open-expert-courses>开始学习</button></article>
           <article class="course-choice-card course-choice-card--sync"><img src="assets/course-sync.png" alt="" /><h2>校内学习同步</h2><p>紧跟校内进度　学习更有方向</p><button type="button">开始学习</button></article>
@@ -53,7 +53,7 @@
           <article class="course-choice-card course-choice-card--quality"><img src="assets/course-quality.png" alt="" /><h2>校外素质拓展</h2><p>拓展兴趣视野　点亮更多可能</p><button type="button">开始学习</button></article>
           <article class="course-choice-card course-choice-card--dino"><img src="assets/course-dino.png" alt="" /><h2>Dino绘本</h2><p>趣味绘本阅读　陪伴快乐成长</p><button type="button">开始学习</button></article>
         </div>
-        <div class="course-swipe-cue" aria-hidden="true"><span>滑动查看更多</span><b>›</b></div>
+        <div class="course-swipe-cue" aria-hidden="true"><span>滑动查看更多</span><b></b></div>
         <div class="expert-guide" id="expertGuide" hidden>
           <div class="expert-guide-card" role="dialog" aria-modal="true" aria-labelledby="expertGuideTitle">
             <img src="assets/course-expert.png" alt="" />
@@ -65,16 +65,11 @@
           </div>
           <span class="expert-guide-pointer" aria-hidden="true"></span>
         </div>
-        <nav class="course-tab-bar" aria-label="底部导航">
-          <button class="nav-hotspot is-active" data-tab="study" type="button"><span aria-hidden="true">AI</span><b>优学中心</b></button>
-          <button class="nav-hotspot" data-tab="smart" type="button"><span aria-hidden="true">✦</span><b>双师智学</b></button>
-          <button class="nav-hotspot" data-tab="vip" type="button"><span aria-hidden="true">V</span><b>会员订阅</b></button>
-        </nav>
       </main>
 
       <main class="page page--expert-courses" id="expertCoursesPage" aria-labelledby="expertCoursesTitle" hidden>
         <header class="expert-course-header">
-          <button id="backToCourseSelect" type="button" aria-label="返回选择课程">‹</button>
+          <button id="backToCourseSelect" type="button" aria-label="返回选择课程"></button>
           <div><h1 id="expertCoursesTitle" tabindex="-1">专家指导拔尖</h1><p>选择适合的年级与主题，开始专属课程</p></div>
         </header>
         <section class="expert-course-panel">
@@ -94,11 +89,6 @@
             <article data-status="限时体验"><div class="expert-course-cover"><img src="assets/course-quality.png" alt="" /><span>UNIT 3</span></div><h2>综合素养拓展</h2><p>打开视野，提升表达与创造力</p></article>
           </div>
         </section>
-        <nav class="course-tab-bar expert-course-tab-bar" aria-label="底部导航">
-          <button class="nav-hotspot is-active" data-tab="study" type="button"><span aria-hidden="true">AI</span><b>优学中心</b></button>
-          <button class="nav-hotspot" data-tab="smart" type="button"><span aria-hidden="true">✦</span><b>双师智学</b></button>
-          <button class="nav-hotspot" data-tab="vip" type="button"><span aria-hidden="true">V</span><b>会员订阅</b></button>
-        </nav>
       </main>
 
       <main class="page page--home" id="homePage" aria-labelledby="homeTitle" hidden>
@@ -369,7 +359,7 @@
       </div>
 
       <main class="survey-h5" id="surveyH5" hidden aria-labelledby="surveyH5Title">
-        <header class="survey-h5-hero"><button id="closeSurveyH5" type="button" aria-label="关闭调研">‹</button><span>VIPKID</span><h1 id="surveyH5Title">测试问卷</h1><img src="优学首页&智学/问卷卡通人物.png" alt="" aria-hidden="true" /></header>
+        <header class="survey-h5-hero"><button id="closeSurveyH5" type="button" aria-label="关闭调研"></button><span>VIPKID</span><h1 id="surveyH5Title">测试问卷</h1><img src="优学首页&智学/问卷卡通人物.png" alt="" aria-hidden="true" /></header>
         <section class="survey-intro">亲爱的家长您好：为持续优化双师智学课程体验，诚邀您花 2–3 分钟完成本次调研。提交成功后，我们将赠送您 <b>1个月优学App会员</b>。</section>
         <section class="survey-question"><small>单选</small><h2>1. 您对双师智学课程的整体满意度是？ <i>*</i></h2><div id="surveyChoices"><button type="button" data-survey-choice="非常不满意">非常不满意</button><button type="button" data-survey-choice="不太满意">不太满意</button><button type="button" data-survey-choice="一般">一般</button><button type="button" data-survey-choice="满意">满意</button></div></section>
         <button class="survey-submit" id="submitSurvey" type="button">提交问卷</button>
@@ -377,7 +367,7 @@
       </main>
 
       <main class="feedback-survey-h5" id="feedbackSurveyH5" hidden aria-labelledby="feedbackSurveyTitle">
-        <header><button id="closeFeedbackSurveyH5" type="button" aria-label="关闭吐槽问卷">‹</button><span>优学体验反馈</span><h1 id="feedbackSurveyTitle">告诉我们哪里不好用</h1><p>你的反馈将帮助我们持续优化优学 App。</p></header>
+        <header><button id="closeFeedbackSurveyH5" type="button" aria-label="关闭吐槽问卷"></button><span>优学体验反馈</span><h1 id="feedbackSurveyTitle">告诉我们哪里不好用</h1><p>你的反馈将帮助我们持续优化优学 App。</p></header>
         <section><h2>你遇到的问题是？</h2><div class="feedback-survey-options" id="feedbackSurveyOptions"><button type="button">双师智学课程</button><button type="button">AI 功能体验</button><button type="button">会员与课时</button><button type="button">个人中心/订单</button><button type="button">性能与稳定性</button><button type="button">其他建议</button></div></section>
         <section><label for="feedbackSurveyDesc">具体说说吧</label><textarea id="feedbackSurveyDesc" maxlength="300" placeholder="请描述问题或建议（选填）"></textarea></section>
         <button id="submitFeedbackSurveyH5" type="button">提交反馈</button>
