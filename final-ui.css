@@ -829,8 +829,8 @@
 .journey-finish > img { width:100%; height:100%; object-fit:contain; }
 .journey-finish > :not(img) { display:none; }
 
-/* Approved complete journey composition, with the marked seams blended into the backdrop. */
-#expertJourneyPage { background-image:url("assets/expert-journey-reference-v3.webp"); background-position:center; background-size:100% 100%; }
+/* Approved high-fidelity journey composition; interaction remains in invisible hit areas. */
+#expertJourneyPage { background-image:url("assets/expert-journey-figma.png"); background-position:center; background-size:100% 100%; image-rendering:auto; }
 .journey-track::before,.journey-track::after,
 .journey-track > .journey-step:nth-child(3),
 .journey-track > .journey-task-card,
