@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#93ddf3" />
+    <link rel="preload" as="image" href="assets/study-home-hd.webp" type="image/webp" fetchpriority="high" />
     <title>VIPKID 优学 - 我的课时</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -12,7 +13,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="final-ui.css?v=59" />
+    <link rel="stylesheet" href="final-ui.css?v=61" />
   </head>
   <body>
     <div class="device-stage">
@@ -59,6 +60,7 @@
       </main>
 
       <main class="page page--course-select" id="courseSelectPage" aria-labelledby="courseSelectTitle" hidden>
+        <img class="course-select-background" src="assets/youxue-course-bg.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
         <header class="course-select-header"><button id="backToStudyFromCourses" type="button" aria-label="返回优学中心"></button><h1 id="courseSelectTitle">选择课程</h1></header>
         <div class="course-select-list" aria-label="课程列表">
           <article class="course-choice-card course-choice-card--expert"><img src="assets/course-expert.png" alt="" /><h2>专家指导拔尖</h2><p>权威专家指导　助力学生能力提升</p><button type="button" data-open-expert-courses>开始学习</button></article>
@@ -107,6 +109,7 @@
       </main>
 
       <main class="page page--expert-journey" id="expertJourneyPage" aria-labelledby="expertJourneyTitle" hidden>
+        <img class="expert-journey-background" src="assets/expert-journey-figma.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
         <header class="expert-journey-header">
           <button id="backToExpertCourses" type="button" aria-label="返回专家指导课程"></button>
           <div><span>专家</span><h1 id="expertJourneyTitle">商场标识认知</h1><p>学龄前　UNIT 1</p></div>
