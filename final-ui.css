@@ -710,12 +710,12 @@
 .course-swipe-cue b::before { content:""; box-sizing:border-box; width:11px; height:11px; border-top:3px solid #5969db; border-right:3px solid #5969db; transform:translateX(-2px) rotate(45deg); }
 .expert-guide { position:absolute; inset:-2px; z-index:40; overflow:hidden; border-radius:inherit; background:rgba(8,15,46,.42); backdrop-filter:blur(2px); }
 .expert-guide[hidden] { display:none; }
-.expert-guide-card { position:absolute; left:31%; top:25%; display:grid; grid-template-columns:86px 1fr auto; align-items:center; gap:16px; width:55%; min-width:620px; padding:20px 24px 20px 12px; border-radius:24px; color:#fff; background:linear-gradient(135deg,#5b2ed9,#c140cd); box-shadow:0 18px 50px rgba(8,11,44,.4); }
+.expert-guide-card { position:absolute; left:31%; top:25%; z-index:1; display:grid; grid-template-columns:86px 1fr auto; align-items:center; gap:16px; width:55%; min-width:620px; padding:20px 24px 20px 12px; border-radius:24px; color:#fff; background:linear-gradient(135deg,#5b2ed9,#c140cd); box-shadow:0 18px 50px rgba(8,11,44,.4); }
 .expert-guide-card > img { align-self:end; width:96px; height:116px; margin-top:-58px; object-fit:contain; filter:drop-shadow(0 8px 10px rgba(24,19,70,.3)); }
 .expert-guide-card h2 { margin:0 0 7px; font-size:clamp(20px,2vw,29px); }
 .expert-guide-card p { margin:0; font-size:clamp(15px,1.35vw,19px); line-height:1.55; }
 .expert-guide-card button { min-width:116px; padding:12px 20px; border:2px solid rgba(255,255,255,.65); border-radius:999px; color:#fff; background:#111; font-size:clamp(16px,1.5vw,21px); }
-.expert-guide-pointer { position:absolute; left:26%; top:24%; width:clamp(92px,9vw,150px); height:clamp(56px,13vh,104px); border-top:3px dashed #fff; border-left:3px dashed #fff; border-radius:72px 0 0 0; }
+.expert-guide-pointer { position:absolute; left:26%; top:24%; z-index:2; width:clamp(92px,9vw,150px); height:clamp(56px,13vh,104px); border-top:3px dashed #fff; border-left:3px dashed #fff; border-radius:72px 0 0 0; filter:drop-shadow(0 2px 3px rgba(7,29,57,.35)); }
 .expert-guide-pointer::after { content:""; position:absolute; left:-11px; top:-10px; width:clamp(14px,1.25vw,19px); height:clamp(14px,1.25vw,19px); background:#fff; clip-path:polygon(0 50%,100% 0,76% 50%,100% 100%); transform:rotate(225deg); }
 #courseSelectPage.is-guide-active .course-choice-card--expert { z-index:42; outline:4px solid #ffd94e; box-shadow:0 0 0 8px rgba(255,217,78,.25),0 18px 34px rgba(20,38,122,.22); pointer-events:none; }
 
@@ -736,7 +736,7 @@
 .course-plaza-search i { position:absolute; right:7%; top:24%; width:25%; height:52%; border:4px solid transparent; border-radius:50%; pointer-events:none; }
 .course-plaza-tabs { left:14.7%; top:17%; display:flex; width:70.5%; height:8.5%; gap:1.6%; }
 .course-plaza-tabs button { flex:1 1 0; min-width:0; padding:0; border:0; border-radius:999px; color:transparent; background:transparent; transition:box-shadow .2s ease,background .2s ease; }
-.course-plaza-tabs button.is-active { color:#20abe8; background:#fff; box-shadow:none; font-size:clamp(14px,1.55vw,23px); font-weight:900; }
+.course-plaza-tabs button.is-active { color:#20abe8; background:#fff; box-shadow:0 0 0 5px #fff; font-size:clamp(14px,1.55vw,23px); font-weight:900; }
 .course-plaza-tabs button:focus-visible,.course-plaza-card:focus-visible,.course-plaza-header > button:focus-visible,.course-plaza-search input:focus-visible { outline:3px solid #ffe468; outline-offset:3px; }
 .course-plaza-cards { left:13.4%; top:30%; display:grid; width:80%; height:42%; grid-template-columns:repeat(4,1fr); gap:4.6%; }
 .course-plaza-card { min-width:0; padding:0; border:0; border-radius:28px; background:transparent; cursor:pointer; }
@@ -744,7 +744,7 @@
 #courseSelectPage.is-guide-active .course-plaza-cards { pointer-events:none; }
 #courseSelectPage.is-guide-active .course-plaza-tabs { z-index:41; pointer-events:none; }
 #courseSelectPage.is-guide-active .course-plaza-tabs button { visibility:hidden; }
-#courseSelectPage.is-guide-active .course-plaza-tabs button[data-course-tab="expert"] { visibility:visible; color:#20abe8; background:#fff; box-shadow:none; font-size:clamp(14px,1.55vw,23px); font-weight:900; }
+#courseSelectPage.is-guide-active .course-plaza-tabs button[data-course-tab="expert"] { visibility:visible; color:#20abe8; background:#fff; box-shadow:0 0 0 5px #fff; font-size:clamp(14px,1.55vw,23px); font-weight:900; }
 
 /* Parent-side expert guidance keeps the character central and removes the student avatar. */
 #parentExpertPage { display:block; overflow:hidden; color:#fff; background:url("assets/parent-expert-base.webp") center/100% 100% no-repeat; }
