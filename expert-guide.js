@@ -4,20 +4,17 @@
   const dismiss = document.querySelector("#dismissExpertGuide");
   if (!page || !guide || !dismiss) return;
 
-  const hasSeenGuide = () => {
-    try { return window.localStorage.getItem("yx_expert_course_guide_v1") === "true"; }
-    catch { return false; }
-  };
+  let hasShownThisLoad = false;
 
   const showGuide = () => {
-    if (page.hidden || hasSeenGuide()) return;
+    if (page.hidden || hasShownThisLoad) return;
+    hasShownThisLoad = true;
     page.classList.add("is-guide-active");
     guide.hidden = false;
     dismiss.focus({ preventScroll: true });
   };
 
   const closeGuide = () => {
-    try { window.localStorage.setItem("yx_expert_course_guide_v1", "true"); } catch {}
     page.classList.remove("is-guide-active");
     guide.hidden = true;
   };

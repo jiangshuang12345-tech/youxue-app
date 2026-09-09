@@ -12,7 +12,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="final-ui.css?v=31" />
+    <link rel="stylesheet" href="final-ui.css?v=33" />
   </head>
   <body>
     <div class="device-stage">
@@ -32,6 +32,7 @@
       <main class="page page--study is-active" id="studyPage" aria-labelledby="studyTitle">
         <h1 class="sr-only" id="studyTitle">优学中心</h1>
         <button class="study-avatar" id="profileEntry" type="button" aria-label="进入个人中心"></button>
+        <button class="study-expert-entry" id="openParentExpert" type="button" aria-label="进入专家指导"></button>
         <div class="study-zones">
           <button class="study-hotspot" id="openCourseMap" data-study-card="map" type="button" aria-label="探险课程地图"></button>
           <button class="study-hotspot" data-study-card="continue" type="button" aria-label="继续上次的探险"></button>
@@ -42,6 +43,21 @@
           <button class="nav-hotspot" data-tab="smart" type="button"><span aria-hidden="true">✦</span><b>双师智学</b></button>
           <button class="nav-hotspot" data-tab="vip" type="button"><span aria-hidden="true">V</span><b>会员订阅</b></button>
         </nav>
+      </main>
+
+      <main class="page page--parent-expert" id="parentExpertPage" aria-labelledby="parentExpertTitle" hidden>
+        <button class="parent-expert-back" id="backFromParentExpert" type="button" aria-label="返回优学中心"></button>
+        <section class="parent-expert-copy">
+          <h1 id="parentExpertTitle">家长你好，我是龚亚夫。引导孩子学习英语要讲究方法，你有什么问题都可以问我哦～</h1>
+          <div class="parent-expert-topics" aria-label="推荐问题">
+            <button type="button">孩子不专注学习怎么办</button>
+            <button type="button">孩子背单词总是记不住怎么办</button>
+            <button type="button">孩子不敢开口说英语怎么引导</button>
+          </div>
+        </section>
+        <img class="parent-expert-person" src="assets/course-expert.png" alt="英语教育专家龚亚夫" />
+        <button class="parent-expert-course" id="openExpertCoursesFromParent" type="button"><span>专家课程</span><small>跟着专家系统学方法</small></button>
+        <button class="parent-expert-mic" type="button" aria-label="按住说话"><span aria-hidden="true">🎙</span></button>
       </main>
 
       <main class="page page--course-select" id="courseSelectPage" aria-labelledby="courseSelectTitle" hidden>
@@ -84,10 +100,26 @@
             <label class="course-status-filter"><input type="checkbox" /> 仅看进行中</label>
           </div>
           <div class="expert-course-grid" aria-live="polite">
-            <article data-progress="active" data-status="进行中"><div class="expert-course-cover"><img src="assets/course-sync.png" alt="" /><span>UNIT 1</span></div><h2>学习方法启蒙</h2><p>建立高效学习习惯</p></article>
+            <article data-progress="active" data-status="进行中" data-open-expert-journey role="button" tabindex="0" aria-label="进入商场标识认知课程"><div class="expert-course-cover"><img src="assets/course-sync.png" alt="" /><span>UNIT 1</span></div><h2>学习方法启蒙</h2><p>建立高效学习习惯</p></article>
             <article data-status="限时体验"><div class="expert-course-cover"><img src="assets/course-exam.png" alt="" /><span>UNIT 2</span></div><h2>思维能力进阶</h2><p>专家带练，突破关键能力</p></article>
             <article data-status="限时体验"><div class="expert-course-cover"><img src="assets/course-quality.png" alt="" /><span>UNIT 3</span></div><h2>综合素养拓展</h2><p>打开视野，提升表达与创造力</p></article>
           </div>
+        </section>
+        <img class="expert-course-dino" src="assets/expert-dino-guide.png" alt="小恐龙探险家" />
+      </main>
+
+      <main class="page page--expert-journey" id="expertJourneyPage" aria-labelledby="expertJourneyTitle" hidden>
+        <header class="expert-journey-header">
+          <button id="backToExpertCourses" type="button" aria-label="返回专家指导课程"></button>
+          <div><span>专家</span><h1 id="expertJourneyTitle">商场标识认知</h1><p>学龄前　UNIT 1</p></div>
+          <strong>专家指导</strong>
+        </header>
+        <section class="journey-track" aria-label="课程任务进度">
+          <article class="journey-step is-active"><img src="assets/course-quality.png" alt="商场场景" /><span>进行中</span><h2>探索商场的秘密标识</h2></article>
+          <article class="journey-step is-locked"><img src="assets/course-exam.png" alt="停车场场景" /><i aria-hidden="true">🔒</i><h2>寻找停车区的最佳位置</h2></article>
+          <article class="journey-step is-locked"><img src="assets/course-dino.png" alt="商场电梯场景" /><i aria-hidden="true">🔒</i><h2>乘电梯到目标楼层</h2></article>
+          <article class="journey-task-card"><h2>本次探险旅程任务卡</h2><img src="assets/expert-task-card.png" alt="和爸爸妈妈一起探索商场标识" /><p>快去和爸爸妈妈一起去商场里探索一下商场标识吧</p></article>
+          <article class="journey-finish"><img src="assets/expert-dino-guide.png" alt="小恐龙为你加油" /><h2>终点就在前面</h2><p>继续加油！</p></article>
         </section>
       </main>
 
@@ -476,6 +508,8 @@
     </div>
 
     <script src="script.js?v=17"></script>
-    <script src="expert-guide.js?v=1"></script>
+    <script src="expert-guide.js?v=2"></script>
+    <script src="expert-journey.js?v=1"></script>
+    <script src="parent-expert.js?v=1"></script>
   </body>
 </html>
