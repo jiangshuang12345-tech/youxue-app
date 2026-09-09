@@ -789,15 +789,15 @@
 }
 
 /* Expert journey uses the approved reference artwork verbatim; only invisible hit areas sit above it. */
-#expertJourneyPage { display:block; padding:0; overflow:hidden; background:url("assets/expert-journey-reference.webp") center 49%/107% 117% no-repeat; }
+#expertJourneyPage { display:block; padding:0; overflow:hidden; background:url("assets/expert-journey-reference.webp") center 41%/107% 117% no-repeat; }
 #expertJourneyPage[hidden] { display:none; }
 .expert-journey-header { position:absolute; inset:0; z-index:3; pointer-events:none; }
 .expert-journey-header > div { display:none; }
-.expert-journey-header > #backToExpertCourses { position:absolute; left:5%; top:5%; width:7%; height:13%; padding:0; opacity:0; pointer-events:auto; }
-.journey-expert-entry { position:absolute; right:4%; top:4%; width:15%; height:13%; padding:0; opacity:0; pointer-events:auto; }
+.expert-journey-header > #backToExpertCourses { position:absolute; left:5%; top:9%; width:7%; height:13%; padding:0; opacity:0; pointer-events:auto; }
+.journey-expert-entry { position:absolute; right:4%; top:8%; width:15%; height:13%; padding:0; opacity:0; pointer-events:auto; }
 .journey-track { position:absolute; inset:0; z-index:2; padding:0; overflow:hidden; pointer-events:none; }
 .journey-track::after,.journey-track > * { display:none; }
-.journey-track > .journey-step:first-child { position:absolute; left:13%; top:22%; display:block; width:21%; height:52%; opacity:0; cursor:pointer; pointer-events:auto; }
+.journey-track > .journey-step:first-child { position:absolute; left:13%; top:31%; display:block; width:21%; height:52%; opacity:0; cursor:pointer; pointer-events:auto; }
 .journey-track > .journey-step:first-child:focus-visible { opacity:.12; outline:4px solid #ffd94e; }
 
 /* Pre-class guide introduces all five stages before the original word-learning screen. */
@@ -810,9 +810,11 @@
 .preclass-intro h1 { margin:7px 0 5px; font-size:clamp(27px,3vw,44px); line-height:1.15; }
 .preclass-intro p { margin:0; max-width:790px; font-size:clamp(15px,1.35vw,20px); line-height:1.55; }
 .preclass-dino { position:absolute; left:5%; bottom:3%; z-index:3; width:clamp(150px,19vw,285px); height:64%; object-fit:contain; object-position:left bottom; filter:drop-shadow(0 14px 20px rgba(19,37,62,.3)); }
-.preclass-steps { position:absolute; left:30.5%; right:5.5%; top:39%; z-index:4; display:grid; grid-template-columns:repeat(5,minmax(108px,138px)); justify-content:space-between; gap:12px; margin:0; padding:0; list-style:none; }
-.preclass-steps::before { display:none; }
+.preclass-steps { position:absolute; left:30.5%; right:5.5%; top:43%; z-index:4; display:grid; grid-template-columns:repeat(5,minmax(108px,138px)); justify-content:space-between; gap:12px; margin:0; padding:0; list-style:none; }
+.preclass-steps::before { content:""; position:absolute; left:4%; right:4%; top:calc(100% + 7px); height:48px; background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 48' preserveAspectRatio='none'%3E%3Cpath d='M0 31 C100 31 126 7 250 8 S390 40 510 32 S690 7 790 10 S910 39 1000 27' fill='none' stroke='%23fff' stroke-opacity='.86' stroke-width='4' stroke-linecap='round' stroke-dasharray='3 13'/%3E%3C/svg%3E") center/100% 100% no-repeat; filter:drop-shadow(0 2px 3px rgba(40,54,66,.28)); }
 .preclass-steps li { position:relative; display:flex; height:clamp(128px,20vh,158px); min-width:0; flex-direction:column; align-items:center; gap:9px; padding:8px 8px 12px; border:2px solid rgba(255,222,107,.92); border-radius:22px; color:#283b50; background:rgba(255,255,255,.94); font-size:clamp(13px,1.08vw,16px); font-weight:900; text-align:center; box-shadow:0 0 0 5px rgba(255,226,105,.12),0 12px 25px rgba(58,44,27,.18); }
+.preclass-steps li::after { content:""; position:absolute; left:50%; top:calc(100% + 23px); z-index:2; width:15px; height:15px; border:5px solid rgba(255,255,255,.94); border-radius:50%; background:#aeb5bb; transform:translate(-50%,-50%); box-shadow:0 3px 8px rgba(39,54,67,.25); }
+.preclass-steps li:first-child::after { background:#20bcec; }
 .preclass-steps i { display:grid; place-items:center; width:100%; flex:1; min-height:72px; border-radius:16px; color:#fff; background:linear-gradient(135deg,#ff9a7e,#f66f78); font-size:clamp(28px,3vw,42px); font-style:normal; box-shadow:inset 0 0 24px rgba(255,255,255,.24); }
 .preclass-steps li:nth-child(2) i { background:linear-gradient(135deg,#46c4e9,#527fee); }
 .preclass-steps li:nth-child(3) i { background:linear-gradient(135deg,#ffbd42,#ff803d); }
