@@ -13,6 +13,10 @@ document.querySelector("#backToExpertCourses").addEventListener("click", () => {
   showPage(expertCoursesPage, "#expert-courses");
 });
 
+document.querySelector("#openParentExpertFromJourney").addEventListener("click", () => {
+  showPage(parentExpertPage, "#parent-expert");
+});
+
 expertJourneyEntry.addEventListener("click", openExpertJourney);
 expertJourneyEntry.addEventListener("keydown", (event) => {
   if (event.key === "Enter" || event.key === " ") {
