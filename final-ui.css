@@ -741,23 +741,24 @@
 .course-plaza-search-field input { box-sizing:border-box; width:100%; height:100%; padding:0 13% 0 10%; border:0; border-radius:999px; outline:0; color:#313c4a; background:transparent; font-size:clamp(12px,1.3vw,17px); }
 .course-plaza-search-field input::placeholder { color:transparent; }
 .course-plaza-search-field i { position:absolute; right:7%; top:24%; width:25%; height:52%; border:4px solid transparent; border-radius:50%; pointer-events:none; }
-.course-plaza-tabs { left:14.7%; top:17%; display:flex; width:70.5%; height:8.5%; gap:1.6%; }
-.course-plaza-tabs button { position:relative; flex:1 1 0; min-width:0; padding:0; border:0; border-radius:999px; color:transparent; background:transparent; transition:box-shadow .2s ease,background .2s ease; }
-.course-plaza-tabs button.is-active { color:#20abe8; background:#fff; box-shadow:0 0 0 5px #fff; font-size:clamp(14px,1.55vw,23px); font-weight:900; }
-.course-plaza-tabs button[data-course-tab="expert"] { flex:1.65 1 0; }
-.course-plaza-tabs button[data-course-tab="expert"].is-active { display:flex; align-items:center; justify-content:center; gap:clamp(8px,1.1vw,16px); padding-inline:clamp(14px,1.5vw,24px); }
+.course-plaza-tabs { position:absolute; left:14.2%; top:17%; z-index:3; display:flex; align-items:center; width:70.8%; height:8.5%; gap:1%; isolation:isolate; }
+.course-plaza-tabs::before { content:""; position:absolute; inset:-5px -10px; z-index:0; border-radius:999px; background:linear-gradient(90deg,#39aab9 0%,#56c0d6 44%,#42a88c 100%); box-shadow:0 8px 18px rgba(18,85,102,.15); }
+.course-plaza-tabs button { position:relative; z-index:1; flex:1 1 0; min-width:0; height:100%; padding:0 clamp(6px,.7vw,11px); border:0; border-radius:999px; color:#fff; background:rgba(255,255,255,.2); font-size:clamp(13px,1.3vw,19px); font-weight:800; line-height:1; white-space:nowrap; transition:box-shadow .2s ease,background .2s ease; }
+.course-plaza-tabs button.is-active { color:#25282e; background:#fff; box-shadow:0 4px 11px rgba(22,91,113,.25); font-size:clamp(14px,1.45vw,22px); font-weight:900; }
+.course-plaza-tabs button[data-course-tab="expert"] { flex:1.8 1 0; }
+.course-plaza-tabs button[data-course-tab="expert"].is-active { display:flex; align-items:center; justify-content:center; gap:clamp(8px,1vw,15px); padding-inline:clamp(14px,1.3vw,22px); }
 .course-plaza-tabs button[data-course-tab="expert"] span { min-width:0; white-space:nowrap; }
 .course-tab-teacher { flex:none; width:clamp(38px,3.5vw,56px); height:clamp(38px,3.5vw,56px); border:2px solid #fff; border-radius:50%; object-fit:cover; box-shadow:0 3px 8px rgba(27,86,138,.2); }
 .course-plaza-tabs button:focus-visible,.course-plaza-card:focus-visible,.course-plaza-header > button:focus-visible,.course-plaza-search-field input:focus-visible { outline:3px solid #ffe468; outline-offset:3px; }
 .course-plaza-cards { left:13.4%; top:30%; display:grid; width:80%; height:42%; grid-template-columns:repeat(4,1fr); gap:4.6%; }
 .course-plaza-card { min-width:0; padding:0; border:0; border-radius:28px; background:transparent; cursor:pointer; }
-.course-plaza-card:hover { box-shadow:0 0 0 4px rgba(255,255,255,.8),0 14px 25px rgba(11,63,87,.2); }
+.course-plaza-card:hover { box-shadow:none; }
 .course-plaza-card.is-search-match { box-shadow:0 0 0 5px #ffd963,0 12px 26px rgba(11,63,87,.3); }
 .course-plaza-card.is-search-muted { pointer-events:none; opacity:.28; }
 #courseSelectPage.is-guide-active .course-plaza-cards { pointer-events:none; }
 #courseSelectPage.is-guide-active .course-plaza-tabs { z-index:41; pointer-events:none; }
 #courseSelectPage.is-guide-active .course-plaza-tabs button { visibility:hidden; }
-#courseSelectPage.is-guide-active .course-plaza-tabs button[data-course-tab="expert"] { visibility:visible; color:#20abe8; background:#fff; box-shadow:0 0 0 5px #fff; font-size:clamp(14px,1.55vw,23px); font-weight:900; }
+#courseSelectPage.is-guide-active .course-plaza-tabs button[data-course-tab="expert"] { visibility:visible; color:#25282e; background:#fff; box-shadow:0 4px 11px rgba(22,91,113,.25); font-size:clamp(14px,1.45vw,22px); font-weight:900; }
 
 /* Parent-side expert guidance keeps the character central and removes the student avatar. */
 #parentExpertPage { display:block; overflow:hidden; color:#fff; background:url("assets/parent-expert-base.webp") center/100% 100% no-repeat; }
