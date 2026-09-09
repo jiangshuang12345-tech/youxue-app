@@ -12,7 +12,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="final-ui.css?v=52" />
+    <link rel="stylesheet" href="final-ui.css?v=53" />
   </head>
   <body>
     <div class="device-stage">
@@ -328,9 +328,10 @@
         <div class="smart-carousel" aria-label="双师智学课程，支持左右滑动">
           <div class="smart-carousel-track">
             <button class="smart-course-hit smart-course-hit--locked" type="button" aria-label="未解锁课程"></button>
-            <button class="smart-course-hit smart-course-hit--done" data-course-report type="button" aria-label="查看已完课课程报告"></button>
-            <button class="smart-course-hit" type="button" aria-label="查看课程"></button>
+            <button class="smart-course-hit smart-course-hit--done" data-course-survey type="button" aria-label="查看课程并填写问卷"></button>
+            <button class="smart-course-hit" data-course-survey type="button" aria-label="查看课程并填写问卷"></button>
           </div>
+          <button class="smart-report-hit" data-course-report type="button" aria-label="查看已完课课程报告"></button>
         </div>
         <div class="smart-zones">
           <button class="smart-hotspot smart-hotspot--contact" type="button" aria-label="联系班主任"></button>
@@ -527,7 +528,7 @@
       <p class="device-caption"><span></span> iPhone · 横屏交互原型</p>
     </div>
 
-    <script src="script.js?v=17"></script>
+    <script src="script.js?v=18"></script>
     <script src="expert-guide.js?v=2"></script>
     <script src="expert-journey.js?v=2"></script>
     <script src="parent-expert.js?v=1"></script>

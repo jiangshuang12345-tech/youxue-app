@@ -474,7 +474,8 @@ function openCourseSelection() {
 
 function returnToSmartFromReport() {
   showPage(smartPage, "#smart");
-  window.setTimeout(() => maybePromptRating(true), 360);
+  smartPage.classList.add("is-cards-shifted");
+  window.setTimeout(() => openRatingPrompt("ask"), 260);
 }
 
 function navTo(tabId) {
@@ -853,7 +854,15 @@ document.querySelector("#smartPage .smart-carousel").addEventListener("click", (
     smartSwipeMoved = false;
     return;
   }
-  if (event.target.closest("[data-course-report]")) openCourseReport();
+  const reportButton = event.target.closest("[data-course-report]");
+  if (reportButton) {
+    if (smartPage.classList.contains("is-cards-shifted")) openCourseReport();
+    return;
+  }
+  const courseCard = event.target.closest("[data-course-survey]");
+  if (!courseCard) return;
+  const bounds = courseCard.getBoundingClientRect();
+  if (event.clientY <= bounds.top + bounds.height * .56) openSurveyInvite();
 });
 let smartSwipeStartX = null;
 let smartSwipeMoved = false;
