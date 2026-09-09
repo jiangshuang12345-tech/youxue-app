@@ -726,7 +726,7 @@
 .course-plaza-header { inset:0; z-index:20; }
 .course-plaza-header > button { position:absolute; padding:0; border:0; background:transparent; }
 .course-plaza-header > #backToStudyFromCourses { left:2.1%; top:5.1%; width:5.1%; height:10.5%; border-radius:50%; }
-.course-grade-select { left:10.6%; top:5.7%; display:flex; align-items:center; justify-content:center; gap:10%; width:10.5%; height:9.2%; overflow:hidden; isolation:isolate; border-radius:999px; color:#36b8ed; background:#f6fcff !important; font-size:clamp(16px,1.7vw,25px); font-weight:800; }
+.course-grade-select { left:10.6%; top:5.7%; display:flex; align-items:center; justify-content:center; gap:10%; width:12.7%; height:9.2%; overflow:hidden; isolation:isolate; border-radius:999px; color:#36b8ed; background:#f6fcff !important; font-size:clamp(16px,1.7vw,25px); font-weight:800; }
 .course-grade-select::before { content:""; position:absolute; inset:0; z-index:0; border-radius:inherit; background:#f6fcff; }
 .course-grade-select span,.course-grade-select i { position:relative; z-index:1; }
 .course-grade-select i { display:block; width:10px; height:10px; border-right:3px solid #9aa7ad; border-bottom:3px solid #9aa7ad; transform:translateY(-3px) rotate(45deg); }
