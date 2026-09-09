@@ -810,6 +810,16 @@
 .journey-finish > img { width:100%; height:100%; object-fit:contain; }
 .journey-finish > :not(img) { display:none; }
 
+/* Approved complete journey composition, with the marked seams blended into the backdrop. */
+#expertJourneyPage { background-image:url("assets/expert-journey-reference-v2.webp"); background-position:center; background-size:100% 100%; }
+.journey-track::before,.journey-track::after,
+.journey-track > .journey-step:nth-child(3),
+.journey-track > .journey-task-card,
+.journey-track > .journey-finish { display:none; }
+.journey-track > .journey-step:first-child { left:11%; top:25%; width:24%; height:57%; }
+.expert-journey-header > #backToExpertCourses { left:4%; top:4%; width:8%; height:14%; }
+.journey-expert-entry { right:3%; top:4%; width:16%; height:14%; }
+
 /* Pre-class guide introduces all five stages before the original word-learning screen. */
 #expertPreclassPage { display:block; overflow:hidden; color:#fff; background:linear-gradient(rgba(15,40,72,.22),rgba(15,40,72,.34)),url("assets/mall-preclass-bg.webp") center/cover no-repeat; }
 #expertPreclassPage[hidden],#mallLearningPage[hidden] { display:none; }
