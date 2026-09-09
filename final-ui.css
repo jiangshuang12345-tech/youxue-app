@@ -770,13 +770,14 @@
 #studyPage .study-tab-bar .nav-hotspot b { visibility:hidden; }
 
 /* Expert course catalog: grades lead the page, while search and status stay secondary. */
-#expertCoursesPage { display:flex; flex-direction:column; padding:clamp(14px,2.4vh,24px) 7% clamp(16px,3vh,26px); overflow:hidden; color:#17305b; background:linear-gradient(135deg,#c9f5ef 0,#e8f8ff 48%,#e6e8ff 100%); }
+#expertCoursesPage { display:flex; flex-direction:column; isolation:isolate; padding:clamp(14px,2.4vh,24px) 7% clamp(16px,3vh,26px); overflow:hidden; color:#17305b; background:#c9f5ef; }
 #expertCoursesPage[hidden] { display:none; }
-.expert-course-header { position:relative; display:flex; flex:none; align-items:center; justify-content:center; height:clamp(58px,12vh,86px); text-align:center; }
+.expert-courses-background { position:absolute; inset:-14px; z-index:0; width:calc(100% + 28px); height:calc(100% + 28px); max-width:none; object-fit:fill; filter:blur(10px) saturate(.88) brightness(.96); pointer-events:none; }
+.expert-course-header { position:relative; z-index:1; display:flex; flex:none; align-items:center; justify-content:center; height:clamp(58px,12vh,86px); text-align:center; }
 .expert-course-header > button { position:absolute; left:clamp(0px,.8vw,12px); top:50%; display:grid; place-items:center; width:clamp(44px,4vw,54px); height:clamp(44px,4vw,54px); padding:0; border-radius:50%; color:transparent; background:#fff; font-size:0; line-height:1; transform:translateY(-50%); box-shadow:0 8px 18px rgba(42,68,135,.15); }
 .expert-course-header h1 { margin:0; font-size:clamp(25px,2.8vw,40px); line-height:1.1; }
 .expert-course-header p { margin:5px 0 0; color:#657895; font-size:clamp(13px,1.2vw,16px); }
-.expert-course-panel { display:flex; flex:1; min-height:0; flex-direction:column; padding:16px 20px 18px; border:1px solid rgba(255,255,255,.9); border-radius:30px; background:rgba(255,255,255,.9); box-shadow:0 18px 42px rgba(40,75,132,.16); }
+.expert-course-panel { position:relative; z-index:1; display:flex; flex:1; min-height:0; flex-direction:column; padding:16px 20px 18px; border:1px solid rgba(255,255,255,.9); border-radius:30px; background:rgba(255,255,255,.9); box-shadow:0 18px 42px rgba(40,75,132,.16); }
 .expert-course-filters { display:grid; flex:none; grid-template-columns:minmax(0,1fr) minmax(180px,22%) auto; align-items:center; gap:16px; padding-bottom:14px; border-bottom:1px solid #e7edf5; }
 .grade-filter { display:flex; gap:8px; min-width:0; overflow-x:auto; scrollbar-width:none; }
 .grade-filter::-webkit-scrollbar { display:none; }
