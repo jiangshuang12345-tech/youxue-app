@@ -8,9 +8,10 @@ pages.push(expertJourneyPage, expertPreclassPage, mallLearningPage);
 function openExpertJourney() {
   showPage(expertJourneyPage, "#expert-journey");
 }
+window.openExpertJourney = openExpertJourney;
 
 document.querySelector("#backToExpertCourses").addEventListener("click", () => {
-  showPage(expertCoursesPage, "#expert-courses");
+  showPage(courseSelectPage, "#courses");
 });
 
 document.querySelector("#openParentExpertFromJourney").addEventListener("click", () => {

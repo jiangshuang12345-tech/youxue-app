@@ -818,14 +818,42 @@ openCourseMap.addEventListener("click", (event) => {
   if (courseMapTouched) return;
   openCourseSelection();
 });
-document.querySelectorAll(".course-choice-card button").forEach((button) => button.addEventListener("click", () => {
-  const title = button.closest(".course-choice-card")?.querySelector("h2")?.textContent || "课程";
-  if (button.matches("[data-open-expert-courses]")) {
-    showPage(expertCoursesPage, "#expert-courses");
+let activeCoursePlazaTab = "expert";
+const coursePlazaLabels = {
+  expert: "专家指导拔尖",
+  sync: "校内学习同步",
+  exam: "考试能力提升",
+  quality: "校外素质拓展",
+  reading: "绘本阅读",
+};
+document.querySelectorAll("[data-course-tab]").forEach((button) => button.addEventListener("click", () => {
+  activeCoursePlazaTab = button.dataset.courseTab;
+  document.querySelectorAll("[data-course-tab]").forEach((item) => item.classList.toggle("is-active", item === button));
+  document.querySelectorAll("[data-course-card]").forEach((card) => {
+    card.setAttribute("aria-label", activeCoursePlazaTab === "expert" ? "进入专家指导课程" : `查看${coursePlazaLabels[activeCoursePlazaTab]}课程`);
+  });
+  if (activeCoursePlazaTab !== "expert") showToast(`已切换至「${coursePlazaLabels[activeCoursePlazaTab]}」`);
+}));
+document.querySelectorAll("[data-course-card]").forEach((card) => card.addEventListener("click", () => {
+  if (activeCoursePlazaTab === "expert") {
+    window.openExpertJourney?.();
     return;
   }
-  showToast(`已选择「${title}」，即将开始学习`);
+  showToast(`「${coursePlazaLabels[activeCoursePlazaTab]}」课程即将开放`);
 }));
+const courseGradeSelect = document.querySelector("#courseGradeSelect");
+const courseGradeLabel = courseGradeSelect?.querySelector("span");
+const courseGrades = ["学龄前", "一年级", "二年级", "三年级", "四年级", "五年级", "六年级"];
+courseGradeSelect?.addEventListener("click", () => {
+  const currentIndex = courseGrades.indexOf(courseGradeLabel?.textContent || "二年级");
+  const nextGrade = courseGrades[(currentIndex + 1) % courseGrades.length];
+  if (courseGradeLabel) courseGradeLabel.textContent = nextGrade;
+  showToast(`已切换至${nextGrade}`);
+});
+document.querySelector(".course-plaza-search input")?.addEventListener("input", (event) => {
+  const hasKeyword = Boolean(event.target.value.trim());
+  document.querySelectorAll("[data-course-card]").forEach((card, index) => { card.hidden = hasKeyword && index > 0; });
+});
 document.querySelectorAll(".grade-filter button").forEach((button) => button.addEventListener("click", () => {
   document.querySelectorAll(".grade-filter button").forEach((item) => item.classList.toggle("is-active", item === button));
 }));
