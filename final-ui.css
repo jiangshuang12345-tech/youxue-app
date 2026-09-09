@@ -759,7 +759,8 @@
 #courseSelectPage.is-guide-active .course-plaza-tabs { left:16%; z-index:41; width:20.3%; pointer-events:none; }
 #courseSelectPage.is-guide-active .course-plaza-tabs::before { content:none; display:none !important; }
 #courseSelectPage.is-guide-active .course-plaza-tabs button { visibility:hidden; }
-#courseSelectPage.is-guide-active .course-plaza-tabs button[data-course-tab="expert"] { visibility:visible; color:#25282e; background:#fff; box-shadow:0 4px 11px rgba(22,91,113,.25); font-size:clamp(14px,1.45vw,22px); font-weight:900; }
+#courseSelectPage.is-guide-active .course-plaza-tabs button:not([data-course-tab="expert"]) { display:none; }
+#courseSelectPage.is-guide-active .course-plaza-tabs button[data-course-tab="expert"] { display:flex; flex:1 1 100%; width:100%; visibility:visible; color:#25282e; background:#fff; box-shadow:0 4px 11px rgba(22,91,113,.25); font-size:clamp(14px,1.45vw,22px); font-weight:900; }
 
 /* Parent-side expert guidance keeps the character central and removes the student avatar. */
 #parentExpertPage { display:block; overflow:hidden; color:#fff; background:url("assets/parent-expert-base.webp") center/100% 100% no-repeat; }
