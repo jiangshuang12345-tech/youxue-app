@@ -11,7 +11,8 @@ document.querySelector("#backFromParentExpert").addEventListener("click", () => 
 });
 
 document.querySelector("#openExpertCoursesFromParent").addEventListener("click", () => {
-  showPage(expertCoursesPage, "#expert-courses");
+  // 专家课程入口进入课程广场；具体课程卡片再进入专家课程页。
+  showPage(courseSelectPage, "#courses");
 });
 
 if (window.location.hash === "#parent-expert") showPage(parentExpertPage, "#parent-expert");
