@@ -911,21 +911,20 @@
 /* Smart page: 1:1 match using the approved 智学 artwork as background. */
 #smartPage {
   padding:0;
+  isolation:isolate;
   overflow:hidden;
-  background-image:url("优学首页&智学/智学-学习报告高亮.png");
-  background-size:100% 100%;
-  background-position:50% center;
-  background-repeat:no-repeat;
+  background:#3fb6cc;
 }
+.smart-page-artwork { position:absolute; inset:0; z-index:0; display:block; width:100%; height:100%; max-width:none; object-fit:fill; pointer-events:none; }
 .smart-zones {
   position:absolute;
   inset:0 0 16%; z-index:5; pointer-events:none;
 }
 .smart-hotspot--contact { left:24%; top:4%; width:52%; height:8%; border-radius:999px; }
 .smart-hotspot--contact { pointer-events:auto; }
-.smart-carousel { position:absolute; left:0; right:0; top:20%; z-index:4; height:58%; overflow:hidden; touch-action:manipulation; user-select:none; cursor:default; }
-.smart-carousel-track { display:flex; width:100%; height:100%; padding:0 2%; gap:2%; }
-.smart-course-hit { flex:0 0 31%; height:100%; padding:0; border:0; border-radius:28px; background:transparent; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+.smart-carousel { position:absolute; left:0; right:0; top:20%; z-index:4; height:58%; overflow:hidden; background:transparent !important; touch-action:manipulation; user-select:none; cursor:default; }
+.smart-carousel-track { display:flex; width:100%; height:100%; padding:0 2%; gap:2%; background:transparent !important; }
+.smart-course-hit { flex:0 0 31%; height:100%; padding:0; border:0; border-radius:28px; background:transparent !important; box-shadow:none !important; cursor:pointer; -webkit-tap-highlight-color:transparent; }
 .smart-course-hit:focus-visible { outline:4px solid rgba(83,123,255,.9); outline-offset:-6px; }
 .smart-course-hit--locked { cursor:default; }
 .smart-course-hit--done { position:relative; }
