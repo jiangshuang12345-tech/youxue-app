@@ -1155,3 +1155,21 @@
   .rating-dialog p { font-size: 12px; }
   .feedback-dialog { padding: 16px; border-radius: 20px; }
 }
+
+
+/* Course plaza v2: supplied artwork owns visual rendering; functional controls remain transparent. */
+#courseSelectPage .course-grade-select { color:transparent; background:transparent !important; box-shadow:none; }
+#courseSelectPage .course-grade-select::before { background:transparent; }
+#courseSelectPage .course-grade-select span { color:transparent; }
+#courseSelectPage .course-grade-select i { border-color:transparent; }
+#courseSelectPage .course-plaza-tabs { left:14.8%; top:17.8%; width:70.6%; height:8.5%; gap:1.4%; grid-template-columns:repeat(4,minmax(0,1fr)) minmax(0,.9fr); display:grid; }
+#courseSelectPage .course-plaza-tabs::before { content:none; display:none; }
+#courseSelectPage .course-plaza-tabs button,
+#courseSelectPage .course-plaza-tabs button.is-active { display:block; width:100%; height:100%; padding:0; color:transparent; background:transparent; box-shadow:none; font-size:0; }
+#courseSelectPage .course-plaza-tabs button[data-course-tab="expert"] { display:block; width:100%; }
+#courseSelectPage .course-tab-teacher { display:none; }
+#courseSelectPage .course-plaza-cards { left:14.9%; top:31.7%; width:79.7%; height:42.2%; gap:4.2%; }
+#courseSelectPage.is-guide-active .course-plaza-tabs { left:16%; display:flex; width:20.3%; }
+#courseSelectPage.is-guide-active .course-plaza-tabs button:not([data-course-tab="expert"]) { display:none; }
+#courseSelectPage.is-guide-active .course-plaza-tabs button[data-course-tab="expert"] { display:flex; flex:1 1 100%; align-items:center; justify-content:center; gap:clamp(8px,1vw,15px); width:100%; color:#25282e; background:#fff; box-shadow:0 4px 11px rgba(22,91,113,.25); font-size:clamp(14px,1.45vw,22px); }
+#courseSelectPage.is-guide-active .course-tab-teacher { display:block; }
