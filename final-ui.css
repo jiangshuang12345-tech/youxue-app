@@ -905,8 +905,6 @@
 .preclass-ready { position:absolute; left:62%; bottom:3.5%; z-index:5; display:flex; align-items:center; justify-content:center; gap:10px; min-width:clamp(170px,17vw,245px); padding:15px 25px; border:3px solid rgba(255,255,255,.8); border-radius:999px; color:#fff; background:linear-gradient(135deg,#ffbd28,#ff742f); font-size:clamp(20px,2vw,29px); font-weight:900; transform:translateX(-50%); box-shadow:0 13px 28px rgba(184,80,24,.35); }
 .preclass-ready b { display:grid; place-items:center; width:28px; height:28px; border-radius:50%; color:#ff7c32; background:#fff; font-size:24px; line-height:1; }
 #mallLearningPage { display:block; overflow:hidden; background:url("assets/mall-learning-screen.webp") center/cover no-repeat; }
-.mall-learning-back { background:rgba(255,255,255,.04); box-shadow:none; }
-.mall-learning-back::before { border-color:transparent; }
 
 /* Smart page: 1:1 match using the approved 智学 artwork as background. */
 #smartPage {
