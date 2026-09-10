@@ -997,33 +997,54 @@
 #vipPage .vip-tab-bar {
   position:absolute;
   left:50%;
-  bottom:12px;
-  z-index:10;
+  bottom:0;
+  z-index:12;
   display:flex;
-  gap:6px;
-  padding:6px;
-  border-radius:999px;
-  background:rgba(255,255,255,.9);
-  box-shadow:0 8px 28px rgba(39,88,108,.18);
-  backdrop-filter:blur(12px);
+  width:29%;
+  min-width:350px;
+  height:13%;
+  min-height:68px;
+  padding:4px 16px 3px;
+  overflow:hidden;
+  border-radius:32px 32px 0 0;
+  background:rgba(255,255,255,.85);
+  box-shadow:0 -6px 24px rgba(39,88,108,.14);
   transform:translateX(-50%);
+  backdrop-filter:blur(12px);
 }
 #vipPage .vip-tab-bar .nav-hotspot {
   position:relative;
   inset:auto;
   display:flex;
+  flex:1;
+  flex-direction:column;
   align-items:center;
-  gap:6px;
-  padding:8px 14px;
-  border-radius:999px;
-  color:#5d7d8a;
+  justify-content:center;
+  gap:1px;
+  width:auto;
+  height:100%;
+  border-radius:14px;
+  color:#52655e;
   background:transparent;
-  font-size:clamp(12px,1.1vw,15px);
-  font-weight:700;
-  transition:color .2s, background .2s;
+  font-size:inherit;
 }
-#vipPage .vip-tab-bar .nav-hotspot span { font-size:1.1em; }
-#vipPage .vip-tab-bar .nav-hotspot.is-active { color:#fff; background:linear-gradient(145deg,#ff9a31,#ee5d3e); }
+#vipPage .vip-tab-bar .nav-hotspot span {
+  display:grid;
+  place-items:center;
+  width:29px;
+  height:25px;
+  border-radius:8px;
+  color:#fff;
+  background:linear-gradient(135deg,#ffb522,#ff733c);
+  font-size:13px;
+  font-weight:900;
+  line-height:1;
+  box-shadow:0 3px 8px rgba(44,75,70,.18);
+}
+#vipPage .vip-tab-bar .nav-hotspot[data-tab="smart"] span { background:linear-gradient(135deg,#4a7cff,#674ee8); font-size:18px; }
+#vipPage .vip-tab-bar .nav-hotspot[data-tab="vip"] span { background:linear-gradient(135deg,#ff9a31,#ee5d3e); font-size:16px; }
+#vipPage .vip-tab-bar .nav-hotspot b { font-size:clamp(12px,1.15vw,15px); font-weight:600; }
+#vipPage .vip-tab-bar .nav-hotspot.is-active { color:#213e34; }
 
 /* Personal center visible feedback entry positioned between existing hotspots. */
 #homePage .topbar .feedback-entry {
