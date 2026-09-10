@@ -466,6 +466,7 @@ function showPage(targetPage, hash) {
 function openCourseReport() {
   showPage(courseReportPage, "#course-report");
 }
+window.openCourseReport = openCourseReport;
 
 function openCourseSelection() {
   showPage(courseSelectPage, "#courses");
@@ -475,6 +476,7 @@ function returnToSmartFromReport() {
   showPage(smartPage, "#smart");
   window.setTimeout(() => openRatingPrompt("ask"), 260);
 }
+window.returnToSmartFromReport = returnToSmartFromReport;
 
 function navTo(tabId) {
   if (tabId === "study" && !studyPage.hidden) return;
