@@ -449,9 +449,6 @@ function showLessonDetailTab(tabName) {
 }
 
 function showPage(targetPage, hash) {
-  // The course-guide overlay belongs only to the course plaza. Always clear it
-  // before switching pages so its state cannot leak into the destination.
-  if (targetPage !== courseSelectPage) window.closeCourseExpertGuide?.();
   pages.forEach((page) => { page.hidden = page !== targetPage; });
   targetPage.classList.remove("is-entering");
   void targetPage.offsetWidth;
@@ -469,19 +466,15 @@ function showPage(targetPage, hash) {
 function openCourseReport() {
   showPage(courseReportPage, "#course-report");
 }
-window.openCourseReport = openCourseReport;
 
 function openCourseSelection() {
   showPage(courseSelectPage, "#courses");
 }
-// Shared entry point for all course-plaza entrances.
-window.openCoursePlaza = openCourseSelection
 
 function returnToSmartFromReport() {
   showPage(smartPage, "#smart");
   window.setTimeout(() => openRatingPrompt("ask"), 260);
 }
-window.returnToSmartFromReport = returnToSmartFromReport;
 
 function navTo(tabId) {
   if (tabId === "study" && !studyPage.hidden) return;
@@ -811,15 +804,20 @@ document.querySelector("#studyPage .study-zones").addEventListener("click", (eve
   if (id === "map") openCourseSelection();
   else showToast("该功能正在开发中，敬请期待");
 });
-// Capture the map-card gesture before any generic navigation handler can run.
-const routeFromCourseMap = (event) => {
+let courseMapTouched = false;
+openCourseMap.addEventListener("touchend", (event) => {
   event.preventDefault();
-  event.stopImmediatePropagation();
+  event.stopPropagation();
+  courseMapTouched = true;
   openCourseSelection();
-};
-openCourseMap.addEventListener("pointerup", routeFromCourseMap, true);
-openCourseMap.addEventListener("touchend", routeFromCourseMap, { capture: true, passive: false });
-openCourseMap.addEventListener("click", routeFromCourseMap, true);
+  window.setTimeout(() => { courseMapTouched = false; }, 500);
+}, { passive: false });
+openCourseMap.addEventListener("click", (event) => {
+  event.preventDefault();
+  event.stopPropagation();
+  if (courseMapTouched) return;
+  openCourseSelection();
+});
 let activeCoursePlazaTab = "expert";
 const coursePlazaLabels = {
   expert: "专家指导拔尖",

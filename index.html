@@ -13,7 +13,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="final-ui.css?v=89" />
+    <link rel="stylesheet" href="final-ui.css?v=87" />
   </head>
   <body>
     <div class="device-stage">
@@ -56,11 +56,11 @@
             <button type="button">孩子不敢开口说英语怎么引导</button>
           </div>
         </section>
-        <button class="parent-expert-course" id="openExpertCoursesFromParent" type="button" onclick="openCoursePlaza()"><span>专家课程</span><small>跟着专家系统学方法</small><img src="assets/expert-course-icon.png" alt="" aria-hidden="true" /></button>
+        <button class="parent-expert-course" id="openExpertCoursesFromParent" type="button"><span>专家课程</span><small>跟着专家系统学方法</small><img src="assets/expert-course-icon.png" alt="" aria-hidden="true" /></button>
       </main>
 
       <main class="page page--course-select" id="courseSelectPage" aria-labelledby="courseSelectTitle" hidden>
-        <img class="course-plaza-artwork" src="assets/course-plaza-v4.webp" alt="" aria-hidden="true" fetchpriority="high" decoding="async" />
+        <img class="course-plaza-artwork" src="优学首页&智学/课程广场 (1).png" alt="" aria-hidden="true" fetchpriority="high" decoding="async" />
         <header class="course-plaza-header"><button id="backToStudyFromCourses" type="button" aria-label="返回优学中心"></button><button class="course-grade-select" id="courseGradeChooser" type="button" aria-label="选择年级" aria-expanded="false" aria-controls="courseGradeMenu"><span>二年级</span><i aria-hidden="true"></i></button><div class="course-grade-menu" id="courseGradeMenu" role="menu" hidden><button type="button" role="menuitem">学龄前</button><button type="button" role="menuitem">一年级</button><button type="button" role="menuitem">二年级</button><button type="button" role="menuitem">三年级</button><button type="button" role="menuitem">四年级</button><button type="button" role="menuitem">五年级</button><button type="button" role="menuitem">六年级</button></div><h1 id="courseSelectTitle">课程广场</h1><label class="course-plaza-search-field"><input type="search" placeholder="输入课程名称" aria-label="搜索课程名称" /><i aria-hidden="true"></i></label></header>
         <nav class="course-plaza-tabs" aria-label="课程分类">
           <button class="is-active" type="button" data-course-tab="expert"><span>专家指导拔尖</span><img class="course-tab-teacher" src="assets/gong-teacher-avatar.png" alt="龚老师" /></button><button type="button" data-course-tab="sync">校内学习同步</button><button type="button" data-course-tab="exam">考试能力提升</button><button type="button" data-course-tab="quality">校外素质拓展</button><button type="button" data-course-tab="reading">绘本阅读</button>
@@ -145,7 +145,7 @@
       </main>
 
       <main class="page page--mall-learning" id="mallLearningPage" aria-label="商场标识认知学习环节" hidden>
-        <button class="mall-learning-back" id="backToPreclass" type="button" aria-label="返回课前引导" onclick="openPreclass()"></button>
+        <button class="mall-learning-back" id="backToPreclass" type="button" aria-label="返回课前引导"></button>
       </main>
 
       <main class="page page--home" id="homePage" aria-labelledby="homeTitle" hidden>
@@ -329,7 +329,6 @@
       </main>
 
       <main class="page page--smart" id="smartPage" aria-labelledby="smartTitle" hidden>
-        <img class="smart-page-artwork" src="assets/smart-page-artwork.png" alt="" aria-hidden="true" fetchpriority="high" decoding="async" />
         <h1 class="sr-only" id="smartTitle">双师智学</h1>
         <div class="smart-carousel" aria-label="双师智学课程列表">
           <div class="smart-carousel-track">
@@ -337,7 +336,7 @@
             <button class="smart-course-hit smart-course-hit--done" data-course-survey type="button" aria-label="查看课程并填写问卷"></button>
             <button class="smart-course-hit" data-course-survey type="button" aria-label="查看课程并填写问卷"></button>
           </div>
-          <button class="smart-report-hit" data-course-report type="button" aria-label="查看已完课课程报告" onclick="openCourseReport()"></button>
+          <button class="smart-report-hit" data-course-report type="button" aria-label="查看已完课课程报告"></button>
         </div>
         <div class="smart-zones">
           <button class="smart-hotspot smart-hotspot--contact" type="button" aria-label="联系班主任"></button>
@@ -348,7 +347,7 @@
       </main>
 
       <main class="page page--course-report" id="courseReportPage" aria-label="课程报告" hidden>
-        <button class="course-report-back" id="backToSmartFromReport" type="button" aria-label="返回双师智学" onclick="returnToSmartFromReport()"></button>
+        <button class="course-report-back" id="backToSmartFromReport" type="button" aria-label="返回双师智学"></button>
       </main>
 
       <main class="page page--vip" id="vipPage" aria-labelledby="vipTitle" hidden>
@@ -360,11 +359,7 @@
           <button class="vip-plan-tab is-active" id="vipMembershipTab" type="button" role="tab" aria-selected="true" aria-controls="vipPage">会员套餐</button>
           <button class="vip-plan-tab" id="vipCoinTab" type="button" role="tab" aria-selected="false" aria-controls="vipPage">AI定制币</button>
         </div>
-        <nav class="vip-tab-bar" aria-label="底部导航">
-          <button class="nav-hotspot" data-tab="study" type="button"><span aria-hidden="true">AI</span><b>优学中心</b></button>
-          <button class="nav-hotspot" data-tab="smart" type="button"><span aria-hidden="true">✦</span><b>双师智学</b></button>
-          <button class="nav-hotspot is-active" data-tab="vip" type="button"><span aria-hidden="true">V</span><b>会员订阅</b></button>
-        </nav>
+        <button class="nav-hotspot vip-back" data-tab="study" type="button" aria-label="返回优学中心"></button>
       </main>
 
       <nav class="tab-bar" id="tabBar" aria-label="底部导航" hidden>
@@ -538,7 +533,7 @@
       <p class="device-caption"><span></span> iPhone · 横屏交互原型</p>
     </div>
 
-    <script src="script.js?v=22"></script>
+    <script src="script.js?v=21"></script>
     <script src="expert-guide.js?v=3"></script>
     <script src="course-plaza-controls.js?v=2"></script>
     <script src="expert-journey.js?v=3"></script>

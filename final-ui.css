@@ -905,24 +905,27 @@
 .preclass-ready { position:absolute; left:62%; bottom:3.5%; z-index:5; display:flex; align-items:center; justify-content:center; gap:10px; min-width:clamp(170px,17vw,245px); padding:15px 25px; border:3px solid rgba(255,255,255,.8); border-radius:999px; color:#fff; background:linear-gradient(135deg,#ffbd28,#ff742f); font-size:clamp(20px,2vw,29px); font-weight:900; transform:translateX(-50%); box-shadow:0 13px 28px rgba(184,80,24,.35); }
 .preclass-ready b { display:grid; place-items:center; width:28px; height:28px; border-radius:50%; color:#ff7c32; background:#fff; font-size:24px; line-height:1; }
 #mallLearningPage { display:block; overflow:hidden; background:url("assets/mall-learning-screen.webp") center/cover no-repeat; }
+.mall-learning-back { background:rgba(255,255,255,.04); box-shadow:none; }
+.mall-learning-back::before { border-color:transparent; }
 
 /* Smart page: 1:1 match using the approved 智学 artwork as background. */
 #smartPage {
   padding:0;
-  isolation:isolate;
   overflow:hidden;
-  background:#3fb6cc;
+  background-image:url("优学首页&智学/智学-学习报告高亮.png");
+  background-size:100% 100%;
+  background-position:50% center;
+  background-repeat:no-repeat;
 }
-.smart-page-artwork { position:absolute; inset:0; z-index:0; display:block; width:100%; height:100%; max-width:none; object-fit:fill; pointer-events:none; }
 .smart-zones {
   position:absolute;
   inset:0 0 16%; z-index:5; pointer-events:none;
 }
 .smart-hotspot--contact { left:24%; top:4%; width:52%; height:8%; border-radius:999px; }
 .smart-hotspot--contact { pointer-events:auto; }
-.smart-carousel { position:absolute; left:0; right:0; top:20%; z-index:4; height:58%; overflow:hidden; background:transparent !important; touch-action:manipulation; user-select:none; cursor:default; }
-.smart-carousel-track { display:flex; width:100%; height:100%; padding:0 2%; gap:2%; background:transparent !important; }
-.smart-course-hit { flex:0 0 31%; height:100%; padding:0; border:0; border-radius:28px; background:transparent !important; box-shadow:none !important; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+.smart-carousel { position:absolute; left:0; right:0; top:20%; z-index:4; height:58%; overflow:hidden; touch-action:manipulation; user-select:none; cursor:default; }
+.smart-carousel-track { display:flex; width:100%; height:100%; padding:0 2%; gap:2%; }
+.smart-course-hit { flex:0 0 31%; height:100%; padding:0; border:0; border-radius:28px; background:transparent; cursor:pointer; -webkit-tap-highlight-color:transparent; }
 .smart-course-hit:focus-visible { outline:4px solid rgba(83,123,255,.9); outline-offset:-6px; }
 .smart-course-hit--locked { cursor:default; }
 .smart-course-hit--done { position:relative; }
@@ -994,64 +997,13 @@
   outline-offset:-4px;
   border-radius:10px;
 }
-#vipPage .vip-tab-bar {
-  position:absolute;
-  left:50%;
-  bottom:0;
-  z-index:12;
-  display:flex;
-  align-items:flex-end;
-  justify-content:center;
-  width:34%;
-  min-width:420px;
-  height:16%;
-  min-height:86px;
-  padding:6px 18px 4px;
-  overflow:hidden;
-  border-radius:36px 36px 0 0;
-  background:rgba(255,255,255,.85);
-  box-shadow:0 -6px 24px rgba(39,88,108,.14);
-  transform:translateX(-50%);
-  backdrop-filter:blur(12px);
-}
-#vipPage .vip-tab-bar .nav-hotspot {
-  position:relative;
-  inset:auto;
-  display:flex;
-  flex:1;
-  flex-direction:column;
-  align-items:center;
-  justify-content:flex-end;
-  gap:3px;
-  width:auto;
-  height:100%;
-  padding-bottom:6px;
-  border-radius:14px;
-  color:#52655e;
-  background:transparent;
-  font-size:inherit;
-  transform:scale(.92);
-  transition:transform .2s ease;
-}
-#vipPage .vip-tab-bar .nav-hotspot span {
-  display:grid;
-  place-items:center;
-  width:36px;
-  height:32px;
-  border-radius:10px;
-  color:#fff;
-  background:linear-gradient(135deg,#ffb522,#ff733c);
-  font-size:16px;
-  font-weight:900;
-  line-height:1;
-  box-shadow:0 3px 8px rgba(44,75,70,.18);
-}
-#vipPage .vip-tab-bar .nav-hotspot[data-tab="smart"] span { background:linear-gradient(135deg,#4a7cff,#674ee8); font-size:22px; }
-#vipPage .vip-tab-bar .nav-hotspot[data-tab="vip"] span { background:linear-gradient(135deg,#ff9a31,#ee5d3e); font-size:20px; }
-#vipPage .vip-tab-bar .nav-hotspot b { font-size:clamp(13px,1.25vw,17px); font-weight:600; }
-#vipPage .vip-tab-bar .nav-hotspot.is-active {
-  color:#213e34;
-  transform:scale(1.08);
+#vipPage .vip-back {
+  left:1.2%;
+  top:5.3%;
+  z-index:5;
+  width:5%;
+  height:10.7%;
+  border-radius:50%;
 }
 
 /* Personal center visible feedback entry positioned between existing hotspots. */
@@ -1155,21 +1107,3 @@
   .rating-dialog p { font-size: 12px; }
   .feedback-dialog { padding: 16px; border-radius: 20px; }
 }
-
-
-/* Course plaza v2: supplied artwork owns visual rendering; functional controls remain transparent. */
-#courseSelectPage .course-grade-select { color:transparent; background:transparent !important; box-shadow:none; }
-#courseSelectPage .course-grade-select::before { background:transparent; }
-#courseSelectPage .course-grade-select span { color:transparent; }
-#courseSelectPage .course-grade-select i { border-color:transparent; }
-#courseSelectPage .course-plaza-tabs { left:14.8%; top:17.8%; width:70.6%; height:8.5%; gap:1.4%; grid-template-columns:repeat(4,minmax(0,1fr)) minmax(0,.9fr); display:grid; }
-#courseSelectPage .course-plaza-tabs::before { content:none; display:none; }
-#courseSelectPage .course-plaza-tabs button,
-#courseSelectPage .course-plaza-tabs button.is-active { display:block; width:100%; height:100%; padding:0; color:transparent; background:transparent; box-shadow:none; font-size:0; }
-#courseSelectPage .course-plaza-tabs button[data-course-tab="expert"] { display:block; width:100%; }
-#courseSelectPage .course-tab-teacher { display:none; }
-#courseSelectPage .course-plaza-cards { left:14.9%; top:31.7%; width:79.7%; height:42.2%; gap:4.2%; }
-#courseSelectPage.is-guide-active .course-plaza-tabs { left:16%; display:flex; width:20.3%; }
-#courseSelectPage.is-guide-active .course-plaza-tabs button:not([data-course-tab="expert"]) { display:none; }
-#courseSelectPage.is-guide-active .course-plaza-tabs button[data-course-tab="expert"] { display:flex; flex:1 1 100%; align-items:center; justify-content:center; gap:clamp(8px,1vw,15px); width:100%; color:#25282e; background:#fff; box-shadow:0 4px 11px rgba(22,91,113,.25); font-size:clamp(14px,1.45vw,22px); }
-#courseSelectPage.is-guide-active .course-tab-teacher { display:block; }

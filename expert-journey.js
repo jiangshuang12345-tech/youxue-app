@@ -31,7 +31,6 @@ if (window.location.hash === "#expert-journey") openExpertJourney();
 function openPreclass() {
   showPage(expertPreclassPage, "#expert-preclass");
 }
-window.openPreclass = openPreclass;
 
 const firstJourneyCard = document.querySelector("[data-open-preclass]");
 firstJourneyCard.addEventListener("click", openPreclass);

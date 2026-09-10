@@ -26,15 +26,8 @@
     closeGuide();
   }, { passive: false });
 
-  // Let every navigation path reliably clear the guide before another page opens.
-  window.closeCourseExpertGuide = closeGuide;
-
   new MutationObserver(() => {
-    if (page.hidden) {
-      closeGuide();
-      return;
-    }
-    window.setTimeout(showGuide, 260);
+    if (!page.hidden) window.setTimeout(showGuide, 260);
   }).observe(page, { attributes: true, attributeFilter: ["hidden"] });
 
   if (!page.hidden) window.setTimeout(showGuide, 260);
