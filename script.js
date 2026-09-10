@@ -474,6 +474,8 @@ window.openCourseReport = openCourseReport;
 function openCourseSelection() {
   showPage(courseSelectPage, "#courses");
 }
+// Shared entry point for all course-plaza entrances.
+window.openCoursePlaza = openCourseSelection
 
 function returnToSmartFromReport() {
   showPage(smartPage, "#smart");
@@ -809,20 +811,15 @@ document.querySelector("#studyPage .study-zones").addEventListener("click", (eve
   if (id === "map") openCourseSelection();
   else showToast("该功能正在开发中，敬请期待");
 });
-let courseMapTouched = false;
-openCourseMap.addEventListener("touchend", (event) => {
+// Capture the map-card gesture before any generic navigation handler can run.
+const routeFromCourseMap = (event) => {
   event.preventDefault();
-  event.stopPropagation();
-  courseMapTouched = true;
+  event.stopImmediatePropagation();
   openCourseSelection();
-  window.setTimeout(() => { courseMapTouched = false; }, 500);
-}, { passive: false });
-openCourseMap.addEventListener("click", (event) => {
-  event.preventDefault();
-  event.stopPropagation();
-  if (courseMapTouched) return;
-  openCourseSelection();
-});
+};
+openCourseMap.addEventListener("pointerup", routeFromCourseMap, true);
+openCourseMap.addEventListener("touchend", routeFromCourseMap, { capture: true, passive: false });
+openCourseMap.addEventListener("click", routeFromCourseMap, true);
 let activeCoursePlazaTab = "expert";
 const coursePlazaLabels = {
   expert: "专家指导拔尖",
