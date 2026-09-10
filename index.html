@@ -360,7 +360,11 @@
           <button class="vip-plan-tab is-active" id="vipMembershipTab" type="button" role="tab" aria-selected="true" aria-controls="vipPage">会员套餐</button>
           <button class="vip-plan-tab" id="vipCoinTab" type="button" role="tab" aria-selected="false" aria-controls="vipPage">AI定制币</button>
         </div>
-        <button class="nav-hotspot vip-back" data-tab="study" type="button" aria-label="返回优学中心"></button>
+        <nav class="vip-tab-bar" aria-label="底部导航">
+          <button class="nav-hotspot" data-tab="study" type="button"><span aria-hidden="true">🏠</span><b>优学中心</b></button>
+          <button class="nav-hotspot" data-tab="smart" type="button"><span aria-hidden="true">📘</span><b>双师智学</b></button>
+          <button class="nav-hotspot is-active" data-tab="vip" type="button"><span aria-hidden="true">♛</span><b>会员订阅</b></button>
+        </nav>
       </main>
 
       <nav class="tab-bar" id="tabBar" aria-label="底部导航" hidden>
