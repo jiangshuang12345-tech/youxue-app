@@ -449,6 +449,9 @@ function showLessonDetailTab(tabName) {
 }
 
 function showPage(targetPage, hash) {
+  // The course-guide overlay belongs only to the course plaza. Always clear it
+  // before switching pages so its state cannot leak into the destination.
+  if (targetPage !== courseSelectPage) window.closeCourseExpertGuide?.();
   pages.forEach((page) => { page.hidden = page !== targetPage; });
   targetPage.classList.remove("is-entering");
   void targetPage.offsetWidth;
