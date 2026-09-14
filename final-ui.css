@@ -1107,3 +1107,35 @@
   .rating-dialog p { font-size: 12px; }
   .feedback-dialog { padding: 16px; border-radius: 20px; }
 }
+
+/* Two-step course flow: course plaza → real-world English list → course journey. */
+#courseSelectPage { display:block; padding:0; overflow:hidden; background:#54b8cf; }
+#courseSelectPage[hidden] { display:none; }
+.course-plaza-entry-artwork,.real-world-course-list-artwork { position:absolute; inset:0; width:100%; height:100%; max-width:none; object-fit:fill; pointer-events:none; }
+.course-plaza-entry-header,.real-world-course-header { position:absolute; inset:0; z-index:2; pointer-events:none; }
+.course-plaza-entry-header > button,.real-world-course-header > button,.real-world-grade-menu,.real-world-course-cards { pointer-events:auto; }
+.course-plaza-entry-header h1,.real-world-course-header h1 { position:absolute; left:37%; top:5%; width:26%; margin:0; color:transparent; font-size:0; }
+.course-plaza-entry-header > button,#backToCoursePlaza { position:absolute; left:2%; top:4.8%; width:5.2%; height:10.8%; padding:0; border:0; border-radius:50%; background:transparent; cursor:pointer; }
+.real-world-course-entry { position:absolute; left:2.3%; top:15.5%; z-index:3; width:32.5%; height:80%; padding:0; border:0; border-radius:30px; background:transparent; cursor:pointer; }
+.real-world-course-entry:focus-visible,.real-world-course-cards button:focus-visible,.real-world-grade-select:focus-visible { outline:4px solid #ffe56a; outline-offset:4px; }
+.course-plaza-guide { position:absolute; inset:0; z-index:20; overflow:hidden; background:rgba(8,19,45,.46); backdrop-filter:blur(2px); }
+.course-plaza-guide[hidden] { display:none; }
+.course-plaza-guide-card { position:absolute; left:35%; top:16.5%; z-index:2; display:grid; grid-template-columns:74px minmax(0,1fr) auto; align-items:center; gap:14px; width:52%; min-width:560px; padding:15px 18px 15px 9px; border-radius:22px; color:#fff; background:linear-gradient(135deg,#5b2ed9,#c140cd); box-shadow:0 18px 50px rgba(8,11,44,.4); }
+.course-plaza-guide-card > img { width:82px; height:96px; margin-top:-44px; object-fit:contain; filter:drop-shadow(0 8px 10px rgba(24,19,70,.3)); }
+.course-plaza-guide-card h2 { margin:0 0 6px; font-size:clamp(20px,2vw,29px); line-height:1.2; }
+.course-plaza-guide-card p { margin:0; font-size:clamp(14px,1.3vw,19px); line-height:1.5; }
+.course-plaza-guide-card button { min-width:108px; padding:11px 18px; border:2px solid rgba(255,255,255,.72); border-radius:999px; color:#fff; background:#111; font-size:clamp(15px,1.45vw,20px); font-weight:800; cursor:pointer; }
+.course-plaza-guide-pointer { position:absolute; left:24%; top:12.4%; z-index:3; width:clamp(140px,13vw,190px); height:clamp(90px,16vh,122px); overflow:visible; filter:drop-shadow(0 2px 3px rgba(7,29,57,.45)); pointer-events:none; }
+#courseSelectPage.is-guide-active .real-world-course-entry { z-index:21; pointer-events:none; box-shadow:0 0 0 5px #ffd94e,0 0 0 11px rgba(255,217,78,.28); }
+#realWorldCoursesPage { display:block; padding:0; overflow:hidden; background:#53b9cf; }
+#realWorldCoursesPage[hidden] { display:none; }
+.real-world-grade-select { position:absolute; left:8.1%; top:5.5%; display:flex; align-items:center; justify-content:center; gap:12%; width:13%; height:9.2%; padding:0; border:0; border-radius:999px; color:#1fb7ec; background:rgba(247,253,255,.98); font-size:clamp(16px,1.7vw,25px); font-weight:800; cursor:pointer; }
+.real-world-grade-select i { display:block; width:10px; height:10px; border-right:3px solid #9aa7ad; border-bottom:3px solid #9aa7ad; transform:translateY(-3px) rotate(45deg); }
+.real-world-grade-menu { position:absolute; left:8.1%; top:15.4%; z-index:10; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); width:18.6%; padding:8px; gap:5px; border:1px solid rgba(255,255,255,.82); border-radius:17px; background:rgba(255,255,255,.98); box-shadow:0 12px 26px rgba(12,52,81,.25); }
+.real-world-grade-menu[hidden] { display:none; }
+.real-world-grade-menu button { min-width:0; padding:6px 4px; border:0; border-radius:9px; color:#207ed4; background:#edf8ff; font-size:clamp(12px,1.15vw,16px); font-weight:700; white-space:nowrap; cursor:pointer; }
+.real-world-grade-menu button.is-selected { color:#fff; background:#38b7e7; }
+.real-world-course-cards { position:absolute; left:12.4%; top:24.3%; z-index:3; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); grid-template-rows:repeat(2,minmax(0,1fr)); width:75.7%; height:73%; gap:5.1% 4.8%; }
+.real-world-course-cards button { min-width:0; padding:0; border:0; border-radius:28px; background:transparent; cursor:pointer; }
+#expertJourneyPage { background-image:url("assets/real-world-course-journey.png"); background-position:center; background-size:100% 100%; }
+#expertJourneyPage .expert-journey-header > div,#expertJourneyPage .journey-track { display:none; }

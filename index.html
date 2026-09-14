@@ -13,7 +13,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="final-ui.css?v=88" />
+    <link rel="stylesheet" href="final-ui.css?v=89" />
   </head>
   <body>
     <div class="device-stage">
@@ -60,27 +60,38 @@
       </main>
 
       <main class="page page--course-select" id="courseSelectPage" aria-labelledby="courseSelectTitle" hidden>
-        <img class="course-plaza-artwork" src="优学首页&智学/课程广场 (1).png" alt="" aria-hidden="true" fetchpriority="high" decoding="async" />
-        <header class="course-plaza-header"><button id="backToStudyFromCourses" type="button" aria-label="返回优学中心"></button><button class="course-grade-select" id="courseGradeChooser" type="button" aria-label="选择年级" aria-expanded="false" aria-controls="courseGradeMenu"><span>二年级</span><i aria-hidden="true"></i></button><div class="course-grade-menu" id="courseGradeMenu" role="menu" hidden><button type="button" role="menuitem">学龄前</button><button type="button" role="menuitem">一年级</button><button type="button" role="menuitem">二年级</button><button type="button" role="menuitem">三年级</button><button type="button" role="menuitem">四年级</button><button type="button" role="menuitem">五年级</button><button type="button" role="menuitem">六年级</button></div><h1 id="courseSelectTitle">课程广场</h1><label class="course-plaza-search-field"><input type="search" placeholder="输入课程名称" aria-label="搜索课程名称" /><i aria-hidden="true"></i></label></header>
-        <nav class="course-plaza-tabs" aria-label="课程分类">
-          <button class="is-active" type="button" data-course-tab="expert"><span>专家指导拔尖</span><img class="course-tab-teacher" src="assets/gong-teacher-avatar.png" alt="龚老师" /></button><button type="button" data-course-tab="sync">校内学习同步</button><button type="button" data-course-tab="exam">考试能力提升</button><button type="button" data-course-tab="quality">校外素质拓展</button><button type="button" data-course-tab="reading">绘本阅读</button>
-        </nav>
-        <div class="course-plaza-cards" aria-label="课程列表">
-          <button class="course-plaza-card" type="button" data-course-card="0" data-course-name="商场标识认知 商场标识 专家指导拔尖" aria-label="进入商场标识认知课程"></button>
-          <button class="course-plaza-card" type="button" data-course-card="1" data-course-name="飞行之旅启航 飞行 专家指导拔尖" aria-label="进入飞行之旅启航课程"></button>
-          <button class="course-plaza-card" type="button" data-course-card="2" data-course-name="寻找合适衣物 衣物 专家指导拔尖" aria-label="进入寻找合适衣物课程"></button>
-          <button class="course-plaza-card" type="button" data-course-card="3" data-course-name="专家指导拔尖 专家课程" aria-label="进入专家指导课程"></button>
-        </div>
-        <div class="expert-guide" id="expertGuide" hidden>
-          <div class="expert-guide-card" role="dialog" aria-modal="true" aria-labelledby="expertGuideTitle">
-            <img src="assets/course-expert.png" alt="" />
-            <div>
-              <h2 id="expertGuideTitle">认识专家指导课</h2>
-              <p>跟着权威专家掌握关键方法，针对学习薄弱点逐步提升。选择适合的年级，开启你的专属进阶课程吧！</p>
-            </div>
-            <button id="dismissExpertGuide" type="button">我知道了</button>
+        <img class="course-plaza-entry-artwork" src="assets/course-plaza-entry.png" alt="" aria-hidden="true" fetchpriority="high" decoding="async" />
+        <header class="course-plaza-entry-header"><button id="backToStudyFromCourses" type="button" aria-label="返回优学中心"></button><h1 id="courseSelectTitle">课程广场</h1></header>
+        <button class="real-world-course-entry" id="openRealWorldCourses" type="button" aria-label="进入真实世界英语课"></button>
+        <div class="course-plaza-guide" id="coursePlazaGuide" role="dialog" aria-modal="true" aria-labelledby="coursePlazaGuideTitle" hidden>
+          <div class="course-plaza-guide-card">
+            <img src="assets/course-expert.png" alt="" aria-hidden="true" />
+            <div><h2 id="coursePlazaGuideTitle">专家带你学</h2><p>跟着权威专家掌握关键方法，针对薄弱点逐步提升。</p></div>
+            <button id="dismissCoursePlazaGuide" type="button">我知道了</button>
           </div>
-          <svg class="expert-guide-pointer" viewBox="0 0 180 112" aria-hidden="true"><defs><marker id="expertGuideArrow" viewBox="0 0 14 14" refX="10" refY="7" markerWidth="11" markerHeight="11" orient="auto"><path d="M1 1 L13 7 L1 13 Z" fill="#fff" /></marker></defs><path d="M176 84 C124 84 88 72 62 48 C49 36 42 22 38 9" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-dasharray="9 8" marker-end="url(#expertGuideArrow)" /></svg>
+          <svg class="course-plaza-guide-pointer" viewBox="0 0 190 120" aria-hidden="true"><defs><marker id="coursePlazaGuideArrow" viewBox="0 0 14 14" refX="10" refY="7" markerWidth="11" markerHeight="11" orient="auto"><path d="M1 1 L13 7 L1 13 Z" fill="#fff" /></marker></defs><path d="M176 102 C132 98 102 80 77 58 C53 37 35 21 11 13" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-dasharray="9 8" marker-end="url(#coursePlazaGuideArrow)" /></svg>
+        </div>
+      </main>
+
+      <main class="page page--real-world-courses" id="realWorldCoursesPage" aria-labelledby="realWorldCoursesTitle" hidden>
+        <img class="real-world-course-list-artwork" src="assets/real-world-course-list.png" alt="" aria-hidden="true" fetchpriority="high" decoding="async" />
+        <header class="real-world-course-header">
+          <button id="backToCoursePlaza" type="button" aria-label="返回课程广场"></button>
+          <button class="real-world-grade-select" id="realWorldGradeChooser" type="button" aria-label="选择年级" aria-expanded="false" aria-controls="realWorldGradeMenu"><span>二年级</span><i aria-hidden="true"></i></button>
+          <div class="real-world-grade-menu" id="realWorldGradeMenu" role="menu" hidden>
+            <button type="button" role="menuitem">学龄前</button><button type="button" role="menuitem">一年级</button><button type="button" role="menuitem">二年级</button><button type="button" role="menuitem">三年级</button><button type="button" role="menuitem">四年级</button><button type="button" role="menuitem">五年级</button><button type="button" role="menuitem">六年级</button>
+          </div>
+          <h1 id="realWorldCoursesTitle">真实世界英语课</h1>
+        </header>
+        <div class="real-world-course-cards" aria-label="真实世界英语课课程列表">
+          <button type="button" data-open-real-world-journey aria-label="进入商场标识认知课程"></button>
+          <button type="button" data-open-real-world-journey aria-label="进入飞行之旅启航课程"></button>
+          <button type="button" data-open-real-world-journey aria-label="进入寻找合适衣物课程"></button>
+          <button type="button" data-open-real-world-journey aria-label="进入真实世界英语课程"></button>
+          <button type="button" data-open-real-world-journey aria-label="进入真实世界英语课程"></button>
+          <button type="button" data-open-real-world-journey aria-label="进入真实世界英语课程"></button>
+          <button type="button" data-open-real-world-journey aria-label="进入真实世界英语课程"></button>
+          <button type="button" data-open-real-world-journey aria-label="进入真实世界英语课程"></button>
         </div>
       </main>
 
@@ -533,10 +544,11 @@
       <p class="device-caption"><span></span> iPhone · 横屏交互原型</p>
     </div>
 
-    <script src="script.js?v=21"></script>
+    <script src="script.js?v=22"></script>
     <script src="expert-guide.js?v=3"></script>
+    <script src="course-plaza-guide.js?v=1"></script>
     <script src="course-plaza-controls.js?v=2"></script>
-    <script src="expert-journey.js?v=3"></script>
+    <script src="expert-journey.js?v=4"></script>
     <script src="parent-expert.js?v=1"></script>
   </body>
 </html>
