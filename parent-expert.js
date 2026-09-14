@@ -11,8 +11,8 @@ document.querySelector("#backFromParentExpert").addEventListener("click", () => 
 });
 
 document.querySelector("#openExpertCoursesFromParent").addEventListener("click", () => {
-  // 专家课程入口进入课程广场；具体课程卡片再进入专家课程页。
-  showPage(courseSelectPage, "#courses");
+  // 家长侧的专家课程入口直接进入真实世界英语课课程列表。
+  showPage(realWorldCoursesPage, "#real-world-courses");
 });
 
 if (window.location.hash === "#parent-expert") showPage(parentExpertPage, "#parent-expert");
