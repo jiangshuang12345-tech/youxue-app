@@ -37,16 +37,33 @@ function openPreclass() {
   showPage(expertPreclassPage, "#expert-preclass");
 }
 
+let preclassSource = "journey";
+function openRealWorldPreclass() {
+  preclassSource = "real-world";
+  openPreclass();
+}
+window.openRealWorldPreclass = openRealWorldPreclass;
+
 const firstJourneyCard = document.querySelector("[data-open-preclass]");
-firstJourneyCard.addEventListener("click", openPreclass);
+firstJourneyCard.addEventListener("click", () => {
+  preclassSource = "journey";
+  openPreclass();
+});
 firstJourneyCard.addEventListener("keydown", (event) => {
   if (event.key === "Enter" || event.key === " ") {
     event.preventDefault();
+    preclassSource = "journey";
     openPreclass();
   }
 });
 
-document.querySelector("#backToJourney").addEventListener("click", openExpertJourney);
+document.querySelector("#backToJourney").addEventListener("click", () => {
+  if (preclassSource === "real-world") {
+    showPage(realWorldCoursesPage, "#real-world-courses");
+    return;
+  }
+  openExpertJourney();
+});
 document.querySelector("#startMallLesson").addEventListener("click", () => showPage(mallLearningPage, "#mall-learning"));
 document.querySelector("#backToPreclass").addEventListener("click", openPreclass);
 

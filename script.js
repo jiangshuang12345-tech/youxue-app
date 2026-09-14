@@ -851,7 +851,7 @@ document.querySelectorAll("[data-course-card]").forEach((card) => card.addEventL
   showToast(`「${coursePlazaLabels[activeCoursePlazaTab]}」课程即将开放`);
 }));
 document.querySelectorAll("[data-open-real-world-journey]").forEach((card) => card.addEventListener("click", () => {
-  window.openRealWorldJourney?.();
+  window.openRealWorldPreclass?.();
 }));
 
 const realWorldGradeButton = document.querySelector("#realWorldGradeChooser");

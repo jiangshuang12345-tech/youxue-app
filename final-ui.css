@@ -1116,7 +1116,7 @@
 .course-plaza-entry-header > button,.real-world-course-header > button,.real-world-grade-menu,.real-world-course-cards { pointer-events:auto; }
 .course-plaza-entry-header h1,.real-world-course-header h1 { position:absolute; left:37%; top:5%; width:26%; margin:0; color:transparent; font-size:0; }
 .course-plaza-entry-header > button,#backToCoursePlaza { position:absolute; left:2%; top:4.8%; width:5.2%; height:10.8%; padding:0; border:0; border-radius:50%; background:transparent; cursor:pointer; }
-.real-world-course-entry { position:absolute; left:2.3%; top:15.5%; z-index:3; width:32.5%; height:80%; padding:0; border:0; border-radius:30px; background:transparent; cursor:pointer; }
+.real-world-course-entry { position:absolute; left:2.3%; top:15.5%; z-index:3; width:39.2%; height:80%; padding:0; border:0; border-radius:30px; background:transparent; cursor:pointer; }
 .real-world-course-entry:focus-visible,.real-world-course-cards button:focus-visible,.real-world-grade-select:focus-visible { outline:4px solid #ffe56a; outline-offset:4px; }
 .course-plaza-guide { position:absolute; inset:0; z-index:20; overflow:hidden; background:rgba(8,19,45,.46); backdrop-filter:blur(2px); }
 .course-plaza-guide[hidden] { display:none; }
