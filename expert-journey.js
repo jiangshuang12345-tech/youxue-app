@@ -9,9 +9,13 @@ function openExpertJourney() {
   showPage(expertJourneyPage, "#expert-journey");
 }
 window.openExpertJourney = openExpertJourney;
+function openRealWorldJourney() {
+  showPage(expertJourneyPage, "#real-world-journey");
+}
+window.openRealWorldJourney = openRealWorldJourney;
 
 document.querySelector("#backToExpertCourses").addEventListener("click", () => {
-  showPage(courseSelectPage, "#courses");
+  showPage(realWorldCoursesPage, "#real-world-courses");
 });
 
 document.querySelector("#openParentExpertFromJourney").addEventListener("click", () => {
@@ -27,6 +31,7 @@ expertJourneyEntry.addEventListener("keydown", (event) => {
 });
 
 if (window.location.hash === "#expert-journey") openExpertJourney();
+if (window.location.hash === "#real-world-journey") openRealWorldJourney();
 
 function openPreclass() {
   showPage(expertPreclassPage, "#expert-preclass");

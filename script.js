@@ -87,6 +87,7 @@ const homePage = document.querySelector("#homePage");
 const studyPage = document.querySelector("#studyPage");
 const openCourseMap = document.querySelector("#openCourseMap");
 const courseSelectPage = document.querySelector("#courseSelectPage");
+const realWorldCoursesPage = document.querySelector("#realWorldCoursesPage");
 const expertCoursesPage = document.querySelector("#expertCoursesPage");
 const smartPage = document.querySelector("#smartPage");
 const courseReportPage = document.querySelector("#courseReportPage");
@@ -112,7 +113,7 @@ const surveyH5 = document.querySelector("#surveyH5");
 const feedbackSurveyH5 = document.querySelector("#feedbackSurveyH5");
 const feedbackModal = document.querySelector("#feedbackModal");
 const appToast = document.querySelector("#appToast");
-const pages = [studyPage, courseSelectPage, expertCoursesPage, homePage, lessonsPage, lessonDetailsPage, ordersPage, orderDetailPage, smartPage, courseReportPage, vipPage];
+const pages = [studyPage, courseSelectPage, realWorldCoursesPage, expertCoursesPage, homePage, lessonsPage, lessonDetailsPage, ordersPage, orderDetailPage, smartPage, courseReportPage, vipPage];
 let ledgerTab = "all";
 let incomeFilter = "all";
 let orderTab = "all";
@@ -449,6 +450,7 @@ function showLessonDetailTab(tabName) {
 }
 
 function showPage(targetPage, hash) {
+  if (targetPage !== courseSelectPage) window.closeCoursePlazaGuide?.();
   pages.forEach((page) => { page.hidden = page !== targetPage; });
   targetPage.classList.remove("is-entering");
   void targetPage.offsetWidth;
@@ -470,6 +472,11 @@ function openCourseReport() {
 function openCourseSelection() {
   showPage(courseSelectPage, "#courses");
 }
+
+function openRealWorldCourses() {
+  showPage(realWorldCoursesPage, "#real-world-courses");
+}
+window.openRealWorldCourses = openRealWorldCourses;
 
 function returnToSmartFromReport() {
   showPage(smartPage, "#smart");
@@ -794,6 +801,8 @@ document.querySelector("#confirmCancel").addEventListener("click", () => {
 profileEntry.addEventListener("click", () => showPage(homePage, "#home"));
 document.querySelector("#backFromProfile").addEventListener("click", () => showPage(studyPage, "#study"));
 document.querySelector("#backToStudyFromCourses").addEventListener("click", () => showPage(studyPage, "#study"));
+document.querySelector("#openRealWorldCourses").addEventListener("click", openRealWorldCourses);
+document.querySelector("#backToCoursePlaza").addEventListener("click", () => showPage(courseSelectPage, "#courses"));
 document.querySelector("#backToCourseSelect").addEventListener("click", () => showPage(courseSelectPage, "#courses"));
 document.querySelector("#backToSmartFromReport").addEventListener("click", returnToSmartFromReport);
 document.querySelector("#profileFeedbackEntry").addEventListener("click", () => openFeedback("personal-center"));
@@ -841,6 +850,40 @@ document.querySelectorAll("[data-course-card]").forEach((card) => card.addEventL
   }
   showToast(`「${coursePlazaLabels[activeCoursePlazaTab]}」课程即将开放`);
 }));
+document.querySelectorAll("[data-open-real-world-journey]").forEach((card) => card.addEventListener("click", () => {
+  window.openRealWorldJourney?.();
+}));
+
+const realWorldGradeButton = document.querySelector("#realWorldGradeChooser");
+const realWorldGradeLabel = realWorldGradeButton?.querySelector("span");
+const realWorldGradeMenu = document.querySelector("#realWorldGradeMenu");
+if (realWorldGradeButton && realWorldGradeLabel && realWorldGradeMenu) {
+  const closeRealWorldGradeMenu = () => {
+    realWorldGradeMenu.hidden = true;
+    realWorldGradeButton.setAttribute("aria-expanded", "false");
+  };
+  const setRealWorldGrade = (grade) => {
+    realWorldGradeLabel.textContent = grade;
+    realWorldGradeMenu.querySelectorAll("button").forEach((item) => {
+      const selected = item.textContent.trim() === grade;
+      item.classList.toggle("is-selected", selected);
+      item.setAttribute("aria-current", selected ? "true" : "false");
+    });
+  };
+  setRealWorldGrade(realWorldGradeLabel.textContent.trim());
+  realWorldGradeButton.addEventListener("click", () => {
+    const open = realWorldGradeMenu.hidden;
+    realWorldGradeMenu.hidden = !open;
+    realWorldGradeButton.setAttribute("aria-expanded", String(open));
+  });
+  realWorldGradeMenu.querySelectorAll("button").forEach((item) => item.addEventListener("click", () => {
+    setRealWorldGrade(item.textContent.trim());
+    closeRealWorldGradeMenu();
+  }));
+  document.addEventListener("click", (event) => {
+    if (!realWorldGradeMenu.hidden && !realWorldGradeMenu.contains(event.target) && !realWorldGradeButton.contains(event.target)) closeRealWorldGradeMenu();
+  });
+}
 const courseGradeSelect = document.querySelector("#courseGradeSelect");
 const courseGradeLabel = courseGradeSelect?.querySelector("span");
 const courseGrades = ["学龄前", "一年级", "二年级", "三年级", "四年级", "五年级", "六年级"];
@@ -1039,7 +1082,7 @@ renderOrders();
 renderStudyCards();
 renderSmartLessons();
 
-const initialRoutes = { "#study": studyPage, "#courses": courseSelectPage, "#expert-courses": expertCoursesPage, "#lessons": lessonsPage, "#orders": ordersPage, "#smart": smartPage, "#course-report": courseReportPage, "#vip": vipPage, "#home": homePage };
+const initialRoutes = { "#study": studyPage, "#courses": courseSelectPage, "#real-world-courses": realWorldCoursesPage, "#expert-courses": expertCoursesPage, "#lessons": lessonsPage, "#orders": ordersPage, "#smart": smartPage, "#course-report": courseReportPage, "#vip": vipPage, "#home": homePage };
 if (window.location.hash === "#validity") showLessonDetailTab("validity");
 else if (window.location.hash === "#ledger") showLessonDetailTab("ledger");
 else if (initialRoutes[window.location.hash]) showPage(initialRoutes[window.location.hash], window.location.hash);
