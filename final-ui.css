@@ -1139,3 +1139,8 @@
 .real-world-course-cards button { min-width:0; padding:0; border:0; border-radius:28px; background:transparent; cursor:pointer; }
 #expertJourneyPage { background-image:url("assets/real-world-course-journey.webp"); background-position:center; background-size:100% 100%; }
 #expertJourneyPage .expert-journey-header > div,#expertJourneyPage .journey-track { display:none; }
+.real-world-lesson-hotspots { position:absolute; inset:0; z-index:4; pointer-events:none; }
+.real-world-lesson-hotspots button { position:absolute; top:25%; width:19.5%; height:57%; padding:0; border:0; border-radius:28px; background:transparent; cursor:pointer; pointer-events:auto; }
+.real-world-lesson-hotspots button:first-child { left:14.5%; }
+.real-world-lesson-hotspots button:nth-child(2) { left:35.5%; }
+.real-world-lesson-hotspots button:focus-visible { outline:4px solid #ffd94e; outline-offset:4px; background:rgba(255,255,255,.08); }

@@ -39,22 +39,22 @@ function openPreclass() {
 
 let preclassSource = "journey";
 function openRealWorldPreclass() {
-  preclassSource = "real-world";
-  openPreclass();
+  openRealWorldJourney();
 }
 window.openRealWorldPreclass = openRealWorldPreclass;
 
-const firstJourneyCard = document.querySelector("[data-open-preclass]");
-firstJourneyCard.addEventListener("click", () => {
-  preclassSource = "journey";
-  openPreclass();
-});
-firstJourneyCard.addEventListener("keydown", (event) => {
-  if (event.key === "Enter" || event.key === " ") {
-    event.preventDefault();
+document.querySelectorAll("[data-open-preclass]").forEach((lessonCard) => {
+  lessonCard.addEventListener("click", () => {
     preclassSource = "journey";
     openPreclass();
-  }
+  });
+  lessonCard.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      preclassSource = "journey";
+      openPreclass();
+    }
+  });
 });
 
 document.querySelector("#backToJourney").addEventListener("click", () => {
