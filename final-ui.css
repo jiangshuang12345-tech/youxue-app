@@ -1137,5 +1137,5 @@
 .real-world-grade-menu button.is-selected { color:#fff; background:#38b7e7; }
 .real-world-course-cards { position:absolute; left:12.4%; top:24.3%; z-index:3; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); grid-template-rows:repeat(2,minmax(0,1fr)); width:75.7%; height:73%; gap:5.1% 4.8%; }
 .real-world-course-cards button { min-width:0; padding:0; border:0; border-radius:28px; background:transparent; cursor:pointer; }
-#expertJourneyPage { background-image:url("assets/real-world-course-journey.png"); background-position:center; background-size:100% 100%; }
+#expertJourneyPage { background-image:url("assets/real-world-course-journey.webp"); background-position:center; background-size:100% 100%; }
 #expertJourneyPage .expert-journey-header > div,#expertJourneyPage .journey-track { display:none; }
