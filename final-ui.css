@@ -1120,12 +1120,12 @@
 .real-world-course-entry:focus-visible,.real-world-course-cards button:focus-visible,.real-world-grade-select:focus-visible { outline:4px solid #ffe56a; outline-offset:4px; }
 .course-plaza-guide { position:absolute; inset:0; z-index:20; overflow:hidden; background:rgba(8,19,45,.46); backdrop-filter:blur(2px); }
 .course-plaza-guide[hidden] { display:none; }
-.course-plaza-guide-card { position:absolute; left:35%; top:16.5%; z-index:2; display:grid; grid-template-columns:74px minmax(0,1fr) auto; align-items:center; gap:14px; width:52%; min-width:560px; padding:15px 18px 15px 9px; border-radius:22px; color:#fff; background:linear-gradient(135deg,#5b2ed9,#c140cd); box-shadow:0 18px 50px rgba(8,11,44,.4); }
+.course-plaza-guide-card { position:absolute; left:43%; top:16.5%; z-index:2; display:grid; grid-template-columns:74px minmax(0,1fr) auto; align-items:center; gap:14px; width:52%; min-width:560px; padding:15px 18px 15px 9px; border-radius:22px; color:#fff; background:linear-gradient(135deg,#5b2ed9,#c140cd); box-shadow:0 18px 50px rgba(8,11,44,.4); }
 .course-plaza-guide-card > img { width:82px; height:96px; margin-top:-44px; object-fit:contain; filter:drop-shadow(0 8px 10px rgba(24,19,70,.3)); }
 .course-plaza-guide-card h2 { margin:0 0 6px; font-size:clamp(20px,2vw,29px); line-height:1.2; }
 .course-plaza-guide-card p { margin:0; font-size:clamp(14px,1.3vw,19px); line-height:1.5; }
 .course-plaza-guide-card button { min-width:108px; padding:11px 18px; border:2px solid rgba(255,255,255,.72); border-radius:999px; color:#fff; background:#111; font-size:clamp(15px,1.45vw,20px); font-weight:800; cursor:pointer; }
-.course-plaza-guide-pointer { position:absolute; left:24%; top:12.4%; z-index:3; width:clamp(140px,13vw,190px); height:clamp(90px,16vh,122px); overflow:visible; filter:drop-shadow(0 2px 3px rgba(7,29,57,.45)); pointer-events:none; }
+.course-plaza-guide-pointer { position:absolute; left:32%; top:12.4%; z-index:3; width:clamp(140px,13vw,190px); height:clamp(90px,16vh,122px); overflow:visible; filter:drop-shadow(0 2px 3px rgba(7,29,57,.45)); pointer-events:none; }
 #courseSelectPage.is-guide-active .real-world-course-entry { z-index:21; pointer-events:none; box-shadow:0 0 0 5px #ffd94e,0 0 0 11px rgba(255,217,78,.28); }
 #realWorldCoursesPage { display:block; padding:0; overflow:hidden; background:#53b9cf; }
 #realWorldCoursesPage[hidden] { display:none; }
