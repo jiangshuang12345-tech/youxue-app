@@ -2,7 +2,24 @@
   const page = document.querySelector("#courseSelectPage");
   const guide = document.querySelector("#coursePlazaGuide");
   const dismiss = document.querySelector("#dismissCoursePlazaGuide");
-  if (!page || !guide || !dismiss) return;
+  const skip = document.querySelector("#skipCoursePlazaGuide");
+  if (!page || !guide || !dismiss || !skip) return;
+
+  const skippedKey = "youxue-course-plaza-guide-skipped";
+  const hasSkipped = () => {
+    try {
+      return window.localStorage.getItem(skippedKey) === "1";
+    } catch (_) {
+      return false;
+    }
+  };
+  const rememberSkipped = () => {
+    try {
+      window.localStorage.setItem(skippedKey, "1");
+    } catch (_) {
+      // Closing the guide should still work if storage is unavailable.
+    }
+  };
 
   let shownThisLoad = false;
   const closeGuide = () => {
@@ -10,11 +27,15 @@
     guide.hidden = true;
   };
   const showGuide = () => {
-    if (page.hidden || shownThisLoad) return;
+    if (page.hidden || shownThisLoad || hasSkipped()) return;
     shownThisLoad = true;
     page.classList.add("is-guide-active");
     guide.hidden = false;
     dismiss.focus({ preventScroll: true });
+  };
+  const skipGuide = () => {
+    rememberSkipped();
+    closeGuide();
   };
 
   dismiss.addEventListener("click", closeGuide);
@@ -22,6 +43,12 @@
     event.preventDefault();
     event.stopPropagation();
     closeGuide();
+  }, { passive: false });
+  skip.addEventListener("click", skipGuide);
+  skip.addEventListener("touchend", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    skipGuide();
   }, { passive: false });
   guide.addEventListener("click", (event) => {
     if (event.target === guide) closeGuide();
