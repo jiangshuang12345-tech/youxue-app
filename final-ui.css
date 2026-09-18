@@ -1152,7 +1152,7 @@
 .fm-progress { position:absolute; left:55%; top:86%; z-index:8; width:31.4%; height:18px; margin:0; opacity:.02; cursor:pointer; }
 .fm-filter-panel,.fm-category-panel { position:absolute; inset:0; z-index:10; pointer-events:none; }
 .fm-filter-panel button,.fm-category-panel button { position:absolute; padding:0; border:0; color:transparent; background:transparent; cursor:pointer; pointer-events:auto; }
-.fm-filter-tab--age { left:56.8%; top:20.2%; width:19%; height:16.5%; }
+.fm-filter-tab--age { left:61.6%; top:19.5%; width:19.2%; height:17.9%; }
 .fm-filter-tab--level { left:56.8%; top:36.7%; width:19%; height:59.4%; }
 .fm-filter-options button { left:75.8%; width:15.8%; height:10.5%; }
 .fm-filter-options button:nth-child(1) { top:20.5%; }
@@ -1160,9 +1160,15 @@
 .fm-filter-options button:nth-child(3) { top:49%; }
 .fm-filter-options button:nth-child(4) { top:61%; }
 .fm-filter-options button:nth-child(5) { top:73%; }
-.fm-filter-options--level button:nth-child(6) { top:75%; }
-.fm-filter-options--level button:nth-child(7) { top:83%; }
-.fm-filter-options--level button:nth-child(8) { top:89%; }
+.fm-filter-options--level button { left:80.8%; width:15.4%; height:8.5%; }
+.fm-filter-options--level button:nth-child(1) { top:20.5%; }
+.fm-filter-options--level button:nth-child(2) { top:34.9%; }
+.fm-filter-options--level button:nth-child(3) { top:43.5%; }
+.fm-filter-options--level button:nth-child(4) { top:52.1%; }
+.fm-filter-options--level button:nth-child(5) { top:60.8%; }
+.fm-filter-options--level button:nth-child(6) { top:69.5%; }
+.fm-filter-options--level button:nth-child(7) { top:78.2%; }
+.fm-filter-options--level button:nth-child(8) { top:86.8%; }
 .fm-category-panel button { width:16.4%; height:19%; border-radius:34px; }
 .fm-category-panel button:nth-child(1) { left:2.7%; top:39.7%; }
 .fm-category-panel button:nth-child(2) { left:20.9%; top:39.7%; }
