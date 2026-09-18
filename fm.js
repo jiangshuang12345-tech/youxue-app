@@ -170,8 +170,17 @@
   });
   progress.addEventListener("input", () => { elapsed = Number(progress.value); });
   page.addEventListener("click", (event) => {
-    if (filterPanel.hidden || filterPanel.contains(event.target) || document.querySelector("#fmFilterTrigger").contains(event.target)) return;
-    setArtwork(subtitlesVisible ? "subtitles" : "home");
+    const filterTrigger = document.querySelector("#fmFilterTrigger");
+    const categoryTrigger = document.querySelector("#fmCategoryTrigger");
+    if (!filterPanel.hidden) {
+      if (!filterPanel.contains(event.target) && !filterTrigger.contains(event.target)) setArtwork(subtitlesVisible ? "subtitles" : "home");
+      return;
+    }
+    if (state === "categories" && !event.target.closest("[data-fm-category]") && !categoryTrigger.contains(event.target)) {
+      const pageBounds = page.getBoundingClientRect();
+      const clickY = (event.clientY - pageBounds.top) / pageBounds.height;
+      if (clickY < 0.3) setArtwork(subtitlesVisible ? "subtitles" : "home");
+    }
   });
   updateFilterSelection();
   openFm.addEventListener("click", () => showStandalonePage(page, "#fm"));
