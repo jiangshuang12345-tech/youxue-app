@@ -638,7 +638,7 @@
 #studyPage {
   padding:0;
   overflow:hidden;
-  background-image:url("assets/study-home-hd.webp");
+  background-image:url("assets/study-home-fm.webp");
   background-size:100% 100%;
   background-position:center;
   background-repeat:no-repeat;
@@ -676,6 +676,7 @@
 .study-hotspot[data-study-card="continue"] { left:65.4%; top:57.5%; width:14.5%; height:29%; border-radius:20px; }
 .study-hotspot[data-study-card="custom"] { left:81%; top:57.5%; width:15.8%; height:29%; border-radius:20px; }
 .study-expert-entry { position:absolute; right:9%; top:4%; z-index:14; width:14%; height:13%; border:0; border-radius:999px; background:rgba(0,0,0,.01); cursor:pointer; }
+.study-fm-entry { position:absolute; right:1.4%; top:3.2%; z-index:15; width:7.2%; height:14%; padding:0; border:0; border-radius:30%; background:rgba(0,0,0,.01); cursor:pointer; }
 #studyPage .nav-hotspot[data-tab="study"] { left:34%; top:84%; width:12%; height:16%; border-radius:14px; }
 #studyPage .nav-hotspot[data-tab="smart"] { left:46%; top:84%; width:9%; height:16%; border-radius:14px; }
 #studyPage .nav-hotspot[data-tab="vip"] { left:55%; top:84%; width:11.5%; height:16%; border-radius:14px; }
@@ -1129,6 +1130,51 @@
 .course-plaza-guide-card button { min-width:108px; padding:11px 18px; border:2px solid rgba(255,255,255,.72); border-radius:999px; color:#fff; background:#111; font-size:clamp(15px,1.45vw,20px); font-weight:800; cursor:pointer; }
 .course-plaza-guide-pointer { position:absolute; left:32%; top:6.2%; z-index:3; width:clamp(140px,13vw,190px); height:clamp(90px,16vh,122px); overflow:visible; filter:drop-shadow(0 2px 3px rgba(7,29,57,.45)); pointer-events:none; }
 #courseSelectPage.is-guide-active .real-world-course-entry { z-index:21; pointer-events:none; box-shadow:0 0 0 5px #ffd94e,0 0 0 11px rgba(255,217,78,.28); }
+
+/* FM prototype states use the approved artwork with live interaction layers. */
+#fmPage { display:block; padding:0; overflow:hidden; background:#070b27; }
+#fmPage[hidden] { display:none; }
+.fm-artwork { position:absolute; inset:0; width:100%; height:100%; max-width:none; object-fit:fill; pointer-events:none; }
+.fm-back { position:absolute; left:2.1%; top:4.8%; z-index:8; display:grid; place-items:center; width:5.4%; aspect-ratio:1; padding:0 0 .3% 0; border:2px solid rgba(255,255,255,.5); border-radius:50%; color:#fff; background:rgba(12,18,55,.66); box-shadow:0 7px 20px rgba(0,0,0,.24); font-size:clamp(30px,4vw,58px); line-height:1; cursor:pointer; }
+.fm-filter-trigger,.fm-category-trigger,.fm-dino-trigger,.fm-track-actions button,.fm-player-toggle,.fm-loop-toggle { position:absolute; z-index:6; padding:0; border:0; background:rgba(0,0,0,.01); cursor:pointer; }
+.fm-filter-trigger { left:63.6%; top:5.1%; width:10.8%; height:11.3%; border-radius:999px; }
+.fm-category-trigger { left:75.5%; top:5.1%; width:21.8%; height:11.3%; border-radius:999px; }
+.fm-dino-trigger { left:52%; top:28%; width:29%; height:44%; border-radius:38%; }
+.fm-track-actions { position:absolute; inset:0; z-index:6; pointer-events:none; }
+.fm-track-actions button { left:36.3%; width:6.3%; height:11%; border-radius:50%; pointer-events:auto; }
+.fm-track-actions button:nth-child(1) { top:25%; }
+.fm-track-actions button:nth-child(2) { top:46.5%; }
+.fm-track-actions button:nth-child(3) { top:66%; }
+.fm-track-actions button:nth-child(4) { top:85%; }
+.fm-track-actions button.is-active::after { content:""; position:absolute; inset:19%; border-radius:50%; border:4px solid #ff6b2d; animation:fmPulse 1s ease-in-out infinite alternate; }
+.fm-player-toggle { left:84.6%; top:73.2%; width:7.2%; height:11%; border-radius:50%; }
+.fm-loop-toggle { left:79.7%; top:74%; width:5%; height:9%; border-radius:50%; }
+.fm-progress { position:absolute; left:55%; top:86%; z-index:8; width:31.4%; height:18px; margin:0; opacity:.02; cursor:pointer; }
+.fm-filter-panel,.fm-category-panel { position:absolute; inset:0; z-index:10; pointer-events:none; }
+.fm-filter-panel button,.fm-category-panel button { position:absolute; padding:0; border:0; color:transparent; background:transparent; cursor:pointer; pointer-events:auto; }
+.fm-filter-tab--age { left:56.8%; top:20.2%; width:19%; height:16.5%; }
+.fm-filter-tab--level { left:56.8%; top:36.7%; width:19%; height:59.4%; }
+.fm-filter-options button { left:75.8%; width:15.8%; height:10.5%; }
+.fm-filter-options button:nth-child(1) { top:20.5%; }
+.fm-filter-options button:nth-child(2) { top:37%; }
+.fm-filter-options button:nth-child(3) { top:49%; }
+.fm-filter-options button:nth-child(4) { top:61%; }
+.fm-filter-options button:nth-child(5) { top:73%; }
+.fm-filter-options--level button:nth-child(6) { top:75%; }
+.fm-filter-options--level button:nth-child(7) { top:83%; }
+.fm-filter-options--level button:nth-child(8) { top:89%; }
+.fm-category-panel button { width:16.4%; height:19%; border-radius:34px; }
+.fm-category-panel button:nth-child(1) { left:2.7%; top:39.7%; }
+.fm-category-panel button:nth-child(2) { left:20.9%; top:39.7%; }
+.fm-category-panel button:nth-child(3) { left:39%; top:39.7%; }
+.fm-category-panel button:nth-child(4) { left:57.1%; top:39.7%; }
+.fm-category-panel button:nth-child(5) { left:75.2%; top:39.7%; }
+.fm-category-panel button:nth-child(6) { left:2.7%; top:62.7%; }
+.fm-category-panel button:nth-child(7) { left:20.9%; top:62.7%; }
+.fm-category-panel button:nth-child(8) { left:39%; top:62.7%; }
+.fm-live-status { position:absolute; left:50%; bottom:4%; z-index:14; min-width:180px; margin:0; padding:10px 18px; border-radius:999px; color:#fff; background:rgba(8,12,40,.78); box-shadow:0 8px 24px rgba(0,0,0,.28); font-size:clamp(12px,1.25vw,17px); text-align:center; transform:translateX(-50%); pointer-events:none; }
+.fm-live-status:empty { display:none; }
+@keyframes fmPulse { from { opacity:.3; transform:scale(.85); } to { opacity:1; transform:scale(1.08); } }
 #realWorldCoursesPage { display:block; padding:0; overflow:hidden; background:#53b9cf; }
 #realWorldCoursesPage[hidden] { display:none; }
 .real-world-grade-select { position:absolute; left:8.1%; top:5.5%; display:flex; align-items:center; justify-content:center; gap:12%; width:13%; height:9.2%; padding:0; border:0; border-radius:999px; color:#1fb7ec; background:rgba(247,253,255,.98); font-size:clamp(16px,1.7vw,25px); font-weight:800; cursor:pointer; }
