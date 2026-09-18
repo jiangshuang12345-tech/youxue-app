@@ -14,8 +14,6 @@
   const artworkByState = {
     home: "assets/fm-home.webp",
     subtitles: "assets/fm-subtitles.webp",
-    age: "assets/fm-filter-age.webp",
-    level: "assets/fm-filter-level.webp",
     categories: "assets/fm-categories.webp",
   };
   let state = "home";
@@ -46,13 +44,16 @@
   };
   const setArtwork = (nextState) => {
     state = nextState;
-    artwork.src = artworkByState[nextState];
+    artwork.src = nextState === "age" || nextState === "level"
+      ? (subtitlesVisible ? artworkByState.subtitles : artworkByState.home)
+      : artworkByState[nextState];
     filterPanel.hidden = nextState !== "age" && nextState !== "level";
     categoryPanel.hidden = nextState !== "categories";
   };
   const showFilterTab = (tab) => {
     document.querySelector(".fm-filter-options--age").hidden = tab !== "age";
     document.querySelector(".fm-filter-options--level").hidden = tab !== "level";
+    document.querySelectorAll("[data-fm-filter-tab]").forEach((button) => button.classList.toggle("is-active", button.dataset.fmFilterTab === tab));
     setArtwork(tab);
   };
   const updateFilterSelection = () => {
