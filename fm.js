@@ -144,11 +144,13 @@
   document.querySelectorAll("[data-fm-filter-tab]").forEach((button) => button.addEventListener("click", () => showFilterTab(button.dataset.fmFilterTab)));
   document.querySelectorAll("[data-fm-age]").forEach((button) => button.addEventListener("click", () => {
     selectedAge = button.dataset.fmAge;
+    selectedLevel = "全部";
     updateFilterSelection();
     announce(`已选择年龄：${selectedAge}`);
   }));
   document.querySelectorAll("[data-fm-level]").forEach((button) => button.addEventListener("click", () => {
     selectedLevel = button.dataset.fmLevel;
+    selectedAge = "全部";
     updateFilterSelection();
     announce(`筛选已更新：${filterSummary.textContent}`);
   }));
