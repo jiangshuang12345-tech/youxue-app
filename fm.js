@@ -6,6 +6,7 @@
   const backFromFm = document.querySelector("#backFromFm");
   const filterPanel = document.querySelector("#fmFilterPanel");
   const categoryPanel = document.querySelector("#fmCategoryPanel");
+  const filterSummary = document.querySelector("#fmFilterSummary");
   const progress = document.querySelector("#fmProgress");
   const liveStatus = document.querySelector("#fmLiveStatus");
   if (!page || !artwork || !filterPanel || !categoryPanel || !progress) return;
@@ -22,6 +23,8 @@
   let playing = false;
   let loop = false;
   let activeTrack = 0;
+  let selectedAge = "全部";
+  let selectedLevel = "全部";
   let elapsed = 0;
   let timer = null;
   let audioContext = null;
@@ -51,6 +54,13 @@
     document.querySelector(".fm-filter-options--age").hidden = tab !== "age";
     document.querySelector(".fm-filter-options--level").hidden = tab !== "level";
     setArtwork(tab);
+  };
+  const updateFilterSelection = () => {
+    const values = [selectedAge, selectedLevel].filter((value) => value !== "全部");
+    filterSummary.textContent = values.length ? values.join(" · ") : "全部";
+    document.querySelector("#fmFilterTrigger").setAttribute("aria-label", `筛选：${filterSummary.textContent}`);
+    document.querySelectorAll("[data-fm-age]").forEach((button) => button.classList.toggle("is-selected", button.dataset.fmAge === selectedAge));
+    document.querySelectorAll("[data-fm-level]").forEach((button) => button.classList.toggle("is-selected", button.dataset.fmLevel === selectedLevel));
   };
   const stopTone = () => {
     if (oscillator) {
@@ -107,12 +117,22 @@
     setArtwork(subtitlesVisible ? "subtitles" : "home");
     announce(subtitlesVisible ? "字幕已显示" : "字幕已隐藏");
   });
-  document.querySelector("#fmFilterTrigger").addEventListener("click", () => showFilterTab("age"));
+  document.querySelector("#fmFilterTrigger").addEventListener("click", () => {
+    updateFilterSelection();
+    showFilterTab("age");
+  });
   document.querySelector("#fmCategoryTrigger").addEventListener("click", () => setArtwork("categories"));
   document.querySelectorAll("[data-fm-filter-tab]").forEach((button) => button.addEventListener("click", () => showFilterTab(button.dataset.fmFilterTab)));
-  document.querySelectorAll("[data-fm-age],[data-fm-level]").forEach((button) => button.addEventListener("click", () => {
-    const value = button.dataset.fmAge || button.dataset.fmLevel;
-    announce(`已筛选：${value}`);
+  document.querySelectorAll("[data-fm-age]").forEach((button) => button.addEventListener("click", () => {
+    selectedAge = button.dataset.fmAge;
+    updateFilterSelection();
+    announce(`已选择年龄：${selectedAge}，请选择级别`);
+    showFilterTab("level");
+  }));
+  document.querySelectorAll("[data-fm-level]").forEach((button) => button.addEventListener("click", () => {
+    selectedLevel = button.dataset.fmLevel;
+    updateFilterSelection();
+    announce(`筛选已更新：${filterSummary.textContent}`);
     setArtwork(subtitlesVisible ? "subtitles" : "home");
   }));
   document.querySelectorAll("[data-fm-category]").forEach((button) => button.addEventListener("click", () => {
@@ -132,6 +152,7 @@
     announce(loop ? "已开启单曲循环" : "已关闭单曲循环");
   });
   progress.addEventListener("input", () => { elapsed = Number(progress.value); });
+  updateFilterSelection();
   openFm.addEventListener("click", () => showStandalonePage(page, "#fm"));
   backFromFm.addEventListener("click", () => {
     pause();

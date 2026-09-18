@@ -13,7 +13,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="final-ui.css?v=96" />
+    <link rel="stylesheet" href="final-ui.css?v=97" />
   </head>
   <body>
     <div class="device-stage">
@@ -51,7 +51,7 @@
         <h1 class="sr-only" id="fmTitle" tabindex="-1">FM</h1>
         <img class="fm-artwork" id="fmArtwork" src="assets/fm-home.webp" alt="FM音频列表" fetchpriority="high" decoding="async" />
         <button class="fm-back" id="backFromFm" type="button" aria-label="返回优学中心">‹</button>
-        <button class="fm-filter-trigger" id="fmFilterTrigger" type="button" aria-label="按年龄和级别筛选"></button>
+        <button class="fm-filter-trigger" id="fmFilterTrigger" type="button" aria-label="按年龄和级别筛选"><span id="fmFilterSummary">全部</span><i aria-hidden="true"></i></button>
         <button class="fm-category-trigger" id="fmCategoryTrigger" type="button" aria-label="切换分类"></button>
         <button class="fm-dino-trigger" id="fmDinoTrigger" type="button" aria-label="显示或隐藏字幕"></button>
         <div class="fm-track-actions" aria-label="音频列表">
@@ -68,7 +68,7 @@
           <button class="fm-filter-tab fm-filter-tab--level" type="button" data-fm-filter-tab="level">级别</button>
           <div class="fm-filter-options fm-filter-options--age">
             <button type="button" data-fm-age="全部">全部</button><button type="button" data-fm-age="0-3岁">0-3岁</button>
-            <button type="button" data-fm-age="4-6岁">4-6岁</button><button type="button" data-fm-age="7-9岁">7-9岁</button><button type="button" data-fm-age="9岁以上">9岁以上</button>
+            <button type="button" data-fm-age="4-6岁">4-6岁</button><button type="button" data-fm-age="7-9岁">7-9岁</button><button type="button" data-fm-age="9岁">9岁</button>
           </div>
           <div class="fm-filter-options fm-filter-options--level" hidden>
             <button type="button" data-fm-level="全部">全部</button><button type="button" data-fm-level="Level 1">Level 1</button>
@@ -590,7 +590,7 @@
     </div>
 
     <script src="script.js?v=24"></script>
-    <script src="fm.js?v=1"></script>
+    <script src="fm.js?v=2"></script>
     <script src="expert-guide.js?v=3"></script>
     <script src="course-plaza-guide.js?v=4"></script>
     <script src="course-plaza-controls.js?v=2"></script>

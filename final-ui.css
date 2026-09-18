@@ -1137,7 +1137,9 @@
 .fm-artwork { position:absolute; inset:0; width:100%; height:100%; max-width:none; object-fit:fill; pointer-events:none; }
 .fm-back { position:absolute; left:2.1%; top:4.8%; z-index:8; display:grid; place-items:center; width:5.4%; aspect-ratio:1; padding:0 0 .3% 0; border:2px solid rgba(255,255,255,.5); border-radius:50%; color:#fff; background:rgba(12,18,55,.66); box-shadow:0 7px 20px rgba(0,0,0,.24); font-size:clamp(30px,4vw,58px); line-height:1; cursor:pointer; }
 .fm-filter-trigger,.fm-category-trigger,.fm-dino-trigger,.fm-track-actions button,.fm-player-toggle,.fm-loop-toggle { position:absolute; z-index:6; padding:0; border:0; background:rgba(0,0,0,.01); cursor:pointer; }
-.fm-filter-trigger { left:63.6%; top:5.1%; width:10.8%; height:11.3%; border-radius:999px; }
+.fm-filter-trigger { left:63.6%; top:5.1%; display:flex; align-items:center; justify-content:center; gap:10%; width:10.8%; height:11.3%; padding:0 8px; border:2px solid rgba(255,255,255,.24); border-radius:999px; color:#fff; background:rgba(67,69,88,.93); box-shadow:inset 0 1px 0 rgba(255,255,255,.14); font-size:clamp(12px,1.45vw,22px); white-space:nowrap; }
+.fm-filter-trigger span { max-width:78%; overflow:hidden; text-overflow:ellipsis; }
+.fm-filter-trigger i { flex:none; width:10px; height:10px; border-right:3px solid #fff; border-bottom:3px solid #fff; transform:translateY(-3px) rotate(45deg); }
 .fm-category-trigger { left:75.5%; top:5.1%; width:21.8%; height:11.3%; border-radius:999px; }
 .fm-dino-trigger { left:52%; top:28%; width:29%; height:44%; border-radius:38%; }
 .fm-track-actions { position:absolute; inset:0; z-index:6; pointer-events:none; }
@@ -1169,6 +1171,9 @@
 .fm-filter-options--level button:nth-child(6) { top:69.5%; }
 .fm-filter-options--level button:nth-child(7) { top:78.2%; }
 .fm-filter-options--level button:nth-child(8) { top:86.8%; }
+.fm-filter-options button { display:grid; place-items:center; border-radius:12px; color:#555; background:rgba(255,241,234,.98); font-size:clamp(13px,1.65vw,25px); }
+.fm-filter-options button.is-selected { color:#ff5722; font-weight:800; background:#ffe7dc; }
+.fm-filter-options button.is-selected::after { content:"✓"; position:absolute; right:9%; color:#ff6a2e; font-weight:900; }
 .fm-category-panel button { width:16.4%; height:19%; border-radius:34px; }
 .fm-category-panel button:nth-child(1) { left:2.7%; top:39.7%; }
 .fm-category-panel button:nth-child(2) { left:20.9%; top:39.7%; }
