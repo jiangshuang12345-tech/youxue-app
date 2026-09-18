@@ -66,15 +66,15 @@
         <section class="fm-filter-panel" id="fmFilterPanel" aria-label="FM筛选" hidden>
           <button class="fm-filter-tab fm-filter-tab--age" type="button" data-fm-filter-tab="age">年龄</button>
           <button class="fm-filter-tab fm-filter-tab--level" type="button" data-fm-filter-tab="level">级别</button>
-          <div class="fm-filter-options fm-filter-options--age">
-            <button type="button" data-fm-age="全部">全部</button><button type="button" data-fm-age="0-3岁">0-3岁</button>
-            <button type="button" data-fm-age="4-6岁">4-6岁</button><button type="button" data-fm-age="7-9岁">7-9岁</button><button type="button" data-fm-age="9岁">9岁</button>
+          <div class="fm-filter-options fm-filter-options--age" role="radiogroup" aria-label="年龄单选">
+            <button type="button" role="radio" data-fm-age="全部">全部</button><button type="button" role="radio" data-fm-age="0-3岁">0-3岁</button>
+            <button type="button" role="radio" data-fm-age="4-6岁">4-6岁</button><button type="button" role="radio" data-fm-age="7-9岁">7-9岁</button><button type="button" role="radio" data-fm-age="9岁">9岁</button>
           </div>
-          <div class="fm-filter-options fm-filter-options--level" hidden>
-            <button type="button" data-fm-level="全部">全部</button><button type="button" data-fm-level="Level 1">Level 1</button>
-            <button type="button" data-fm-level="Level 2">Level 2</button><button type="button" data-fm-level="Level 3">Level 3</button>
-            <button type="button" data-fm-level="Level 4">Level 4</button><button type="button" data-fm-level="Level 5">Level 5</button>
-            <button type="button" data-fm-level="Level 6">Level 6</button><button type="button" data-fm-level="Level 7">Level 7</button>
+          <div class="fm-filter-options fm-filter-options--level" role="radiogroup" aria-label="级别单选" hidden>
+            <button type="button" role="radio" data-fm-level="全部">全部</button><button type="button" role="radio" data-fm-level="Level 1">Level 1</button>
+            <button type="button" role="radio" data-fm-level="Level 2">Level 2</button><button type="button" role="radio" data-fm-level="Level 3">Level 3</button>
+            <button type="button" role="radio" data-fm-level="Level 4">Level 4</button><button type="button" role="radio" data-fm-level="Level 5">Level 5</button>
+            <button type="button" role="radio" data-fm-level="Level 6">Level 6</button><button type="button" role="radio" data-fm-level="Level 7">Level 7</button>
           </div>
         </section>
         <section class="fm-category-panel" id="fmCategoryPanel" aria-label="FM分类" hidden>
@@ -590,7 +590,7 @@
     </div>
 
     <script src="script.js?v=24"></script>
-    <script src="fm.js?v=3"></script>
+    <script src="fm.js?v=4"></script>
     <script src="expert-guide.js?v=3"></script>
     <script src="course-plaza-guide.js?v=4"></script>
     <script src="course-plaza-controls.js?v=2"></script>

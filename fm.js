@@ -23,6 +23,7 @@
   let activeTrack = 0;
   let selectedAge = "全部";
   let selectedLevel = "全部";
+  let activeFilterTab = "age";
   let elapsed = 0;
   let timer = null;
   let audioContext = null;
@@ -51,17 +52,30 @@
     categoryPanel.hidden = nextState !== "categories";
   };
   const showFilterTab = (tab) => {
+    activeFilterTab = tab;
     document.querySelector(".fm-filter-options--age").hidden = tab !== "age";
     document.querySelector(".fm-filter-options--level").hidden = tab !== "level";
-    document.querySelectorAll("[data-fm-filter-tab]").forEach((button) => button.classList.toggle("is-active", button.dataset.fmFilterTab === tab));
+    document.querySelectorAll("[data-fm-filter-tab]").forEach((button) => {
+      const selected = button.dataset.fmFilterTab === tab;
+      button.classList.toggle("is-active", selected);
+      button.setAttribute("aria-selected", String(selected));
+    });
     setArtwork(tab);
   };
   const updateFilterSelection = () => {
     const values = [selectedAge, selectedLevel].filter((value) => value !== "全部");
     filterSummary.textContent = values.length ? values.join(" · ") : "全部";
     document.querySelector("#fmFilterTrigger").setAttribute("aria-label", `筛选：${filterSummary.textContent}`);
-    document.querySelectorAll("[data-fm-age]").forEach((button) => button.classList.toggle("is-selected", button.dataset.fmAge === selectedAge));
-    document.querySelectorAll("[data-fm-level]").forEach((button) => button.classList.toggle("is-selected", button.dataset.fmLevel === selectedLevel));
+    document.querySelectorAll("[data-fm-age]").forEach((button) => {
+      const selected = button.dataset.fmAge === selectedAge;
+      button.classList.toggle("is-selected", selected);
+      button.setAttribute("aria-checked", String(selected));
+    });
+    document.querySelectorAll("[data-fm-level]").forEach((button) => {
+      const selected = button.dataset.fmLevel === selectedLevel;
+      button.classList.toggle("is-selected", selected);
+      button.setAttribute("aria-checked", String(selected));
+    });
   };
   const stopTone = () => {
     if (oscillator) {
@@ -119,22 +133,24 @@
     announce(subtitlesVisible ? "字幕已显示" : "字幕已隐藏");
   });
   document.querySelector("#fmFilterTrigger").addEventListener("click", () => {
+    if (!filterPanel.hidden) {
+      setArtwork(subtitlesVisible ? "subtitles" : "home");
+      return;
+    }
     updateFilterSelection();
-    showFilterTab("age");
+    showFilterTab(activeFilterTab);
   });
   document.querySelector("#fmCategoryTrigger").addEventListener("click", () => setArtwork("categories"));
   document.querySelectorAll("[data-fm-filter-tab]").forEach((button) => button.addEventListener("click", () => showFilterTab(button.dataset.fmFilterTab)));
   document.querySelectorAll("[data-fm-age]").forEach((button) => button.addEventListener("click", () => {
     selectedAge = button.dataset.fmAge;
     updateFilterSelection();
-    announce(`已选择年龄：${selectedAge}，请选择级别`);
-    showFilterTab("level");
+    announce(`已选择年龄：${selectedAge}`);
   }));
   document.querySelectorAll("[data-fm-level]").forEach((button) => button.addEventListener("click", () => {
     selectedLevel = button.dataset.fmLevel;
     updateFilterSelection();
     announce(`筛选已更新：${filterSummary.textContent}`);
-    setArtwork(subtitlesVisible ? "subtitles" : "home");
   }));
   document.querySelectorAll("[data-fm-category]").forEach((button) => button.addEventListener("click", () => {
     announce(`已切换至${button.dataset.fmCategory}`);
@@ -153,6 +169,10 @@
     announce(loop ? "已开启单曲循环" : "已关闭单曲循环");
   });
   progress.addEventListener("input", () => { elapsed = Number(progress.value); });
+  page.addEventListener("click", (event) => {
+    if (filterPanel.hidden || filterPanel.contains(event.target) || document.querySelector("#fmFilterTrigger").contains(event.target)) return;
+    setArtwork(subtitlesVisible ? "subtitles" : "home");
+  });
   updateFilterSelection();
   openFm.addEventListener("click", () => showStandalonePage(page, "#fm"));
   backFromFm.addEventListener("click", () => {
