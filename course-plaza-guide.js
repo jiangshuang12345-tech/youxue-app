@@ -5,7 +5,7 @@
   const skip = document.querySelector("#skipCoursePlazaGuide");
   if (!page || !guide || !dismiss || !skip) return;
 
-  const skippedKey = "youxue-course-plaza-guide-skipped-v2";
+  const skippedKey = "youxue-course-plaza-guide-skipped-v3";
   const hasSkipped = () => {
     try {
       return window.localStorage.getItem(skippedKey) === "1";
