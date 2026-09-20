@@ -1177,7 +1177,7 @@
 .fm-category-panel button:nth-child(5) { left:75.2%; top:39.7%; }
 .fm-category-panel button:nth-child(6) { left:2.7%; top:62.7%; }
 .fm-category-panel button:nth-child(7) { left:20.9%; top:62.7%; }
-.fm-category-panel button:nth-child(8) { left:39%; top:62.7%; }
+.fm-category-panel button:nth-child(8) { left:39%; top:62.7%; width:22%; }
 .fm-live-status { position:absolute; left:50%; bottom:4%; z-index:14; min-width:180px; margin:0; padding:10px 18px; border-radius:999px; color:#fff; background:rgba(8,12,40,.78); box-shadow:0 8px 24px rgba(0,0,0,.28); font-size:clamp(12px,1.25vw,17px); text-align:center; transform:translateX(-50%); pointer-events:none; }
 .fm-live-status:empty { display:none; }
 @keyframes fmPulse { from { opacity:.3; transform:scale(.85); } to { opacity:1; transform:scale(1.08); } }

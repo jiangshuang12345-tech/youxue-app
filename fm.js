@@ -14,7 +14,7 @@
   const artworkByState = {
     home: "assets/fm-home.webp",
     subtitles: "assets/fm-subtitles.webp?v=2",
-    categories: "assets/fm-categories.webp",
+    categories: "assets/fm-categories.webp?v=3",
   };
   let state = "home";
   let subtitlesVisible = false;
