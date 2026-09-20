@@ -1139,6 +1139,7 @@
 .fm-back::before { content:""; position:absolute; left:53%; top:50%; width:22%; aspect-ratio:1; border-left:clamp(3px,.3vw,5px) solid currentColor; border-bottom:clamp(3px,.3vw,5px) solid currentColor; transform:translate(-50%,-50%) rotate(45deg); }
 .fm-filter-trigger,.fm-category-trigger,.fm-dino-trigger,.fm-track-actions button,.fm-player-toggle,.fm-loop-toggle { position:absolute; z-index:6; padding:0; border:0; background:rgba(0,0,0,.01); cursor:pointer; }
 .fm-filter-trigger { left:75%; top:5.1%; display:flex; align-items:center; justify-content:center; gap:10%; width:10.8%; height:11.3%; padding:0 8px; border:2px solid rgba(255,255,255,.24); border-radius:999px; color:#fff; background:rgba(67,69,88,.93); box-shadow:inset 0 1px 0 rgba(255,255,255,.14); font-size:clamp(12px,1.45vw,22px); white-space:nowrap; }
+.is-fm-category-open .fm-filter-trigger { opacity:.38; filter:brightness(.72); pointer-events:none; }
 .fm-filter-trigger span { max-width:78%; overflow:hidden; text-overflow:ellipsis; }
 .fm-filter-trigger i { flex:none; width:10px; height:10px; border-right:3px solid #fff; border-bottom:3px solid #fff; transform:translateY(-3px) rotate(45deg); }
 .fm-category-trigger { left:86.5%; top:5.1%; width:10.8%; height:11.3%; border-radius:999px; }

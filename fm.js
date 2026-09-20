@@ -45,6 +45,7 @@
   };
   const setArtwork = (nextState) => {
     state = nextState;
+    page.classList.toggle("is-fm-category-open", nextState === "categories");
     artwork.src = nextState === "age" || nextState === "level"
       ? (subtitlesVisible ? artworkByState.subtitles : artworkByState.home)
       : artworkByState[nextState];
