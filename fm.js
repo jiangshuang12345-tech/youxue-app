@@ -13,7 +13,7 @@
 
   const artworkByState = {
     home: "assets/fm-home.webp",
-    subtitles: "assets/fm-subtitles.webp?v=2",
+    subtitles: "assets/fm-subtitles.webp?v=3",
     categories: "assets/fm-categories.webp?v=3",
   };
   let state = "home";
