@@ -1138,10 +1138,10 @@
 .fm-back { position:absolute; left:2.1%; top:4.8%; z-index:8; width:5.4%; aspect-ratio:1; padding:0; border:2px solid rgba(255,255,255,.5); border-radius:50%; color:#fff; background:rgba(12,18,55,.66); box-shadow:0 7px 20px rgba(0,0,0,.24); cursor:pointer; }
 .fm-back::before { content:""; position:absolute; left:53%; top:50%; width:22%; aspect-ratio:1; border-left:clamp(3px,.3vw,5px) solid currentColor; border-bottom:clamp(3px,.3vw,5px) solid currentColor; transform:translate(-50%,-50%) rotate(45deg); }
 .fm-filter-trigger,.fm-category-trigger,.fm-dino-trigger,.fm-track-actions button,.fm-player-toggle,.fm-loop-toggle { position:absolute; z-index:6; padding:0; border:0; background:rgba(0,0,0,.01); cursor:pointer; }
-.fm-filter-trigger { left:63.6%; top:5.1%; display:flex; align-items:center; justify-content:center; gap:10%; width:10.8%; height:11.3%; padding:0 8px; border:2px solid rgba(255,255,255,.24); border-radius:999px; color:#fff; background:rgba(67,69,88,.93); box-shadow:inset 0 1px 0 rgba(255,255,255,.14); font-size:clamp(12px,1.45vw,22px); white-space:nowrap; }
+.fm-filter-trigger { left:75%; top:5.1%; display:flex; align-items:center; justify-content:center; gap:10%; width:10.8%; height:11.3%; padding:0 8px; border:2px solid rgba(255,255,255,.24); border-radius:999px; color:#fff; background:rgba(67,69,88,.93); box-shadow:inset 0 1px 0 rgba(255,255,255,.14); font-size:clamp(12px,1.45vw,22px); white-space:nowrap; }
 .fm-filter-trigger span { max-width:78%; overflow:hidden; text-overflow:ellipsis; }
 .fm-filter-trigger i { flex:none; width:10px; height:10px; border-right:3px solid #fff; border-bottom:3px solid #fff; transform:translateY(-3px) rotate(45deg); }
-.fm-category-trigger { left:75.5%; top:5.1%; width:21.8%; height:11.3%; border-radius:999px; }
+.fm-category-trigger { left:86.5%; top:5.1%; width:10.8%; height:11.3%; border-radius:999px; }
 .fm-dino-trigger { left:52%; top:28%; width:29%; height:44%; border-radius:38%; }
 .fm-track-actions { position:absolute; inset:0; z-index:6; pointer-events:none; }
 .fm-track-actions button { left:36.3%; width:6.3%; height:11%; border-radius:50%; pointer-events:auto; }
