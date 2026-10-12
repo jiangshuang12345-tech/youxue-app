@@ -917,6 +917,23 @@ document.querySelector("#smartPage .smart-zones").addEventListener("click", (eve
     return;
   }
 });
+// Capture report-area clicks before any course-card survey handler can run.
+document.addEventListener("click", (event) => {
+  if (smartPage.hidden) return;
+  const reportButton = document.querySelector("#smartPage [data-course-report]");
+  const rect = reportButton?.getBoundingClientRect();
+  if (!rect) return;
+  const x = event.clientX;
+  const y = event.clientY;
+  const inReportArea = x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom;
+  if (!inReportArea) return;
+
+  event.preventDefault();
+  event.stopPropagation();
+  event.stopImmediatePropagation();
+  openCourseReport();
+}, true);
+
 document.querySelector("#smartPage .smart-carousel").addEventListener("click", (event) => {
   const reportButton = document.querySelector("#smartPage [data-course-report]");
   const reportRect = reportButton?.getBoundingClientRect();
