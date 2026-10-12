@@ -918,11 +918,21 @@ document.querySelector("#smartPage .smart-zones").addEventListener("click", (eve
   }
 });
 document.querySelector("#smartPage .smart-carousel").addEventListener("click", (event) => {
-  const reportButton = event.target.closest("[data-course-report]");
-  if (reportButton) {
+  const reportButton = document.querySelector("#smartPage [data-course-report]");
+  const reportRect = reportButton?.getBoundingClientRect();
+  const x = event.clientX;
+  const y = event.clientY;
+  const hitReportArea = reportRect && x >= reportRect.left && x <= reportRect.right && y >= reportRect.top && y <= reportRect.bottom;
+  const clickedReport = event.target.closest("[data-course-report]");
+
+  // Give the report entry priority over overlapping course survey hotspots.
+  if (clickedReport || hitReportArea) {
+    event.preventDefault();
+    event.stopPropagation();
     openCourseReport();
     return;
   }
+
   const courseCard = event.target.closest("[data-course-survey]");
   if (courseCard) openSurveyInvite();
 });
