@@ -939,7 +939,7 @@
 /* Completed lesson report: retain the portrait report artwork without stretching it. */
 #courseReportPage { padding:0; overflow:hidden; background:#6458f6; }
 #courseReportPage::before { content:""; position:absolute; inset:0; background:url("优学首页&智学/课程报告-A.webp") center top/auto 100% no-repeat; }
-.course-report-back { position:absolute; left:3%; top:14%; z-index:2; width:11%; height:15%; padding:0; border:0; border-radius:16px; background:transparent; cursor:pointer; }
+.course-report-back { position:absolute; left:38.2%; top:5.2%; z-index:3; width:5.8%; height:8.8%; padding:0; border:0; border-radius:16px; background:transparent; cursor:pointer; touch-action:manipulation; -webkit-tap-highlight-color:transparent; }
 .course-report-back:focus-visible { outline:4px solid #fff; outline-offset:3px; }
 
 /* Membership: scroll the long benefits artwork on the left; keep plans fixed on the right. */
