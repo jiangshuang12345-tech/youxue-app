@@ -930,7 +930,7 @@
 .smart-course-hit:focus-visible { outline:4px solid rgba(83,123,255,.9); outline-offset:-6px; }
 .smart-course-hit--locked { cursor:default; }
 .smart-course-hit--done { position:relative; }
-.smart-report-hit { position:absolute; left:58%; top:61%; z-index:6; width:10%; height:27%; padding:0; border:0; border-radius:18px; background:transparent; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+.smart-report-hit { position:absolute; left:55%; top:57%; z-index:10; width:16%; height:32%; padding:0; border:0; border-radius:18px; background:transparent; cursor:pointer; touch-action:manipulation; -webkit-tap-highlight-color:transparent; }
 .smart-report-hit:focus-visible { outline:4px solid rgba(83,123,255,.9); outline-offset:-4px; }
 #smartPage .nav-hotspot[data-tab="study"] { left:34%; top:84%; width:12%; height:16%; z-index:5; border-radius:14px; }
 #smartPage .nav-hotspot[data-tab="smart"] { left:46%; top:84%; width:9%; height:16%; z-index:5; border-radius:14px; }
