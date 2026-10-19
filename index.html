@@ -508,8 +508,8 @@
             </div>
           </div>
         </section>
-        <section><label for="feedbackSurveyDesc">具体说说吧</label><textarea id="feedbackSurveyDesc" maxlength="300" placeholder="请描述问题或建议（选填）"></textarea></section>
-        <button id="submitFeedbackSurveyH5" type="button">提交反馈</button>
+        <section><label for="feedbackSurveyDesc">具体说说吧 <span aria-hidden="true">*</span></label><textarea id="feedbackSurveyDesc" maxlength="300" required aria-required="true" placeholder="请描述问题或建议（必填）"></textarea></section>
+        <button id="submitFeedbackSurveyH5" type="button" disabled aria-disabled="true">提交反馈</button>
       </main>
 
       <div class="feedback-modal" id="feedbackModal" hidden>
