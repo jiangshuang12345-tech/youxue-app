@@ -122,6 +122,8 @@ let cancelFromList = false;
 let currentSmartUnit = "u1";
 let currentFeedbackSource = "personal-center";
 let feedbackType = "";
+let ratingPromptActive = false;
+let ratingPromptStage = "closed";
 let toastTimer = null;
 const memoryStore = new Map();
 const paymentModal = document.querySelector("#paymentModal");
@@ -638,18 +640,43 @@ function maybePromptRating(force = false) {
 }
 
 function openRatingPrompt(step = "ask") {
+  showPage(smartPage, "#smart");
+  if (ratingPromptActive && !ratingModal.hidden) {
+    if (ratingPromptStage !== step) setRatingStep(step);
+    return;
+  }
+  ratingPromptActive = true;
   ratingModal.hidden = false;
   setRatingStep(step);
   ratingModal.querySelector(".rating-close")?.focus();
 }
 
 function setRatingStep(step) {
+  ratingPromptStage = step;
   document.querySelector("#ratingStepAsk").hidden = step !== "ask";
   document.querySelector("#ratingStepPraise").hidden = step !== "praise";
 }
 
 function closeRatingPrompt() {
   ratingModal.hidden = true;
+  ratingPromptActive = false;
+  ratingPromptStage = "closed";
+}
+
+function keepRatingOnSmartPage() {
+  if (!smartPage.hidden && courseReportPage.hidden) return;
+  showPage(smartPage, "#smart");
+}
+
+function updateFeedbackSurveySubmitState() {
+  const category = document.querySelector("#feedbackSurveyOptions button.is-selected");
+  const description = document.querySelector("#feedbackSurveyDesc").value.trim();
+  const courseSelected = document.querySelector(".feedback-course-options button.is-selected");
+  const requiresCourse = category?.dataset.feedbackCategory === "course";
+  const enabled = Boolean(category && description && (!requiresCourse || courseSelected));
+  const submit = document.querySelector("#submitFeedbackSurveyH5");
+  submit.disabled = !enabled;
+  submit.setAttribute("aria-disabled", String(!enabled));
 }
 
 function openSurveyInvite() {
@@ -687,6 +714,7 @@ function openFeedbackSurveyH5(source = "rating-prompt") {
     button.setAttribute("aria-checked", "false");
   });
   document.querySelector("#feedbackSurveyDesc").value = "";
+  updateFeedbackSurveySubmitState();
 }
 
 function closeFeedbackSurveyH5() {
@@ -1033,6 +1061,7 @@ closeRatingButton.addEventListener("click", (event) => {
 document.querySelectorAll("[data-rating]").forEach((button) => button.addEventListener("click", () => {
   const rating = button.dataset.rating;
   if (rating === "positive") {
+    keepRatingOnSmartPage();
     document.querySelectorAll("[data-star]").forEach((star) => { star.textContent = "☆"; star.classList.remove("is-selected"); });
     document.querySelector("#ratingStarCopy").textContent = "尚未评分";
     document.querySelector("#submitAppStoreRating").hidden = true;
@@ -1042,6 +1071,7 @@ document.querySelectorAll("[data-rating]").forEach((button) => button.addEventLi
   else dismissRatingPrompt();
 }));
 document.querySelectorAll("[data-star]").forEach((button) => button.addEventListener("click", () => {
+  keepRatingOnSmartPage();
   const score = Number(button.dataset.star);
   document.querySelectorAll("[data-star]").forEach((star) => {
     const selected = Number(star.dataset.star) <= score;
@@ -1087,6 +1117,7 @@ document.querySelectorAll("#feedbackSurveyOptions button").forEach((button) => b
       item.setAttribute("aria-checked", "false");
     });
   }
+  updateFeedbackSurveySubmitState();
 }));
 document.querySelectorAll(".feedback-course-options button").forEach((button) => button.addEventListener("click", () => {
   document.querySelectorAll(".feedback-course-options button").forEach((item) => {
@@ -1094,8 +1125,12 @@ document.querySelectorAll(".feedback-course-options button").forEach((button) =>
     item.classList.toggle("is-selected", selected);
     item.setAttribute("aria-checked", String(selected));
   });
+  updateFeedbackSurveySubmitState();
 }));
+document.querySelector("#feedbackSurveyDesc").addEventListener("input", updateFeedbackSurveySubmitState);
 document.querySelector("#submitFeedbackSurveyH5").addEventListener("click", () => {
+  updateFeedbackSurveySubmitState();
+  if (document.querySelector("#submitFeedbackSurveyH5").disabled) return;
   if (currentFeedbackSource === "rating-prompt") {
     const state = getRatingState();
     state.status = "feedback";
