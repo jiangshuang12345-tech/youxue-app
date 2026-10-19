@@ -674,8 +674,11 @@ function closeSurveyH5() {
   surveyH5.hidden = true;
 }
 
-function openFeedbackSurveyH5() {
+function openFeedbackSurveyH5(source = "rating-prompt") {
+  currentFeedbackSource = source;
   closeRatingPrompt();
+  if (source === "rating-prompt") showPage(smartPage, "#smart");
+  if (source === "personal-center") showPage(homePage, "#home");
   feedbackSurveyH5.hidden = false;
   document.querySelectorAll("#feedbackSurveyOptions button").forEach((button) => button.classList.remove("is-selected"));
   document.querySelector("#feedbackSurveyDesc").value = "";
@@ -805,7 +808,7 @@ document.querySelector("#openRealWorldCourses").addEventListener("click", openRe
 document.querySelector("#backToCoursePlaza").addEventListener("click", () => showPage(courseSelectPage, "#courses"));
 document.querySelector("#backToCourseSelect").addEventListener("click", () => showPage(courseSelectPage, "#courses"));
 document.querySelector("#backToSmartFromReport").addEventListener("click", returnToSmartFromReport);
-document.querySelector("#profileFeedbackEntry").addEventListener("click", () => openFeedback("personal-center"));
+document.querySelector("#profileFeedbackEntry").addEventListener("click", () => openFeedbackSurveyH5("personal-center"));
 document.querySelector("#studyPage .study-zones").addEventListener("click", (event) => {
   const card = event.target.closest("[data-study-card]");
   if (!card) return;
@@ -1030,7 +1033,7 @@ document.querySelectorAll("[data-rating]").forEach((button) => button.addEventLi
     document.querySelector("#submitAppStoreRating").hidden = true;
     setRatingStep("praise");
   }
-  else if (rating === "negative") openFeedbackSurveyH5();
+  else if (rating === "negative") openFeedbackSurveyH5("rating-prompt");
   else dismissRatingPrompt();
 }));
 document.querySelectorAll("[data-star]").forEach((button) => button.addEventListener("click", () => {
@@ -1073,6 +1076,11 @@ document.querySelectorAll("#feedbackSurveyOptions button").forEach((button) => b
   document.querySelectorAll("#feedbackSurveyOptions button").forEach((item) => item.classList.toggle("is-selected", item === button));
 }));
 document.querySelector("#submitFeedbackSurveyH5").addEventListener("click", () => {
+  if (currentFeedbackSource === "rating-prompt") {
+    const state = getRatingState();
+    state.status = "feedback";
+    setRatingState(state);
+  }
   closeFeedbackSurveyH5();
   showToast("反馈已提交，感谢你的建议！");
 });

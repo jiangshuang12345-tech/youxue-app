@@ -1007,21 +1007,55 @@
   border-radius:50%;
 }
 
-/* Personal center visible feedback entry positioned between existing hotspots. */
-#homePage .topbar .feedback-entry {
-  position: absolute;
-  left: 11.5%;
-  top: 5.3%;
-  z-index: 5;
-  padding: 0;
-  width: 11.5%;
-  height: 6.8%;
-  border-radius: 999px;
-  color: transparent;
+/* Personal center navigation is redrawn so the permanent feedback entry sits after account management. */
+#homePage .profile-card {
+  position: static;
+  opacity: 1;
   background: transparent;
   box-shadow: none;
 }
-#homePage .topbar .feedback-entry:hover { transform: none; }
+#homePage .profile-card > :not(.profile-nav) { display:none; }
+#homePage .profile-nav {
+  position:absolute;
+  left:20.35%;
+  top:69.2%;
+  z-index:6;
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  width:29.2%;
+  height:17.2%;
+  padding:1.2% .35% .5%;
+  overflow:hidden;
+  border-radius:18px;
+  background:#eaf1f5;
+  pointer-events:auto;
+}
+#homePage .profile-nav .nav-item {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+  gap:6px;
+  padding:0;
+  color:#6d767c;
+  background:transparent;
+  font-size:clamp(9px,1.05vw,15px);
+  white-space:nowrap;
+}
+#homePage .profile-nav .nav-icon {
+  display:grid;
+  place-items:center;
+  width:clamp(25px,3vw,42px);
+  height:clamp(25px,3vw,42px);
+  border:3px solid #667177;
+  border-radius:10px;
+  color:#667177;
+  background:#fff;
+  font-size:clamp(12px,1.5vw,20px);
+  line-height:1;
+}
+#homePage .profile-nav .nav-item--feedback { color:#536fd7; }
+#homePage .profile-nav .nav-icon--feedback { border-color:#6178e8; color:#6178e8; }
 
 /* Bottom tab bar: hidden on image-background pages (nav is baked in). */
 .tab-bar { display:none; }
