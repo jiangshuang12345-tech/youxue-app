@@ -681,6 +681,11 @@ function openFeedbackSurveyH5(source = "rating-prompt") {
   if (source === "personal-center") showPage(homePage, "#home");
   feedbackSurveyH5.hidden = false;
   document.querySelectorAll("#feedbackSurveyOptions button").forEach((button) => button.classList.remove("is-selected"));
+  document.querySelector("#feedbackCoursePicker").hidden = true;
+  document.querySelectorAll(".feedback-course-options button").forEach((button) => {
+    button.classList.remove("is-selected");
+    button.setAttribute("aria-checked", "false");
+  });
   document.querySelector("#feedbackSurveyDesc").value = "";
 }
 
@@ -1074,6 +1079,21 @@ document.querySelector("#finishSurvey").addEventListener("click", closeSurveyH5)
 document.querySelector("#closeFeedbackSurveyH5").addEventListener("click", closeFeedbackSurveyH5);
 document.querySelectorAll("#feedbackSurveyOptions button").forEach((button) => button.addEventListener("click", () => {
   document.querySelectorAll("#feedbackSurveyOptions button").forEach((item) => item.classList.toggle("is-selected", item === button));
+  const isCourse = button.dataset.feedbackCategory === "course";
+  document.querySelector("#feedbackCoursePicker").hidden = !isCourse;
+  if (!isCourse) {
+    document.querySelectorAll(".feedback-course-options button").forEach((item) => {
+      item.classList.remove("is-selected");
+      item.setAttribute("aria-checked", "false");
+    });
+  }
+}));
+document.querySelectorAll(".feedback-course-options button").forEach((button) => button.addEventListener("click", () => {
+  document.querySelectorAll(".feedback-course-options button").forEach((item) => {
+    const selected = item === button;
+    item.classList.toggle("is-selected", selected);
+    item.setAttribute("aria-checked", String(selected));
+  });
 }));
 document.querySelector("#submitFeedbackSurveyH5").addEventListener("click", () => {
   if (currentFeedbackSource === "rating-prompt") {
@@ -1085,7 +1105,7 @@ document.querySelector("#submitFeedbackSurveyH5").addEventListener("click", () =
   showToast("反馈已提交，感谢你的建议！");
 });
 
-document.querySelectorAll(".rating-options button, [data-star], #submitAppStoreRating, #skipAppStore, #closeSurveyInvite, #openSurveyH5, #closeSurveyH5, [data-survey-choice], #submitSurvey, #finishSurvey, #closeFeedbackSurveyH5, #feedbackSurveyOptions button, #submitFeedbackSurveyH5").forEach((button) => {
+document.querySelectorAll(".rating-options button, [data-star], #submitAppStoreRating, #skipAppStore, #closeSurveyInvite, #openSurveyH5, #closeSurveyH5, [data-survey-choice], #submitSurvey, #finishSurvey, #closeFeedbackSurveyH5, #feedbackSurveyOptions button, .feedback-course-options button, #submitFeedbackSurveyH5").forEach((button) => {
   let touched = false;
   button.addEventListener("touchend", (event) => {
     event.preventDefault();
