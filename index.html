@@ -13,7 +13,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="final-ui.css?v=103" />
+    <link rel="stylesheet" href="final-ui.css?v=104" />
   </head>
   <body>
     <div class="device-stage">
@@ -509,8 +509,24 @@
           </div>
         </section>
         <section><label for="feedbackSurveyDesc">具体说说吧 <span aria-hidden="true">*</span></label><textarea id="feedbackSurveyDesc" maxlength="300" required aria-required="true" placeholder="请描述问题或建议（必填）"></textarea></section>
+        <section class="feedback-screenshot-section">
+          <h2>上传截图 <small>（选填，最多3张）</small></h2>
+          <div class="feedback-screenshot-list" id="feedbackScreenshotList">
+            <button class="feedback-screenshot-add" id="addFeedbackScreenshot" type="button" aria-label="从相册上传截图"><span aria-hidden="true">＋</span><small>上传截图</small></button>
+          </div>
+          <input id="feedbackScreenshotInput" type="file" accept="image/*" multiple hidden />
+        </section>
         <button id="submitFeedbackSurveyH5" type="button" disabled aria-disabled="true">提交反馈</button>
       </main>
+
+      <div class="feedback-photo-permission-modal prototype-overlay" id="feedbackPhotoPermissionModal" hidden>
+        <div class="ios-permission-dialog" role="alertdialog" aria-modal="true" aria-labelledby="feedbackPhotoPermissionTitle" aria-describedby="feedbackPhotoPermissionDesc">
+          <div class="permission-app-icon" aria-hidden="true">优</div>
+          <h2 id="feedbackPhotoPermissionTitle">“优学App”想访问您的照片</h2>
+          <p id="feedbackPhotoPermissionDesc">用于选择并上传问题截图，帮助我们更快定位和解决问题。</p>
+          <div class="permission-actions"><button id="denyFeedbackPhotoPermission" type="button">不允许</button><button id="allowFeedbackPhotoPermission" type="button">允许访问</button></div>
+        </div>
+      </div>
 
       <div class="feedback-modal" id="feedbackModal" hidden>
         <div class="feedback-dialog" role="dialog" aria-modal="true" aria-labelledby="feedbackTitle">
@@ -614,7 +630,7 @@
       <p class="device-caption"><span></span> iPhone · 横屏交互原型</p>
     </div>
 
-    <script src="script.js?v=24"></script>
+    <script src="script.js?v=25"></script>
     <script src="fm.js?v=10"></script>
     <script src="expert-guide.js?v=3"></script>
     <script src="course-plaza-guide.js?v=4"></script>
