@@ -679,6 +679,32 @@ function updateFeedbackSurveySubmitState() {
   submit.setAttribute("aria-disabled", String(!enabled));
 }
 
+let feedbackScreenshotUrls = [];
+
+function renderFeedbackScreenshots() {
+  const list = document.querySelector("#feedbackScreenshotList");
+  list.querySelectorAll(".feedback-screenshot-item").forEach((item) => item.remove());
+  feedbackScreenshotUrls.forEach((url, index) => {
+    const item = document.createElement("div");
+    item.className = "feedback-screenshot-item";
+    item.innerHTML = `<img src="${url}" alt="问题截图 ${index + 1}"><button class="feedback-screenshot-remove" type="button" aria-label="删除问题截图 ${index + 1}">×</button>`;
+    item.querySelector("button").addEventListener("click", () => {
+      URL.revokeObjectURL(feedbackScreenshotUrls[index]);
+      feedbackScreenshotUrls.splice(index, 1);
+      renderFeedbackScreenshots();
+    });
+    list.insertBefore(item, document.querySelector("#addFeedbackScreenshot"));
+  });
+  document.querySelector("#addFeedbackScreenshot").hidden = feedbackScreenshotUrls.length >= 3;
+}
+
+function resetFeedbackScreenshots() {
+  feedbackScreenshotUrls.forEach((url) => URL.revokeObjectURL(url));
+  feedbackScreenshotUrls = [];
+  document.querySelector("#feedbackScreenshotInput").value = "";
+  renderFeedbackScreenshots();
+}
+
 function openSurveyInvite() {
   closeRatingPrompt();
   surveyInviteModal.hidden = false;
@@ -714,6 +740,7 @@ function openFeedbackSurveyH5(source = "rating-prompt") {
     button.setAttribute("aria-checked", "false");
   });
   document.querySelector("#feedbackSurveyDesc").value = "";
+  resetFeedbackScreenshots();
   updateFeedbackSurveySubmitState();
 }
 
@@ -1107,6 +1134,34 @@ document.querySelector("#submitSurvey").addEventListener("click", () => {
 });
 document.querySelector("#finishSurvey").addEventListener("click", closeSurveyH5);
 document.querySelector("#closeFeedbackSurveyH5").addEventListener("click", closeFeedbackSurveyH5);
+let feedbackPhotoPermission = "unknown";
+document.querySelector("#addFeedbackScreenshot").addEventListener("click", () => {
+  if (feedbackPhotoPermission === "allowed") {
+    document.querySelector("#feedbackScreenshotInput").click();
+    return;
+  }
+  document.querySelector("#feedbackPhotoPermissionModal").hidden = false;
+});
+document.querySelector("#allowFeedbackPhotoPermission").addEventListener("click", () => {
+  feedbackPhotoPermission = "allowed";
+  document.querySelector("#feedbackPhotoPermissionModal").hidden = true;
+  document.querySelector("#feedbackScreenshotInput").click();
+});
+document.querySelector("#denyFeedbackPhotoPermission").addEventListener("click", () => {
+  feedbackPhotoPermission = "denied";
+  document.querySelector("#feedbackPhotoPermissionModal").hidden = true;
+});
+document.querySelector("#feedbackPhotoPermissionModal").addEventListener("click", (event) => {
+  if (event.target === event.currentTarget) event.currentTarget.hidden = true;
+});
+document.querySelector("#feedbackScreenshotInput").addEventListener("change", (event) => {
+  const remaining = 3 - feedbackScreenshotUrls.length;
+  Array.from(event.target.files).filter((file) => file.type.startsWith("image/")).slice(0, remaining).forEach((file) => {
+    feedbackScreenshotUrls.push(URL.createObjectURL(file));
+  });
+  event.target.value = "";
+  renderFeedbackScreenshots();
+});
 document.querySelectorAll("#feedbackSurveyOptions button").forEach((button) => button.addEventListener("click", () => {
   document.querySelectorAll("#feedbackSurveyOptions button").forEach((item) => item.classList.toggle("is-selected", item === button));
   const isCourse = button.dataset.feedbackCategory === "course";
