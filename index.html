@@ -13,7 +13,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="final-ui.css?v=104" />
+    <link rel="stylesheet" href="final-ui.css?v=105" />
   </head>
   <body>
     <div class="device-stage">
@@ -207,6 +207,9 @@
       <main class="page page--home" id="homePage" aria-labelledby="homeTitle" hidden>
         <h1 class="sr-only" id="homeTitle">个人中心</h1>
 
+        <button class="profile-edit-hotspot" id="profileEditEntry" type="button" aria-label="编辑个人信息"></button>
+        <span class="profile-name-overlay" id="profileDisplayName" aria-live="polite">Jackson</span>
+
         <header class="topbar">
           <button class="icon-button" id="backFromProfile" type="button" aria-label="返回优学中心">
             <span class="back-chevron" aria-hidden="true"></span>
@@ -300,6 +303,30 @@
                 <div class="expert" aria-hidden="true">👨‍🏫</div>
               </article>
             </div>
+          </div>
+        </section>
+      </main>
+
+      <main class="page page--profile-edit" id="profileEditPage" aria-labelledby="profileEditTitle" hidden>
+        <button class="profile-edit-back" id="backFromProfileEdit" type="button" aria-label="返回个人中心"><span aria-hidden="true"></span></button>
+        <h1 id="profileEditTitle">编辑信息</h1>
+        <section class="profile-edit-card">
+          <div class="profile-edit-left">
+            <div class="profile-edit-avatar" aria-hidden="true">👦🏻<i>📷</i></div>
+            <label class="profile-nickname-field"><span>昵称</span><input id="profileNicknameInput" type="text" maxlength="12" value="Jackson" aria-describedby="nicknameCounter" /></label>
+            <small id="nicknameCounter">7/12</small>
+            <div class="profile-gender-row" aria-label="性别">
+              <span>性别</span>
+              <button class="is-selected" type="button" data-profile-gender="boy">👦🏻 男宝</button>
+              <button type="button" data-profile-gender="girl">👧🏻 女宝</button>
+            </div>
+          </div>
+          <div class="profile-edit-divider" aria-hidden="true"></div>
+          <div class="profile-edit-right">
+            <label><span>生日</span><button type="button">2020-05-05 <i></i></button></label>
+            <label><span>年级</span><button type="button">一年级 <i></i></button></label>
+            <label><span>目标</span><button type="button">校内学习同步/一年级 <i></i></button></label>
+            <button class="profile-save-button" id="saveProfileNickname" type="button">保存</button>
           </div>
         </section>
       </main>
@@ -484,7 +511,7 @@
       </main>
 
       <main class="feedback-survey-h5" id="feedbackSurveyH5" hidden aria-labelledby="feedbackSurveyTitle">
-        <header><button id="closeFeedbackSurveyH5" type="button" aria-label="关闭意见反馈"></button><span>优学意见反馈</span><h1 id="feedbackSurveyTitle">你的反馈将帮助我们持续优化优学App</h1></header>
+        <header><button id="closeFeedbackSurveyH5" type="button" aria-label="关闭意见反馈"></button><span>优学意见反馈</span><h1 id="feedbackSurveyTitle">告诉我们哪里不好用</h1><p>你的反馈将帮助我们持续优化优学 App。</p></header>
         <section>
           <h2>你遇到的问题是？</h2>
           <div class="feedback-survey-options" id="feedbackSurveyOptions">
@@ -504,7 +531,7 @@
               <button type="button" role="radio" aria-checked="false">考试能力提升</button>
               <button type="button" role="radio" aria-checked="false">校外素质拓展</button>
               <button type="button" role="radio" aria-checked="false">Dino绘本</button>
-              <button type="button" role="radio" aria-checked="false">专属探险</button>
+              <button type="button" role="radio" aria-checked="false">AI 定制课</button>
             </div>
           </div>
         </section>
@@ -630,7 +657,7 @@
       <p class="device-caption"><span></span> iPhone · 横屏交互原型</p>
     </div>
 
-    <script src="script.js?v=25"></script>
+    <script src="script.js?v=26"></script>
     <script src="fm.js?v=10"></script>
     <script src="expert-guide.js?v=3"></script>
     <script src="course-plaza-guide.js?v=4"></script>
