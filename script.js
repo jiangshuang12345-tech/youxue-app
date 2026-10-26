@@ -84,6 +84,7 @@ const FEEDBACK_TYPE_LABELS = {
 };
 
 const homePage = document.querySelector("#homePage");
+const profileEditPage = document.querySelector("#profileEditPage");
 const studyPage = document.querySelector("#studyPage");
 const openCourseMap = document.querySelector("#openCourseMap");
 const courseSelectPage = document.querySelector("#courseSelectPage");
@@ -113,7 +114,7 @@ const surveyH5 = document.querySelector("#surveyH5");
 const feedbackSurveyH5 = document.querySelector("#feedbackSurveyH5");
 const feedbackModal = document.querySelector("#feedbackModal");
 const appToast = document.querySelector("#appToast");
-const pages = [studyPage, courseSelectPage, realWorldCoursesPage, expertCoursesPage, homePage, lessonsPage, lessonDetailsPage, ordersPage, orderDetailPage, smartPage, courseReportPage, vipPage];
+const pages = [studyPage, courseSelectPage, realWorldCoursesPage, expertCoursesPage, homePage, profileEditPage, lessonsPage, lessonDetailsPage, ordersPage, orderDetailPage, smartPage, courseReportPage, vipPage];
 let ledgerTab = "all";
 let incomeFilter = "all";
 let orderTab = "all";
@@ -863,6 +864,46 @@ document.querySelector("#confirmCancel").addEventListener("click", () => {
 
 profileEntry.addEventListener("click", () => showPage(homePage, "#home"));
 document.querySelector("#backFromProfile").addEventListener("click", () => showPage(studyPage, "#study"));
+const profileNicknameInput = document.querySelector("#profileNicknameInput");
+const profileDisplayName = document.querySelector("#profileDisplayName");
+const nicknameCounter = document.querySelector("#nicknameCounter");
+let savedProfileNickname = window.localStorage.getItem("youxue-profile-nickname") || "Jackson";
+
+function syncProfileNickname(value = savedProfileNickname) {
+  profileDisplayName.textContent = value;
+  profileNicknameInput.value = value;
+  nicknameCounter.textContent = `${value.length}/12`;
+}
+
+document.querySelector("#profileEditEntry").addEventListener("click", () => {
+  syncProfileNickname();
+  showPage(profileEditPage, "#profile-edit");
+  window.setTimeout(() => profileNicknameInput.focus({ preventScroll: true }), 160);
+});
+document.querySelector("#backFromProfileEdit").addEventListener("click", () => {
+  syncProfileNickname();
+  showPage(homePage, "#home");
+});
+profileNicknameInput.addEventListener("input", () => {
+  nicknameCounter.textContent = `${profileNicknameInput.value.length}/12`;
+});
+document.querySelector("#saveProfileNickname").addEventListener("click", () => {
+  const nextNickname = profileNicknameInput.value.trim();
+  if (!nextNickname) {
+    showToast("请输入昵称");
+    profileNicknameInput.focus();
+    return;
+  }
+  savedProfileNickname = nextNickname;
+  window.localStorage.setItem("youxue-profile-nickname", savedProfileNickname);
+  syncProfileNickname();
+  showPage(homePage, "#home");
+  showToast("昵称已保存");
+});
+document.querySelectorAll("[data-profile-gender]").forEach((button) => button.addEventListener("click", () => {
+  document.querySelectorAll("[data-profile-gender]").forEach((item) => item.classList.toggle("is-selected", item === button));
+}));
+syncProfileNickname();
 document.querySelector("#backToStudyFromCourses").addEventListener("click", () => showPage(studyPage, "#study"));
 document.querySelector("#openRealWorldCourses").addEventListener("click", openRealWorldCourses);
 document.querySelector("#backToCoursePlaza").addEventListener("click", () => showPage(courseSelectPage, "#courses"));
@@ -1227,7 +1268,7 @@ renderOrders();
 renderStudyCards();
 renderSmartLessons();
 
-const initialRoutes = { "#study": studyPage, "#courses": courseSelectPage, "#real-world-courses": realWorldCoursesPage, "#expert-courses": expertCoursesPage, "#lessons": lessonsPage, "#orders": ordersPage, "#smart": smartPage, "#course-report": courseReportPage, "#vip": vipPage, "#home": homePage };
+const initialRoutes = { "#study": studyPage, "#courses": courseSelectPage, "#real-world-courses": realWorldCoursesPage, "#expert-courses": expertCoursesPage, "#lessons": lessonsPage, "#orders": ordersPage, "#smart": smartPage, "#course-report": courseReportPage, "#vip": vipPage, "#home": homePage, "#profile-edit": profileEditPage };
 if (window.location.hash === "#validity") showLessonDetailTab("validity");
 else if (window.location.hash === "#ledger") showLessonDetailTab("ledger");
 else if (initialRoutes[window.location.hash]) showPage(initialRoutes[window.location.hash], window.location.hash);
