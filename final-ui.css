@@ -1272,10 +1272,8 @@
 .smart-system-learn { left:57.4%; top:38.7%; width:12.5%; height:10.4%; border-radius:999px; }
 
 #vipPage { background-image:url("assets/tab-vip-v3.png"); }
-#vipPage .vip-scroll-pane { bottom:13.5%; height:auto; }
-#vipPage .vip-back { position:absolute; left:1.2%; top:5.3%; z-index:15; width:5%; height:10.7%; padding:0; border:0; border-radius:50%; background:rgba(95,72,45,.18); box-shadow:0 2px 8px rgba(104,70,35,.12); cursor:pointer; touch-action:manipulation; }
-#vipPage .vip-back::before { content:""; position:absolute; left:38%; top:31%; width:24%; height:38%; border-left:5px solid #fff; border-bottom:5px solid #fff; border-radius:3px; transform:rotate(45deg); }
-#vipPage .vip-back:focus-visible { outline:3px solid rgba(238,78,55,.8); outline-offset:3px; }
+#vipPage .vip-scroll-pane { bottom:0; height:auto; }
+#vipPage::after { content:""; position:absolute; inset:0; z-index:10; pointer-events:none; background:url("assets/tab-vip-v3.png") center/100% 100% no-repeat; clip-path:polygon(29% 86%, 71% 86%, 71% 100%, 29% 100%); }
 #vipPage > .nav-hotspot { position:absolute; top:86.5%; z-index:12; width:10%; height:13.5%; padding:0; border:0; border-radius:14px; background:transparent; cursor:pointer; }
 #vipPage > .nav-hotspot[data-tab="study"] { left:29.8%; }
 #vipPage > .nav-hotspot[data-tab="smart"] { left:39.8%; }
