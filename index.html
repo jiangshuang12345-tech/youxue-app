@@ -13,7 +13,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="final-ui.css?v=111" />
+    <link rel="stylesheet" href="final-ui.css?v=112" />
   </head>
   <body>
     <div class="device-stage">
@@ -497,6 +497,12 @@
         </button>
       </nav>
 
+      <div class="page-onboarding" id="pageOnboarding" hidden aria-hidden="true">
+        <img id="pageOnboardingImage" alt="" draggable="false" />
+        <button class="page-onboarding-hotspot page-onboarding-next" id="pageOnboardingNext" type="button" aria-label="下一步"></button>
+        <button class="page-onboarding-hotspot page-onboarding-skip" id="pageOnboardingSkip" type="button" aria-label="跳过新手引导"></button>
+      </div>
+
       <div class="rating-modal" id="ratingModal" hidden>
         <div class="rating-dialog" role="dialog" aria-modal="true" aria-labelledby="ratingTitle">
           <button class="rating-close" id="closeRating" type="button" aria-label="关闭评价弹窗">×</button>
@@ -691,7 +697,7 @@
       <p class="device-caption"><span></span> iPhone · 横屏交互原型</p>
     </div>
 
-    <script src="script.js?v=29"></script>
+    <script src="script.js?v=30"></script>
     <script src="fm.js?v=10"></script>
     <script src="expert-guide.js?v=3"></script>
     <script src="course-plaza-guide.js?v=4"></script>

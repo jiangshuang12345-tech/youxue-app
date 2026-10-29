@@ -116,6 +116,10 @@ const surveyH5 = document.querySelector("#surveyH5");
 const feedbackSurveyH5 = document.querySelector("#feedbackSurveyH5");
 const feedbackModal = document.querySelector("#feedbackModal");
 const appToast = document.querySelector("#appToast");
+const pageOnboarding = document.querySelector("#pageOnboarding");
+const pageOnboardingImage = document.querySelector("#pageOnboardingImage");
+const pageOnboardingNext = document.querySelector("#pageOnboardingNext");
+const pageOnboardingSkip = document.querySelector("#pageOnboardingSkip");
 const pages = [studyPage, courseSelectPage, realWorldCoursesPage, expertCoursesPage, homePage, profileEditPage, lessonsPage, lessonDetailsPage, ordersPage, orderDetailPage, smartPage, extensionPage, smartSystemPage, courseReportPage, vipPage];
 let ledgerTab = "all";
 let incomeFilter = "all";
@@ -128,6 +132,9 @@ let feedbackType = "";
 let ratingPromptActive = false;
 let ratingPromptStage = "closed";
 let toastTimer = null;
+let pageOnboardingStep = 0;
+let pageOnboardingConfig = null;
+let pageOnboardingTimer = null;
 const memoryStore = new Map();
 const paymentModal = document.querySelector("#paymentModal");
 const photoPermissionModal = document.querySelector("#photoPermissionModal");
@@ -454,7 +461,134 @@ function showLessonDetailTab(tabName) {
   showPage(lessonDetailsPage, tabName === "ledger" ? "#ledger" : "#validity");
 }
 
+const pageOnboardingConfigs = new Map([
+  [studyPage, {
+    id: "study",
+    label: "优学中心",
+    images: [
+      "assets/onboarding/study-01.webp",
+      "assets/onboarding/study-02.webp",
+      "assets/onboarding/study-03.webp",
+      "assets/onboarding/study-04.webp",
+      "assets/onboarding/study-05.webp",
+      "assets/onboarding/study-06.webp",
+    ],
+  }],
+  [smartPage, {
+    id: "smart",
+    label: "双师智学",
+    images: [
+      "assets/onboarding/smart-01.webp",
+      "assets/onboarding/smart-02.webp",
+      "assets/onboarding/smart-03.webp",
+      "assets/onboarding/smart-04.webp",
+    ],
+  }],
+  [extensionPage, {
+    id: "extension",
+    label: "拓展学习",
+    images: ["assets/onboarding/extension-01.webp"],
+    finishOnAnyTap: true,
+  }],
+  [vipPage, {
+    id: "vip",
+    label: "会员订阅",
+    images: ["assets/onboarding/vip-01.webp"],
+    finishOnAnyTap: true,
+    next: { left: "35%", top: "51%", width: "15%", height: "14%" },
+  }],
+]);
+
+const pageOnboardingSeen = new Set();
+
+function pageOnboardingStorageKey(config) {
+  return `youxue-onboarding-v1-${config.id}`;
+}
+
+function hasSeenPageOnboarding(config) {
+  if (pageOnboardingSeen.has(config.id)) return true;
+  try { return window.sessionStorage.getItem(pageOnboardingStorageKey(config)) === "done"; }
+  catch { return false; }
+}
+
+function markPageOnboardingSeen(config) {
+  pageOnboardingSeen.add(config.id);
+  try { window.sessionStorage.setItem(pageOnboardingStorageKey(config), "done"); }
+  catch { /* In-memory state still prevents repeats for this app run. */ }
+}
+
+function setPageOnboardingHotspots(config) {
+  const next = config.next || { left: "64%", top: "49%", width: "15%", height: "16%" };
+  const skip = config.skip || { left: "78%", top: "49%", width: "13%", height: "16%" };
+  pageOnboarding.style.setProperty("--guide-next-left", next.left);
+  pageOnboarding.style.setProperty("--guide-next-top", next.top);
+  pageOnboarding.style.setProperty("--guide-next-width", next.width);
+  pageOnboarding.style.setProperty("--guide-next-height", next.height);
+  pageOnboarding.style.setProperty("--guide-skip-left", skip.left);
+  pageOnboarding.style.setProperty("--guide-skip-top", skip.top);
+  pageOnboarding.style.setProperty("--guide-skip-width", skip.width);
+  pageOnboarding.style.setProperty("--guide-skip-height", skip.height);
+}
+
+function renderPageOnboarding() {
+  if (!pageOnboardingConfig) return;
+  const total = pageOnboardingConfig.images.length;
+  pageOnboardingImage.src = pageOnboardingConfig.images[pageOnboardingStep];
+  pageOnboardingImage.alt = `${pageOnboardingConfig.label}新手引导，第 ${pageOnboardingStep + 1} 步，共 ${total} 步`;
+  pageOnboardingNext.setAttribute("aria-label", pageOnboardingStep === total - 1 ? "我知道了" : "下一步");
+  pageOnboardingSkip.hidden = total === 1;
+  setPageOnboardingHotspots(pageOnboardingConfig);
+  const nextImage = pageOnboardingConfig.images[pageOnboardingStep + 1];
+  if (nextImage) new Image().src = nextImage;
+}
+
+function closePageOnboarding(remember = true) {
+  window.clearTimeout(pageOnboardingTimer);
+  if (remember && pageOnboardingConfig) markPageOnboardingSeen(pageOnboardingConfig);
+  pageOnboarding.hidden = true;
+  pageOnboarding.setAttribute("aria-hidden", "true");
+  pageOnboardingConfig = null;
+  pageOnboardingStep = 0;
+}
+
+function advancePageOnboarding() {
+  if (!pageOnboardingConfig) return;
+  if (pageOnboardingStep >= pageOnboardingConfig.images.length - 1) {
+    closePageOnboarding(true);
+    return;
+  }
+  pageOnboardingStep += 1;
+  renderPageOnboarding();
+}
+
+function maybeOpenPageOnboarding(targetPage) {
+  const config = pageOnboardingConfigs.get(targetPage);
+  if (!config || hasSeenPageOnboarding(config) || targetPage.hidden) return;
+  pageOnboardingConfig = config;
+  pageOnboardingStep = 0;
+  renderPageOnboarding();
+  pageOnboarding.hidden = false;
+  pageOnboarding.setAttribute("aria-hidden", "false");
+  pageOnboardingNext.focus({ preventScroll: true });
+}
+
+pageOnboardingNext.addEventListener("click", (event) => {
+  event.stopPropagation();
+  advancePageOnboarding();
+});
+pageOnboardingSkip.addEventListener("click", (event) => {
+  event.stopPropagation();
+  closePageOnboarding(true);
+});
+pageOnboarding.addEventListener("click", () => advancePageOnboarding());
+document.addEventListener("keydown", (event) => {
+  if (pageOnboarding.hidden) return;
+  if (event.key === "Escape") closePageOnboarding(true);
+});
+
 function showPage(targetPage, hash) {
+  window.clearTimeout(pageOnboardingTimer);
+  if (!pageOnboarding.hidden) closePageOnboarding(false);
   if (targetPage !== courseSelectPage) window.closeCoursePlazaGuide?.();
   pages.forEach((page) => { page.hidden = page !== targetPage; });
   targetPage.classList.remove("is-entering");
@@ -468,6 +602,7 @@ function showPage(targetPage, hash) {
     const heading = targetPage.querySelector("h1");
     heading?.focus({ preventScroll: true });
   }, 120);
+  pageOnboardingTimer = window.setTimeout(() => maybeOpenPageOnboarding(targetPage), 180);
 }
 
 function openCourseReport() {

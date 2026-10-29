@@ -1279,3 +1279,12 @@
 #vipPage > .nav-hotspot[data-tab="smart"] { left:39.8%; }
 #vipPage > .nav-hotspot[data-tab="extension"] { left:49.8%; }
 #vipPage > .nav-hotspot[data-tab="vip"] { left:59.8%; }
+
+/* Screenshot-led onboarding shown once per primary page in each app session. */
+.page-onboarding { position:absolute; inset:0; z-index:320; overflow:hidden; border-radius:inherit; background:#0b1520; }
+.page-onboarding[hidden] { display:none; }
+.page-onboarding > img { display:block; width:100%; height:100%; object-fit:fill; user-select:none; -webkit-user-drag:none; pointer-events:none; }
+.page-onboarding-hotspot { position:absolute; z-index:2; padding:0; border:0; border-radius:999px; background:transparent; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+.page-onboarding-hotspot:focus-visible { outline:3px solid rgba(255,255,255,.96); outline-offset:3px; }
+.page-onboarding-next { left:var(--guide-next-left,65%); top:var(--guide-next-top,51%); width:var(--guide-next-width,13%); height:var(--guide-next-height,13%); }
+.page-onboarding-skip { left:var(--guide-skip-left,78%); top:var(--guide-skip-top,51%); width:var(--guide-skip-width,12%); height:var(--guide-skip-height,13%); }
