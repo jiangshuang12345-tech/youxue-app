@@ -1256,7 +1256,7 @@
 #smartPage > .nav-hotspot[data-tab="extension"],#extensionPage > .nav-hotspot[data-tab="extension"] { left:49.8%; }
 #smartPage > .nav-hotspot[data-tab="vip"],#extensionPage > .nav-hotspot[data-tab="vip"] { left:59.8%; }
 
-#extensionPage { display:block; padding:0; overflow:hidden; background:url("assets/tab-extension-v2.webp") center/100% 100% no-repeat; }
+#extensionPage { display:block; padding:0; overflow:hidden; background:url("assets/tab-extension-v3.png") center/100% 100% no-repeat; }
 #extensionPage[hidden] { display:none; }
 .extension-profile-entry { position:absolute; left:1.3%; top:3.5%; z-index:8; width:5.8%; height:13%; padding:0; border:0; border-radius:50%; background:transparent; cursor:pointer; }
 .extension-course-zones { position:absolute; left:2.2%; top:20.8%; z-index:7; display:grid; grid-template-columns:repeat(4,1fr); gap:1.4%; width:102%; height:60.2%; }
