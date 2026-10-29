@@ -1027,6 +1027,7 @@ document.querySelector("#smartPage .smart-zones").addEventListener("click", (eve
 });
 document.querySelector("#openSmartSystemCourse").addEventListener("click", () => showPage(smartSystemPage, "#smart-system"));
 document.querySelector("#backFromSmartSystem").addEventListener("click", () => showPage(smartPage, "#smart"));
+document.querySelector("#backFromVip").addEventListener("click", () => showPage(studyPage, "#study"));
 document.querySelector("#openFmFromSmartSystem").addEventListener("click", () => document.querySelector("#openFm")?.click());
 document.querySelector(".smart-system-record").addEventListener("click", () => showToast("学习记录功能保持不变"));
 document.querySelector(".smart-system-settings").addEventListener("click", () => showToast("设置功能保持不变"));
