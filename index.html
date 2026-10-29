@@ -13,7 +13,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="final-ui.css?v=105" />
+    <link rel="stylesheet" href="final-ui.css?v=106" />
   </head>
   <body>
     <div class="device-stage">
@@ -43,6 +43,7 @@
         <nav class="study-tab-bar" aria-label="底部导航">
           <button class="nav-hotspot is-active" data-tab="study" type="button"><span aria-hidden="true">AI</span><b>优学中心</b></button>
           <button class="nav-hotspot" data-tab="smart" type="button"><span aria-hidden="true">✦</span><b>双师智学</b></button>
+          <button class="nav-hotspot" data-tab="extension" type="button"><span aria-hidden="true">✦</span><b>拓展学习</b></button>
           <button class="nav-hotspot" data-tab="vip" type="button"><span aria-hidden="true">V</span><b>会员订阅</b></button>
         </nav>
       </main>
@@ -416,6 +417,7 @@
 
       <main class="page page--smart" id="smartPage" aria-labelledby="smartTitle" hidden>
         <h1 class="sr-only" id="smartTitle">双师智学</h1>
+        <button class="smart-system-entry" id="openSmartSystemCourse" type="button" aria-label="进入系统课程"></button>
         <div class="smart-carousel" aria-label="双师智学课程列表">
           <div class="smart-carousel-track">
             <button class="smart-course-hit smart-course-hit--locked" type="button" aria-label="未解锁课程"></button>
@@ -429,7 +431,32 @@
         </div>
         <button class="nav-hotspot" data-tab="study" type="button" aria-label="优学中心"></button>
         <button class="nav-hotspot" data-tab="smart" type="button" aria-label="双师智学"></button>
+        <button class="nav-hotspot" data-tab="extension" type="button" aria-label="拓展学习"></button>
         <button class="nav-hotspot" data-tab="vip" type="button" aria-label="会员订阅"></button>
+      </main>
+
+      <main class="page page--extension" id="extensionPage" aria-labelledby="extensionTitle" hidden>
+        <h1 class="sr-only" id="extensionTitle">拓展学习</h1>
+        <button class="extension-profile-entry" type="button" aria-label="进入个人中心"></button>
+        <div class="extension-course-zones" aria-label="拓展学习课程">
+          <button type="button" aria-label="中国故事英文演绎课"></button>
+          <button type="button" aria-label="美国小学经典分级阅读课"></button>
+          <button type="button" aria-label="365天名人名言每日一学"></button>
+          <button type="button" aria-label="365天每日一句"></button>
+        </div>
+        <button class="nav-hotspot" data-tab="study" type="button" aria-label="优学中心"></button>
+        <button class="nav-hotspot" data-tab="smart" type="button" aria-label="双师智学"></button>
+        <button class="nav-hotspot" data-tab="extension" type="button" aria-label="拓展学习"></button>
+        <button class="nav-hotspot" data-tab="vip" type="button" aria-label="会员订阅"></button>
+      </main>
+
+      <main class="page page--smart-system" id="smartSystemPage" aria-labelledby="smartSystemTitle" hidden>
+        <h1 class="sr-only" id="smartSystemTitle">双师智学系统课</h1>
+        <button class="smart-system-back" id="backFromSmartSystem" type="button" aria-label="返回双师智学"></button>
+        <button class="smart-system-fm" id="openFmFromSmartSystem" type="button" aria-label="进入FM"></button>
+        <button class="smart-system-record" type="button" aria-label="查看学习记录"></button>
+        <button class="smart-system-settings" type="button" aria-label="打开设置"></button>
+        <button class="smart-system-learn" type="button" aria-label="进入当前系统课程"></button>
       </main>
 
       <main class="page page--course-report" id="courseReportPage" aria-label="课程报告" hidden>
@@ -446,6 +473,9 @@
           <button class="vip-plan-tab" id="vipCoinTab" type="button" role="tab" aria-selected="false" aria-controls="vipPage">AI定制币</button>
         </div>
         <button class="nav-hotspot vip-back" data-tab="study" type="button" aria-label="返回优学中心"></button>
+        <button class="nav-hotspot vip-smart-tab" data-tab="smart" type="button" aria-label="双师智学"></button>
+        <button class="nav-hotspot vip-extension-tab" data-tab="extension" type="button" aria-label="拓展学习"></button>
+        <button class="nav-hotspot vip-current-tab" data-tab="vip" type="button" aria-label="会员订阅"></button>
       </main>
 
       <nav class="tab-bar" id="tabBar" aria-label="底部导航" hidden>
@@ -456,6 +486,10 @@
         <button type="button" data-tab="smart">
           <span class="tab-icon" aria-hidden="true">📘</span>
           <span>双师智学</span>
+        </button>
+        <button type="button" data-tab="extension">
+          <span class="tab-icon" aria-hidden="true">✦</span>
+          <span>拓展学习</span>
         </button>
         <button type="button" data-tab="vip">
           <span class="tab-icon" aria-hidden="true">♛</span>
@@ -657,7 +691,7 @@
       <p class="device-caption"><span></span> iPhone · 横屏交互原型</p>
     </div>
 
-    <script src="script.js?v=26"></script>
+    <script src="script.js?v=27"></script>
     <script src="fm.js?v=10"></script>
     <script src="expert-guide.js?v=3"></script>
     <script src="course-plaza-guide.js?v=4"></script>

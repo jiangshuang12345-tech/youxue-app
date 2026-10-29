@@ -1242,3 +1242,39 @@
 .real-world-lesson-hotspots button:first-child { left:14.5%; }
 .real-world-lesson-hotspots button:nth-child(2) { left:35.5%; }
 .real-world-lesson-hotspots button:focus-visible { outline:4px solid #ffd94e; outline-offset:4px; background:rgba(255,255,255,.08); }
+
+/* Four-tab primary navigation, using the approved post-expansion artwork. */
+#studyPage { background-image:url("assets/tab-study-v2.webp"); background-size:100% 100%; background-position:center; }
+#studyPage .study-tab-bar { width:40.4%; min-width:0; height:13.2%; }
+#studyPage .study-tab-bar .nav-hotspot { flex:1 1 25%; }
+
+#smartPage { background-image:url("assets/tab-smart-v2.webp"); background-size:100% 100%; background-position:center; background-repeat:no-repeat; }
+.smart-system-entry { position:absolute; left:63.2%; top:19%; z-index:25; width:34.7%; height:62.5%; padding:0; border:0; border-radius:30px; background:transparent; cursor:pointer; }
+#smartPage > .nav-hotspot,#extensionPage > .nav-hotspot { position:absolute; top:86.5%; z-index:20; width:10%; height:13.5%; padding:0; border:0; border-radius:14px; background:transparent; cursor:pointer; }
+#smartPage > .nav-hotspot[data-tab="study"],#extensionPage > .nav-hotspot[data-tab="study"] { left:29.8%; }
+#smartPage > .nav-hotspot[data-tab="smart"],#extensionPage > .nav-hotspot[data-tab="smart"] { left:39.8%; }
+#smartPage > .nav-hotspot[data-tab="extension"],#extensionPage > .nav-hotspot[data-tab="extension"] { left:49.8%; }
+#smartPage > .nav-hotspot[data-tab="vip"],#extensionPage > .nav-hotspot[data-tab="vip"] { left:59.8%; }
+
+#extensionPage { display:block; padding:0; overflow:hidden; background:url("assets/tab-extension-v2.webp") center/100% 100% no-repeat; }
+#extensionPage[hidden] { display:none; }
+.extension-profile-entry { position:absolute; left:1.3%; top:3.5%; z-index:8; width:5.8%; height:13%; padding:0; border:0; border-radius:50%; background:transparent; cursor:pointer; }
+.extension-course-zones { position:absolute; left:2.2%; top:20.8%; z-index:7; display:grid; grid-template-columns:repeat(4,1fr); gap:1.4%; width:102%; height:60.2%; }
+.extension-course-zones button { min-width:0; padding:0; border:0; border-radius:22px; background:transparent; cursor:pointer; }
+
+#smartSystemPage { display:block; padding:0; overflow:hidden; background:url("assets/smart-system-course.webp") center/100% 100% no-repeat; }
+#smartSystemPage[hidden] { display:none; }
+#smartSystemPage > button { position:absolute; z-index:8; padding:0; border:0; background:transparent; cursor:pointer; }
+.smart-system-back { left:2.2%; top:5.2%; width:5.5%; height:11%; border-radius:50% !important; }
+.smart-system-fm { left:78.3%; top:2.1%; width:7%; height:14.5%; border-radius:20px; }
+.smart-system-record { left:85.3%; top:2.1%; width:7%; height:14.5%; border-radius:20px; }
+.smart-system-settings { left:92.2%; top:2.1%; width:6%; height:14.5%; border-radius:20px; }
+.smart-system-learn { left:57.4%; top:38.7%; width:12.5%; height:10.4%; border-radius:999px; }
+
+#vipPage { background-image:url("assets/tab-vip-v2.webp"); }
+#vipPage .vip-scroll-pane { bottom:13.5%; height:auto; }
+#vipPage > .nav-hotspot { position:absolute; top:86.5%; z-index:12; width:10%; height:13.5%; padding:0; border:0; border-radius:14px; background:transparent; cursor:pointer; }
+#vipPage > .nav-hotspot[data-tab="study"] { left:29.8%; }
+#vipPage > .nav-hotspot[data-tab="smart"] { left:39.8%; }
+#vipPage > .nav-hotspot[data-tab="extension"] { left:49.8%; }
+#vipPage > .nav-hotspot[data-tab="vip"] { left:59.8%; }

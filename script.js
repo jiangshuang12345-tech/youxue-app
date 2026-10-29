@@ -91,6 +91,8 @@ const courseSelectPage = document.querySelector("#courseSelectPage");
 const realWorldCoursesPage = document.querySelector("#realWorldCoursesPage");
 const expertCoursesPage = document.querySelector("#expertCoursesPage");
 const smartPage = document.querySelector("#smartPage");
+const extensionPage = document.querySelector("#extensionPage");
+const smartSystemPage = document.querySelector("#smartSystemPage");
 const courseReportPage = document.querySelector("#courseReportPage");
 const vipPage = document.querySelector("#vipPage");
 const vipScrollPane = document.querySelector("#vipPage .vip-scroll-pane");
@@ -114,7 +116,7 @@ const surveyH5 = document.querySelector("#surveyH5");
 const feedbackSurveyH5 = document.querySelector("#feedbackSurveyH5");
 const feedbackModal = document.querySelector("#feedbackModal");
 const appToast = document.querySelector("#appToast");
-const pages = [studyPage, courseSelectPage, realWorldCoursesPage, expertCoursesPage, homePage, profileEditPage, lessonsPage, lessonDetailsPage, ordersPage, orderDetailPage, smartPage, courseReportPage, vipPage];
+const pages = [studyPage, courseSelectPage, realWorldCoursesPage, expertCoursesPage, homePage, profileEditPage, lessonsPage, lessonDetailsPage, ordersPage, orderDetailPage, smartPage, extensionPage, smartSystemPage, courseReportPage, vipPage];
 let ledgerTab = "all";
 let incomeFilter = "all";
 let orderTab = "all";
@@ -489,9 +491,11 @@ function returnToSmartFromReport() {
 function navTo(tabId) {
   if (tabId === "study" && !studyPage.hidden) return;
   if (tabId === "smart" && !smartPage.hidden) return;
+  if (tabId === "extension" && !extensionPage.hidden) return;
   if (tabId === "vip" && !vipPage.hidden) return;
   if (tabId === "study") showPage(studyPage, "#study");
   else if (tabId === "smart") showPage(smartPage, "#smart");
+  else if (tabId === "extension") showPage(extensionPage, "#extension");
   else showPage(vipPage, "#vip");
 }
 
@@ -1021,6 +1025,16 @@ document.querySelector("#smartPage .smart-zones").addEventListener("click", (eve
     return;
   }
 });
+document.querySelector("#openSmartSystemCourse").addEventListener("click", () => showPage(smartSystemPage, "#smart-system"));
+document.querySelector("#backFromSmartSystem").addEventListener("click", () => showPage(smartPage, "#smart"));
+document.querySelector("#openFmFromSmartSystem").addEventListener("click", () => document.querySelector("#openFm")?.click());
+document.querySelector(".smart-system-record").addEventListener("click", () => showToast("学习记录功能保持不变"));
+document.querySelector(".smart-system-settings").addEventListener("click", () => showToast("设置功能保持不变"));
+document.querySelector(".smart-system-learn").addEventListener("click", () => showToast("正在进入 Unit 12 Lesson 12…"));
+document.querySelector(".extension-profile-entry").addEventListener("click", () => showPage(homePage, "#home"));
+document.querySelectorAll(".extension-course-zones button").forEach((button) => button.addEventListener("click", () => {
+  showToast(`「${button.getAttribute("aria-label")}」课程即将开放`);
+}));
 // Capture report-area clicks before any course-card survey handler can run.
 document.addEventListener("click", (event) => {
   if (smartPage.hidden) return;
@@ -1268,7 +1282,7 @@ renderOrders();
 renderStudyCards();
 renderSmartLessons();
 
-const initialRoutes = { "#study": studyPage, "#courses": courseSelectPage, "#real-world-courses": realWorldCoursesPage, "#expert-courses": expertCoursesPage, "#lessons": lessonsPage, "#orders": ordersPage, "#smart": smartPage, "#course-report": courseReportPage, "#vip": vipPage, "#home": homePage, "#profile-edit": profileEditPage };
+const initialRoutes = { "#study": studyPage, "#courses": courseSelectPage, "#real-world-courses": realWorldCoursesPage, "#expert-courses": expertCoursesPage, "#lessons": lessonsPage, "#orders": ordersPage, "#smart": smartPage, "#extension": extensionPage, "#smart-system": smartSystemPage, "#course-report": courseReportPage, "#vip": vipPage, "#home": homePage, "#profile-edit": profileEditPage };
 if (window.location.hash === "#validity") showLessonDetailTab("validity");
 else if (window.location.hash === "#ledger") showLessonDetailTab("ledger");
 else if (initialRoutes[window.location.hash]) showPage(initialRoutes[window.location.hash], window.location.hash);
