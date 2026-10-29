@@ -473,6 +473,14 @@ const pageOnboardingConfigs = new Map([
       "assets/onboarding/study-05.webp",
       "assets/onboarding/study-06.webp",
     ],
+    steps: [
+      { next: { left: "66%", top: "49%", width: "15%", height: "22%" }, skip: { left: "79%", top: "49%", width: "14%", height: "22%" } },
+      { next: { left: "37%", top: "58%", width: "18%", height: "23%" }, skip: { left: "51%", top: "58%", width: "16%", height: "23%" } },
+      { next: { left: "37%", top: "58%", width: "18%", height: "23%" }, skip: { left: "51%", top: "58%", width: "16%", height: "23%" } },
+      { next: { left: "37%", top: "58%", width: "18%", height: "23%" }, skip: { left: "51%", top: "58%", width: "16%", height: "23%" } },
+      { next: { left: "37%", top: "58%", width: "18%", height: "23%" }, skip: { left: "51%", top: "58%", width: "16%", height: "23%" } },
+      { next: { left: "39%", top: "48%", width: "20%", height: "28%" } },
+    ],
   }],
   [smartPage, {
     id: "smart",
@@ -501,25 +509,18 @@ const pageOnboardingConfigs = new Map([
 
 const pageOnboardingSeen = new Set();
 
-function pageOnboardingStorageKey(config) {
-  return `youxue-onboarding-v1-${config.id}`;
-}
-
 function hasSeenPageOnboarding(config) {
-  if (pageOnboardingSeen.has(config.id)) return true;
-  try { return window.sessionStorage.getItem(pageOnboardingStorageKey(config)) === "done"; }
-  catch { return false; }
+  return pageOnboardingSeen.has(config.id);
 }
 
 function markPageOnboardingSeen(config) {
   pageOnboardingSeen.add(config.id);
-  try { window.sessionStorage.setItem(pageOnboardingStorageKey(config), "done"); }
-  catch { /* In-memory state still prevents repeats for this app run. */ }
 }
 
 function setPageOnboardingHotspots(config) {
-  const next = config.next || { left: "64%", top: "49%", width: "15%", height: "16%" };
-  const skip = config.skip || { left: "78%", top: "49%", width: "13%", height: "16%" };
+  const step = config.steps?.[pageOnboardingStep] || {};
+  const next = step.next || config.next || { left: "64%", top: "49%", width: "15%", height: "16%" };
+  const skip = step.skip || config.skip || { left: "78%", top: "49%", width: "13%", height: "16%" };
   pageOnboarding.style.setProperty("--guide-next-left", next.left);
   pageOnboarding.style.setProperty("--guide-next-top", next.top);
   pageOnboarding.style.setProperty("--guide-next-width", next.width);
@@ -572,15 +573,16 @@ function maybeOpenPageOnboarding(targetPage) {
   pageOnboardingNext.focus({ preventScroll: true });
 }
 
-pageOnboardingNext.addEventListener("click", (event) => {
-  event.stopPropagation();
-  advancePageOnboarding();
+function handlePageOnboardingAction(event) {
+  event.preventDefault();
+  if (event.target === pageOnboardingSkip) closePageOnboarding(true);
+  else advancePageOnboarding();
+}
+
+pageOnboarding.addEventListener("pointerup", handlePageOnboardingAction);
+pageOnboarding.addEventListener("click", (event) => {
+  if (event.detail === 0) handlePageOnboardingAction(event);
 });
-pageOnboardingSkip.addEventListener("click", (event) => {
-  event.stopPropagation();
-  closePageOnboarding(true);
-});
-pageOnboarding.addEventListener("click", () => advancePageOnboarding());
 document.addEventListener("keydown", (event) => {
   if (pageOnboarding.hidden) return;
   if (event.key === "Escape") closePageOnboarding(true);
