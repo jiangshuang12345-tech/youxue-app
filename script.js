@@ -1189,7 +1189,7 @@ function renderLearningPlan() {
 function setSmartSystemVersion(version) {
   smartSystemVersion = version === "planned" ? "planned" : "legacy";
   const isPlanned = smartSystemVersion === "planned";
-  smartSystemArtwork.src = isPlanned ? "assets/smart-system-planned.png" : "assets/smart-system-course.webp";
+  smartSystemArtwork.src = isPlanned ? "assets/smart-system-planned.webp" : "assets/smart-system-course.webp";
   smartSystemArtwork.alt = isPlanned ? "按学习计划展示的双师智学课程列表" : "双师智学系统课程列表";
   smartSystemPage.classList.toggle("is-planned", isPlanned);
   document.querySelectorAll("[data-system-version]").forEach((button) => {
