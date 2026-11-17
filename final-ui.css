@@ -1280,9 +1280,10 @@
 #learningPlanPage[hidden] { display:none; }
 .learning-plan-artwork,.smart-system-artwork { position:absolute; inset:0; display:block; width:100%; height:100%; object-fit:fill; user-select:none; pointer-events:none; }
 .learning-plan-back { position:absolute; left:2.2%; top:5.1%; z-index:9; width:5.5%; height:11%; padding:0; border:0; border-radius:50%; background:transparent; cursor:pointer; }
-.learning-plan-mode { position:absolute; left:83.35%; top:9.05%; z-index:10; display:flex; width:14.8%; height:7.8%; }
-.learning-plan-mode button { flex:1; padding:0; border:0; border-radius:999px; background:transparent; color:#ff5d20; font-size:clamp(16px,2vw,31px); font-weight:900; cursor:pointer; }
-.learning-plan-mode button.is-active { background:#ff7717; color:#fff; }
+.learning-plan-mode { position:absolute; left:83.35%; top:9.05%; z-index:10; display:flex; width:14.8%; height:7.8%; padding:3px; overflow:hidden; border:2px solid rgba(255,255,255,.95); border-radius:999px; background:#fff; box-shadow:0 8px 22px rgba(24,92,72,.2); }
+.learning-plan-mode button { flex:1; padding:0; border:0; border-radius:999px; background:#fff; color:#ff681f; font-size:clamp(16px,2vw,31px); font-weight:900; cursor:pointer; transition:background-color .18s ease,color .18s ease,box-shadow .18s ease,transform .18s ease; }
+.learning-plan-mode button.is-active { background:linear-gradient(180deg,#ff922f,#ff681f); color:#fff; box-shadow:0 4px 12px rgba(255,104,31,.35); transform:scale(1.02); }
+.learning-plan-mode button:focus-visible { outline:3px solid #ffe38c; outline-offset:-4px; }
 .learning-plan-days { position:absolute; inset:0; z-index:8; pointer-events:none; }
 .learning-plan-days button { position:absolute; width:13.1%; height:25.4%; padding:0; border:0; border-radius:28px; background:transparent; cursor:pointer; pointer-events:auto; }
 .learning-plan-days button:nth-child(1) { left:25%; top:26.4%; }
