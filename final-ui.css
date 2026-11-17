@@ -1251,7 +1251,8 @@
 #smartPage { background-image:url("assets/smart-tab-learning-plan.webp?v=1"); background-size:100% 100%; background-position:center; background-repeat:no-repeat; }
 #smartPage .smart-carousel { display:none; }
 .smart-trial-entry { position:absolute; left:29.8%; top:19.8%; z-index:24; width:34.3%; height:62.3%; padding:0; border:0; border-radius:30px; background:transparent; cursor:pointer; }
-.smart-card-slider { position:absolute; left:65.2%; top:19.2%; z-index:25; display:flex; width:34.4%; height:63.2%; overflow-x:auto; overflow-y:hidden; scroll-snap-type:x mandatory; scrollbar-width:none; -webkit-overflow-scrolling:touch; touch-action:pan-x; }
+.smart-card-slider { position:absolute; left:65.2%; top:19.2%; z-index:25; display:flex; width:34.4%; height:63.2%; overflow-x:auto; overflow-y:hidden; scroll-snap-type:x mandatory; scrollbar-width:none; -webkit-overflow-scrolling:touch; touch-action:pan-y; cursor:grab; }
+.smart-card-slider.is-dragging { cursor:grabbing; scroll-snap-type:none; }
 .smart-card-slider::-webkit-scrollbar { display:none; }
 .smart-card-slide { position:relative; flex:0 0 100%; min-width:0; height:100%; padding:0; overflow:hidden; scroll-snap-align:start; scroll-snap-stop:always; border:0; border-radius:32px; background:transparent; cursor:pointer; }
 .smart-card-slide--system { display:grid; place-items:center; }

@@ -1200,6 +1200,43 @@ function setSmartSystemVersion(version) {
 }
 
 document.querySelector(".smart-trial-entry").addEventListener("click", () => showToast("正在进入体验课程…"));
+const smartCardSlider = document.querySelector(".smart-card-slider");
+let smartSliderPointerId = null;
+let smartSliderStartX = 0;
+let smartSliderStartScroll = 0;
+let smartSliderWasDragged = false;
+smartCardSlider.addEventListener("pointerdown", (event) => {
+  smartSliderPointerId = event.pointerId;
+  smartSliderStartX = event.clientX;
+  smartSliderStartScroll = smartCardSlider.scrollLeft;
+  smartSliderWasDragged = false;
+  smartCardSlider.classList.add("is-dragging");
+  smartCardSlider.setPointerCapture?.(event.pointerId);
+});
+smartCardSlider.addEventListener("pointermove", (event) => {
+  if (event.pointerId !== smartSliderPointerId) return;
+  const distance = event.clientX - smartSliderStartX;
+  if (Math.abs(distance) > 8) smartSliderWasDragged = true;
+  if (!smartSliderWasDragged) return;
+  event.preventDefault();
+  smartCardSlider.scrollLeft = smartSliderStartScroll - distance;
+});
+function finishSmartSliderDrag(event) {
+  if (event.pointerId !== smartSliderPointerId) return;
+  smartCardSlider.releasePointerCapture?.(event.pointerId);
+  smartSliderPointerId = null;
+  smartCardSlider.classList.remove("is-dragging");
+  const destination = smartCardSlider.scrollLeft > smartCardSlider.clientWidth / 2 ? smartCardSlider.clientWidth : 0;
+  smartCardSlider.scrollTo({ left: destination, behavior: "smooth" });
+}
+smartCardSlider.addEventListener("pointerup", finishSmartSliderDrag);
+smartCardSlider.addEventListener("pointercancel", finishSmartSliderDrag);
+smartCardSlider.addEventListener("click", (event) => {
+  if (!smartSliderWasDragged) return;
+  event.preventDefault();
+  event.stopPropagation();
+  smartSliderWasDragged = false;
+}, true);
 document.querySelector("#openLearningPlan").addEventListener("click", () => showPage(learningPlanPage, "#learning-plan"));
 document.querySelector("#backFromLearningPlan").addEventListener("click", () => showPage(smartPage, "#smart"));
 learningPlanDays.forEach((button) => button.addEventListener("click", () => {
