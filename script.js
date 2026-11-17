@@ -95,6 +95,7 @@ const learningPlanPage = document.querySelector("#learningPlanPage");
 const extensionPage = document.querySelector("#extensionPage");
 const smartSystemPage = document.querySelector("#smartSystemPage");
 const smartSystemArtwork = document.querySelector(".smart-system-artwork");
+const smartSystemWeekSlider = document.querySelector("#smartSystemWeekSlider");
 const courseReportPage = document.querySelector("#courseReportPage");
 const vipPage = document.querySelector("#vipPage");
 const vipScrollPane = document.querySelector("#vipPage .vip-scroll-pane");
@@ -1215,15 +1216,41 @@ function openLearningPlan() {
 function setSmartSystemVersion(version) {
   smartSystemVersion = version === "planned" ? "planned" : "legacy";
   const isPlanned = smartSystemVersion === "planned";
-  smartSystemArtwork.src = isPlanned ? "assets/smart-system-planned-v2.webp?v=1" : "assets/smart-system-course.webp";
-  smartSystemArtwork.alt = isPlanned ? "按学习计划展示的双师智学课程列表" : "双师智学系统课程列表";
+  smartSystemArtwork.src = "assets/smart-system-course.webp";
+  smartSystemArtwork.alt = "双师智学系统课程列表";
   smartSystemPage.classList.toggle("is-planned", isPlanned);
+  if (isPlanned) smartSystemWeekSlider.scrollTo({ left: 0, behavior: "instant" });
   document.querySelectorAll("[data-system-version]").forEach((button) => {
     const active = button.dataset.systemVersion === smartSystemVersion;
     button.classList.toggle("is-active", active);
     button.setAttribute("aria-pressed", String(active));
   });
 }
+
+let systemWeekPointerId = null;
+let systemWeekStartX = 0;
+let systemWeekStartScroll = 0;
+smartSystemWeekSlider.addEventListener("pointerdown", (event) => {
+  systemWeekPointerId = event.pointerId;
+  systemWeekStartX = event.clientX;
+  systemWeekStartScroll = smartSystemWeekSlider.scrollLeft;
+  smartSystemWeekSlider.classList.add("is-dragging");
+  smartSystemWeekSlider.setPointerCapture(event.pointerId);
+});
+smartSystemWeekSlider.addEventListener("pointermove", (event) => {
+  if (event.pointerId !== systemWeekPointerId) return;
+  smartSystemWeekSlider.scrollLeft = systemWeekStartScroll + systemWeekStartX - event.clientX;
+});
+function finishSystemWeekSwipe(event) {
+  if (event.pointerId !== systemWeekPointerId) return;
+  const pageWidth = smartSystemWeekSlider.clientWidth;
+  const targetWeek = Math.round(smartSystemWeekSlider.scrollLeft / pageWidth);
+  smartSystemWeekSlider.classList.remove("is-dragging");
+  smartSystemWeekSlider.scrollTo({ left: targetWeek * pageWidth, behavior: "smooth" });
+  systemWeekPointerId = null;
+}
+smartSystemWeekSlider.addEventListener("pointerup", finishSystemWeekSwipe);
+smartSystemWeekSlider.addEventListener("pointercancel", finishSystemWeekSwipe);
 
 const smartCardSlider = document.querySelector(".smart-card-slider");
 let smartSliderPointerId = null;

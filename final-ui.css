@@ -1307,6 +1307,12 @@
 #smartSystemPage[hidden] { display:none; }
 #smartSystemPage > button { position:absolute; z-index:8; padding:0; border:0; background:transparent; cursor:pointer; }
 .smart-system-artwork { z-index:0; }
+.smart-system-week-slider { position:absolute; inset:0; z-index:1; display:none; overflow-x:auto; overflow-y:hidden; scrollbar-width:none; scroll-snap-type:x mandatory; overscroll-behavior-x:contain; cursor:grab; touch-action:pan-y; }
+.smart-system-week-slider::-webkit-scrollbar { display:none; }
+.smart-system-week-slider.is-dragging { cursor:grabbing; scroll-snap-type:none; }
+.smart-system-week-slider img { flex:0 0 100%; width:100%; height:100%; object-fit:fill; scroll-snap-align:start; scroll-snap-stop:always; user-select:none; pointer-events:none; }
+#smartSystemPage.is-planned .smart-system-artwork { display:none; }
+#smartSystemPage.is-planned .smart-system-week-slider { display:flex; }
 .smart-version-switch { position:absolute; left:9%; top:4.2%; z-index:20; display:flex; width:13%; min-width:150px; height:7.4%; padding:4px; border-radius:999px; background:rgba(255,255,255,.9); box-shadow:0 6px 18px rgba(16,57,63,.18); }
 .smart-version-switch button { flex:1; padding:0; border:0; border-radius:999px; background:transparent; color:#55636a; font-size:clamp(12px,1.25vw,20px); font-weight:800; cursor:pointer; }
 .smart-version-switch button.is-active { background:#ff7624; color:#fff; }
