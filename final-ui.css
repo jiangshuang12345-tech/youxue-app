@@ -1248,7 +1248,7 @@
 #studyPage .study-tab-bar { width:40.4%; min-width:0; height:13.2%; }
 #studyPage .study-tab-bar .nav-hotspot { flex:1 1 25%; }
 
-#smartPage { background-image:url("assets/smart-tab-learning-plan.webp?v=1"); background-size:100% 100%; background-position:center; background-repeat:no-repeat; }
+#smartPage { background-image:url("assets/smart-tab-clean.webp?v=1"); background-size:100% 100%; background-position:center; background-repeat:no-repeat; }
 #smartPage .smart-carousel { display:none; }
 .smart-card-slider { position:absolute; left:5.2%; top:16.5%; z-index:25; display:flex; align-items:stretch; width:94.8%; height:68%; overflow-x:auto; overflow-y:hidden; scroll-snap-type:x mandatory; scrollbar-width:none; -webkit-overflow-scrolling:touch; touch-action:pan-y; cursor:grab; }
 .smart-card-slider.is-dragging { cursor:grabbing; scroll-snap-type:none; }
