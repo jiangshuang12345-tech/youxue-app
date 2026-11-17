@@ -13,7 +13,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="final-ui.css?v=113" />
+    <link rel="stylesheet" href="final-ui.css?v=114" />
   </head>
   <body>
     <div class="device-stage">
@@ -417,7 +417,23 @@
 
       <main class="page page--smart" id="smartPage" aria-labelledby="smartTitle" hidden>
         <h1 class="sr-only" id="smartTitle">双师智学</h1>
-        <button class="smart-system-entry" id="openSmartSystemCourse" type="button" aria-label="进入系统课程"></button>
+        <div class="smart-primary-strip" aria-label="双师智学一级功能卡片，可左右滑动">
+          <button class="smart-primary-card smart-primary-card--trial" type="button" aria-label="进入体验课程">
+            <span class="smart-primary-card__level">Level 0</span>
+            <strong>体验课程</strong>
+            <span>奇妙字母派对</span>
+            <em>去学习</em>
+          </button>
+          <button class="smart-primary-card smart-primary-card--plan" id="openLearningPlan" type="button" aria-label="设置学习计划">
+            <img src="assets/learning-plan-card.png" alt="学习计划：家长手动选择学习内容与学习时间" draggable="false" />
+          </button>
+          <button class="smart-primary-card smart-primary-card--system" id="openSmartSystemCourse" type="button" aria-label="进入系统课程">
+            <span class="smart-primary-card__level">Level 3</span>
+            <strong>系统课程</strong>
+            <span>故事思维・英语进阶</span>
+            <em>去学习</em>
+          </button>
+        </div>
         <div class="smart-carousel" aria-label="双师智学课程列表">
           <div class="smart-carousel-track">
             <button class="smart-course-hit smart-course-hit--locked" type="button" aria-label="未解锁课程"></button>
@@ -433,6 +449,26 @@
         <button class="nav-hotspot" data-tab="smart" type="button" aria-label="双师智学"></button>
         <button class="nav-hotspot" data-tab="extension" type="button" aria-label="拓展学习"></button>
         <button class="nav-hotspot" data-tab="vip" type="button" aria-label="会员订阅"></button>
+      </main>
+
+      <main class="page page--learning-plan" id="learningPlanPage" aria-labelledby="learningPlanTitle" hidden>
+        <h1 class="sr-only" id="learningPlanTitle">学习计划设置</h1>
+        <img class="learning-plan-artwork" src="assets/learning-plan-settings.png" alt="学习计划设置页面" draggable="false" />
+        <button class="learning-plan-back" id="backFromLearningPlan" type="button" aria-label="返回双师智学"></button>
+        <div class="learning-plan-mode" role="group" aria-label="学习计划状态">
+          <button type="button" data-plan-mode="active">开启</button>
+          <button type="button" data-plan-mode="paused">暂停</button>
+        </div>
+        <div class="learning-plan-days" role="group" aria-label="每周上课时间，必须选择三个">
+          <button type="button" data-plan-day="周一" aria-pressed="true"></button>
+          <button type="button" data-plan-day="周二" aria-pressed="false"></button>
+          <button type="button" data-plan-day="周三" aria-pressed="true"></button>
+          <button type="button" data-plan-day="周四" aria-pressed="false"></button>
+          <button type="button" data-plan-day="周五" aria-pressed="true"></button>
+          <button type="button" data-plan-day="周六" aria-pressed="false"></button>
+          <button type="button" data-plan-day="周日" aria-pressed="false"></button>
+        </div>
+        <p class="learning-plan-status" id="learningPlanStatus" aria-live="polite"></p>
       </main>
 
       <main class="page page--extension" id="extensionPage" aria-labelledby="extensionTitle" hidden>
@@ -452,6 +488,11 @@
 
       <main class="page page--smart-system" id="smartSystemPage" aria-labelledby="smartSystemTitle" hidden>
         <h1 class="sr-only" id="smartSystemTitle">双师智学系统课</h1>
+        <img class="smart-system-artwork" src="assets/smart-system-course.webp" alt="双师智学系统课程列表" draggable="false" />
+        <div class="smart-version-switch" role="group" aria-label="课程列表版本">
+          <button type="button" data-system-version="legacy" aria-pressed="true">原版</button>
+          <button type="button" data-system-version="planned" aria-pressed="false">计划版</button>
+        </div>
         <button class="smart-system-back" id="backFromSmartSystem" type="button" aria-label="返回双师智学"></button>
         <button class="smart-system-fm" id="openFmFromSmartSystem" type="button" aria-label="进入FM"></button>
         <button class="smart-system-record" type="button" aria-label="查看学习记录"></button>
@@ -697,7 +738,7 @@
       <p class="device-caption"><span></span> iPhone · 横屏交互原型</p>
     </div>
 
-    <script src="script.js?v=31"></script>
+    <script src="script.js?v=32"></script>
     <script src="fm.js?v=10"></script>
     <script src="expert-guide.js?v=3"></script>
     <script src="course-plaza-guide.js?v=4"></script>

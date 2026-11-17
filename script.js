@@ -91,8 +91,10 @@ const courseSelectPage = document.querySelector("#courseSelectPage");
 const realWorldCoursesPage = document.querySelector("#realWorldCoursesPage");
 const expertCoursesPage = document.querySelector("#expertCoursesPage");
 const smartPage = document.querySelector("#smartPage");
+const learningPlanPage = document.querySelector("#learningPlanPage");
 const extensionPage = document.querySelector("#extensionPage");
 const smartSystemPage = document.querySelector("#smartSystemPage");
+const smartSystemArtwork = document.querySelector(".smart-system-artwork");
 const courseReportPage = document.querySelector("#courseReportPage");
 const vipPage = document.querySelector("#vipPage");
 const vipScrollPane = document.querySelector("#vipPage .vip-scroll-pane");
@@ -120,7 +122,7 @@ const pageOnboarding = document.querySelector("#pageOnboarding");
 const pageOnboardingImage = document.querySelector("#pageOnboardingImage");
 const pageOnboardingNext = document.querySelector("#pageOnboardingNext");
 const pageOnboardingSkip = document.querySelector("#pageOnboardingSkip");
-const pages = [studyPage, courseSelectPage, realWorldCoursesPage, expertCoursesPage, homePage, profileEditPage, lessonsPage, lessonDetailsPage, ordersPage, orderDetailPage, smartPage, extensionPage, smartSystemPage, courseReportPage, vipPage];
+const pages = [studyPage, courseSelectPage, realWorldCoursesPage, expertCoursesPage, homePage, profileEditPage, lessonsPage, lessonDetailsPage, ordersPage, orderDetailPage, smartPage, learningPlanPage, extensionPage, smartSystemPage, courseReportPage, vipPage];
 let ledgerTab = "all";
 let incomeFilter = "all";
 let orderTab = "all";
@@ -1162,12 +1164,71 @@ document.querySelector("#smartPage .smart-zones").addEventListener("click", (eve
     return;
   }
 });
+const learningPlanDays = [...document.querySelectorAll("[data-plan-day]")];
+const learningPlanModeButtons = [...document.querySelectorAll("[data-plan-mode]")];
+const learningPlanStatus = document.querySelector("#learningPlanStatus");
+const initialLearningPlan = readStore("yx_learning_plan", { days: ["周一", "周三", "周五"], mode: "active" });
+let selectedLearningPlanDays = new Set(initialLearningPlan.days || ["周一", "周三", "周五"]);
+let learningPlanMode = initialLearningPlan.mode === "paused" ? "paused" : "active";
+let smartSystemVersion = "legacy";
+
+function renderLearningPlan() {
+  learningPlanDays.forEach((button) => {
+    button.setAttribute("aria-pressed", String(selectedLearningPlanDays.has(button.dataset.planDay)));
+  });
+  learningPlanModeButtons.forEach((button) => {
+    const active = button.dataset.planMode === learningPlanMode;
+    button.classList.toggle("is-active", active);
+    button.setAttribute("aria-pressed", String(active));
+  });
+  const remaining = Math.max(0, 3 - selectedLearningPlanDays.size);
+  learningPlanStatus.textContent = remaining ? `还需选择${remaining}个时间` : `已选择：${[...selectedLearningPlanDays].join("、")}`;
+  writeStore("yx_learning_plan", { days: [...selectedLearningPlanDays], mode: learningPlanMode });
+}
+
+function setSmartSystemVersion(version) {
+  smartSystemVersion = version === "planned" ? "planned" : "legacy";
+  const isPlanned = smartSystemVersion === "planned";
+  smartSystemArtwork.src = isPlanned ? "assets/smart-system-planned.png" : "assets/smart-system-course.webp";
+  smartSystemArtwork.alt = isPlanned ? "按学习计划展示的双师智学课程列表" : "双师智学系统课程列表";
+  smartSystemPage.classList.toggle("is-planned", isPlanned);
+  document.querySelectorAll("[data-system-version]").forEach((button) => {
+    const active = button.dataset.systemVersion === smartSystemVersion;
+    button.classList.toggle("is-active", active);
+    button.setAttribute("aria-pressed", String(active));
+  });
+}
+
+document.querySelector(".smart-primary-card--trial").addEventListener("click", () => showToast("正在进入体验课程…"));
+document.querySelector("#openLearningPlan").addEventListener("click", () => showPage(learningPlanPage, "#learning-plan"));
+document.querySelector("#backFromLearningPlan").addEventListener("click", () => showPage(smartPage, "#smart"));
+learningPlanDays.forEach((button) => button.addEventListener("click", () => {
+  const day = button.dataset.planDay;
+  if (selectedLearningPlanDays.has(day)) selectedLearningPlanDays.delete(day);
+  else if (selectedLearningPlanDays.size >= 3) {
+    showToast("每周必须选择3个上课时间，请先取消一个已选时间");
+    return;
+  } else selectedLearningPlanDays.add(day);
+  renderLearningPlan();
+}));
+learningPlanModeButtons.forEach((button) => button.addEventListener("click", () => {
+  if (button.dataset.planMode === "active" && selectedLearningPlanDays.size !== 3) {
+    showToast("开启学习计划前，请先选择3个上课时间");
+    return;
+  }
+  learningPlanMode = button.dataset.planMode;
+  renderLearningPlan();
+  showToast(learningPlanMode === "active" ? "学习计划已开启" : "学习计划已暂停");
+}));
 document.querySelector("#openSmartSystemCourse").addEventListener("click", () => showPage(smartSystemPage, "#smart-system"));
 document.querySelector("#backFromSmartSystem").addEventListener("click", () => showPage(smartPage, "#smart"));
+document.querySelectorAll("[data-system-version]").forEach((button) => button.addEventListener("click", () => setSmartSystemVersion(button.dataset.systemVersion)));
 document.querySelector("#openFmFromSmartSystem").addEventListener("click", () => document.querySelector("#openFm")?.click());
 document.querySelector(".smart-system-record").addEventListener("click", () => showToast("学习记录功能保持不变"));
 document.querySelector(".smart-system-settings").addEventListener("click", () => showToast("设置功能保持不变"));
 document.querySelector(".smart-system-learn").addEventListener("click", () => showToast("正在进入 Unit 12 Lesson 12…"));
+renderLearningPlan();
+setSmartSystemVersion("legacy");
 document.querySelector(".extension-profile-entry").addEventListener("click", () => showPage(homePage, "#home"));
 document.querySelectorAll(".extension-course-zones button").forEach((button) => button.addEventListener("click", () => {
   showToast(`「${button.getAttribute("aria-label")}」课程即将开放`);
@@ -1419,7 +1480,7 @@ renderOrders();
 renderStudyCards();
 renderSmartLessons();
 
-const initialRoutes = { "#study": studyPage, "#courses": courseSelectPage, "#real-world-courses": realWorldCoursesPage, "#expert-courses": expertCoursesPage, "#lessons": lessonsPage, "#orders": ordersPage, "#smart": smartPage, "#extension": extensionPage, "#smart-system": smartSystemPage, "#course-report": courseReportPage, "#vip": vipPage, "#home": homePage, "#profile-edit": profileEditPage };
+const initialRoutes = { "#study": studyPage, "#courses": courseSelectPage, "#real-world-courses": realWorldCoursesPage, "#expert-courses": expertCoursesPage, "#lessons": lessonsPage, "#orders": ordersPage, "#smart": smartPage, "#learning-plan": learningPlanPage, "#extension": extensionPage, "#smart-system": smartSystemPage, "#course-report": courseReportPage, "#vip": vipPage, "#home": homePage, "#profile-edit": profileEditPage };
 if (window.location.hash === "#validity") showLessonDetailTab("validity");
 else if (window.location.hash === "#ledger") showLessonDetailTab("ledger");
 else if (initialRoutes[window.location.hash]) showPage(initialRoutes[window.location.hash], window.location.hash);
