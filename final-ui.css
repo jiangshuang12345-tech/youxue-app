@@ -1250,14 +1250,19 @@
 
 #smartPage { background-image:url("assets/smart-tab-learning-plan.webp?v=1"); background-size:100% 100%; background-position:center; background-repeat:no-repeat; }
 #smartPage .smart-carousel { display:none; }
-.smart-trial-entry { position:absolute; left:29.8%; top:19.8%; z-index:24; width:34.3%; height:62.3%; padding:0; border:0; border-radius:30px; background:transparent; cursor:pointer; }
-.smart-card-slider { position:absolute; left:65.2%; top:19.2%; z-index:25; display:flex; width:34.4%; height:63.2%; overflow-x:auto; overflow-y:hidden; scroll-snap-type:x mandatory; scrollbar-width:none; -webkit-overflow-scrolling:touch; touch-action:pan-y; cursor:grab; }
+.smart-card-slider { position:absolute; left:5.2%; top:16.5%; z-index:25; display:flex; align-items:stretch; width:94.8%; height:68%; overflow-x:auto; overflow-y:hidden; scroll-snap-type:x mandatory; scrollbar-width:none; -webkit-overflow-scrolling:touch; touch-action:pan-y; cursor:grab; backdrop-filter:blur(28px); }
 .smart-card-slider.is-dragging { cursor:grabbing; scroll-snap-type:none; }
 .smart-card-slider::-webkit-scrollbar { display:none; }
-.smart-card-slide { position:relative; flex:0 0 100%; min-width:0; height:100%; padding:0; overflow:hidden; scroll-snap-align:start; scroll-snap-stop:always; border:0; border-radius:32px; background:transparent; cursor:pointer; }
+.smart-card-group { position:relative; flex:0 0 100%; min-width:0; height:100%; scroll-snap-align:start; scroll-snap-stop:always; }
+.smart-card-group > img { display:block; width:100%; height:100%; object-fit:fill; pointer-events:none; user-select:none; -webkit-user-drag:none; }
+.smart-card-hotspot { position:absolute; top:0; height:100%; border-radius:30px; cursor:pointer; }
+.smart-card-hotspot--assessment { left:0; width:25.3%; }
+.smart-card-hotspot--trial { left:25.3%; width:37.2%; }
+.smart-card-hotspot--plan { left:62.5%; width:37.5%; }
+.smart-card-slide { position:relative; flex:0 0 37.5%; min-width:0; height:100%; padding:0; overflow:hidden; scroll-snap-align:end; scroll-snap-stop:always; border:0; border-radius:32px; background:transparent; cursor:pointer; }
 .smart-card-slide--system { display:grid; place-items:center; }
 .smart-card-slide--system img { display:block; width:100%; height:100%; object-fit:fill; pointer-events:none; user-select:none; -webkit-user-drag:none; }
-.smart-card-slide:focus-visible,.smart-trial-entry:focus-visible { outline:5px solid #ffe55f; outline-offset:-5px; }
+.smart-card-slide:focus-visible,.smart-card-hotspot:focus-visible { outline:5px solid #ffe55f; outline-offset:-5px; }
 #smartPage .smart-hotspot--contact { left:78%; top:1.2%; width:20%; height:12%; }
 #smartPage > .nav-hotspot,#extensionPage > .nav-hotspot { position:absolute; top:86.5%; z-index:20; width:10%; height:13.5%; padding:0; border:0; border-radius:14px; background:transparent; cursor:pointer; }
 #smartPage > .nav-hotspot[data-tab="study"],#extensionPage > .nav-hotspot[data-tab="study"] { left:29.8%; }

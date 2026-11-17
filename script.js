@@ -510,6 +510,7 @@ const pageOnboardingConfigs = new Map([
 ]);
 
 const pageOnboardingSeen = new Set();
+const pageOnboardingEnabled = false;
 
 function hasSeenPageOnboarding(config) {
   return pageOnboardingSeen.has(config.id);
@@ -565,6 +566,7 @@ function advancePageOnboarding() {
 }
 
 function maybeOpenPageOnboarding(targetPage) {
+  if (!pageOnboardingEnabled) return;
   const config = pageOnboardingConfigs.get(targetPage);
   if (!config || hasSeenPageOnboarding(config) || targetPage.hidden) return;
   pageOnboardingConfig = config;
@@ -1199,7 +1201,6 @@ function setSmartSystemVersion(version) {
   });
 }
 
-document.querySelector(".smart-trial-entry").addEventListener("click", () => showToast("正在进入体验课程…"));
 const smartCardSlider = document.querySelector(".smart-card-slider");
 let smartSliderPointerId = null;
 let smartSliderStartX = 0;
@@ -1231,12 +1232,15 @@ function finishSmartSliderDrag(event) {
   if (!smartSliderWasDragged) {
     const slide = smartSliderPressedSlide;
     smartSliderPressedSlide = null;
+    if (slide?.dataset.smartSlide === "assessment") openCourseReport();
+    if (slide?.dataset.smartSlide === "trial") showToast("正在进入体验课程…");
     if (slide?.dataset.smartSlide === "plan") showPage(learningPlanPage, "#learning-plan");
     if (slide?.dataset.smartSlide === "system") showPage(smartSystemPage, "#smart-system");
     return;
   }
   smartSliderPressedSlide = null;
-  const destination = smartCardSlider.scrollLeft > smartCardSlider.clientWidth / 2 ? smartCardSlider.clientWidth : 0;
+  const maxScroll = smartCardSlider.scrollWidth - smartCardSlider.clientWidth;
+  const destination = smartCardSlider.scrollLeft > maxScroll / 2 ? maxScroll : 0;
   smartCardSlider.scrollTo({ left: destination, behavior: "smooth" });
 }
 smartCardSlider.addEventListener("pointerup", finishSmartSliderDrag);
@@ -1249,7 +1253,9 @@ smartCardSlider.addEventListener("click", (event) => {
 smartCardSlider.querySelectorAll("[data-smart-slide]").forEach((slide) => slide.addEventListener("keydown", (event) => {
   if (event.key !== "Enter" && event.key !== " ") return;
   event.preventDefault();
-  if (slide.dataset.smartSlide === "plan") showPage(learningPlanPage, "#learning-plan");
+  if (slide.dataset.smartSlide === "assessment") openCourseReport();
+  else if (slide.dataset.smartSlide === "trial") showToast("正在进入体验课程…");
+  else if (slide.dataset.smartSlide === "plan") showPage(learningPlanPage, "#learning-plan");
   else showPage(smartSystemPage, "#smart-system");
 }));
 document.querySelector("#backFromLearningPlan").addEventListener("click", () => showPage(smartPage, "#smart"));

@@ -13,7 +13,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="final-ui.css?v=116" />
+    <link rel="stylesheet" href="final-ui.css?v=117" />
   </head>
   <body>
     <div class="device-stage">
@@ -417,9 +417,13 @@
 
       <main class="page page--smart" id="smartPage" aria-labelledby="smartTitle" hidden>
         <h1 class="sr-only" id="smartTitle">双师智学</h1>
-        <button class="smart-trial-entry" type="button" aria-label="进入体验课程"></button>
-        <div class="smart-card-slider" aria-label="学习计划与系统课程卡片，可左右滑动">
-          <div class="smart-card-slide smart-card-slide--plan" data-smart-slide="plan" role="button" tabindex="0" aria-label="查看并设置学习计划"></div>
+        <div class="smart-card-slider" aria-label="双师智学全部卡片，可左右滑动">
+          <div class="smart-card-group">
+            <img src="assets/smart-card-strip.webp" alt="定级测评、体验课程与学习计划" draggable="false" />
+            <div class="smart-card-hotspot smart-card-hotspot--assessment" data-smart-slide="assessment" role="button" tabindex="0" aria-label="查看定级测评报告"></div>
+            <div class="smart-card-hotspot smart-card-hotspot--trial" data-smart-slide="trial" role="button" tabindex="0" aria-label="进入体验课程"></div>
+            <div class="smart-card-hotspot smart-card-hotspot--plan" data-smart-slide="plan" role="button" tabindex="0" aria-label="查看并设置学习计划"></div>
+          </div>
           <div class="smart-card-slide smart-card-slide--system" data-smart-slide="system" role="button" tabindex="0" aria-label="进入系统课程">
             <img src="assets/smart-system-card.webp?v=1" alt="系统课程" draggable="false" />
           </div>
@@ -728,7 +732,7 @@
       <p class="device-caption"><span></span> iPhone · 横屏交互原型</p>
     </div>
 
-    <script src="script.js?v=35"></script>
+    <script src="script.js?v=37"></script>
     <script src="fm.js?v=10"></script>
     <script src="expert-guide.js?v=3"></script>
     <script src="course-plaza-guide.js?v=4"></script>
