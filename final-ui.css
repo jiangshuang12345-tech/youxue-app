@@ -1324,6 +1324,7 @@
 
 /* Screenshot-led onboarding shown once per primary page in each app session. */
 .page-onboarding { position:absolute; inset:0; z-index:320; overflow:hidden; border-radius:inherit; background:#0b1520; }
+.page-onboarding { display:none !important; }
 .page-onboarding[hidden] { display:none; }
 .page-onboarding > img { display:block; width:100%; height:100%; object-fit:fill; user-select:none; -webkit-user-drag:none; pointer-events:none; }
 .page-onboarding-hotspot { position:absolute; z-index:2; padding:0; border:0; border-radius:999px; background:transparent; cursor:pointer; -webkit-tap-highlight-color:transparent; }
