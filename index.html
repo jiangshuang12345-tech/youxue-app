@@ -419,10 +419,10 @@
         <h1 class="sr-only" id="smartTitle">双师智学</h1>
         <button class="smart-trial-entry" type="button" aria-label="进入体验课程"></button>
         <div class="smart-card-slider" aria-label="学习计划与系统课程卡片，可左右滑动">
-          <button class="smart-card-slide smart-card-slide--plan" id="openLearningPlan" type="button" aria-label="查看并设置学习计划"></button>
-          <button class="smart-card-slide smart-card-slide--system" id="openSmartSystemCourse" type="button" aria-label="进入系统课程">
+          <div class="smart-card-slide smart-card-slide--plan" data-smart-slide="plan" role="button" tabindex="0" aria-label="查看并设置学习计划"></div>
+          <div class="smart-card-slide smart-card-slide--system" data-smart-slide="system" role="button" tabindex="0" aria-label="进入系统课程">
             <img src="assets/smart-system-card.webp?v=1" alt="系统课程" draggable="false" />
-          </button>
+          </div>
         </div>
         <div class="smart-carousel" aria-label="双师智学课程列表">
           <div class="smart-carousel-track">
@@ -728,7 +728,7 @@
       <p class="device-caption"><span></span> iPhone · 横屏交互原型</p>
     </div>
 
-    <script src="script.js?v=34"></script>
+    <script src="script.js?v=35"></script>
     <script src="fm.js?v=10"></script>
     <script src="expert-guide.js?v=3"></script>
     <script src="course-plaza-guide.js?v=4"></script>

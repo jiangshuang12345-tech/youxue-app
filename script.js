@@ -1205,11 +1205,13 @@ let smartSliderPointerId = null;
 let smartSliderStartX = 0;
 let smartSliderStartScroll = 0;
 let smartSliderWasDragged = false;
+let smartSliderPressedSlide = null;
 smartCardSlider.addEventListener("pointerdown", (event) => {
   smartSliderPointerId = event.pointerId;
   smartSliderStartX = event.clientX;
   smartSliderStartScroll = smartCardSlider.scrollLeft;
   smartSliderWasDragged = false;
+  smartSliderPressedSlide = event.target.closest("[data-smart-slide]");
   smartCardSlider.classList.add("is-dragging");
   smartCardSlider.setPointerCapture?.(event.pointerId);
 });
@@ -1226,18 +1228,30 @@ function finishSmartSliderDrag(event) {
   smartCardSlider.releasePointerCapture?.(event.pointerId);
   smartSliderPointerId = null;
   smartCardSlider.classList.remove("is-dragging");
+  if (!smartSliderWasDragged) {
+    const slide = smartSliderPressedSlide;
+    smartSliderPressedSlide = null;
+    if (slide?.dataset.smartSlide === "plan") showPage(learningPlanPage, "#learning-plan");
+    if (slide?.dataset.smartSlide === "system") showPage(smartSystemPage, "#smart-system");
+    return;
+  }
+  smartSliderPressedSlide = null;
   const destination = smartCardSlider.scrollLeft > smartCardSlider.clientWidth / 2 ? smartCardSlider.clientWidth : 0;
   smartCardSlider.scrollTo({ left: destination, behavior: "smooth" });
 }
 smartCardSlider.addEventListener("pointerup", finishSmartSliderDrag);
 smartCardSlider.addEventListener("pointercancel", finishSmartSliderDrag);
 smartCardSlider.addEventListener("click", (event) => {
-  if (!smartSliderWasDragged) return;
   event.preventDefault();
   event.stopPropagation();
   smartSliderWasDragged = false;
 }, true);
-document.querySelector("#openLearningPlan").addEventListener("click", () => showPage(learningPlanPage, "#learning-plan"));
+smartCardSlider.querySelectorAll("[data-smart-slide]").forEach((slide) => slide.addEventListener("keydown", (event) => {
+  if (event.key !== "Enter" && event.key !== " ") return;
+  event.preventDefault();
+  if (slide.dataset.smartSlide === "plan") showPage(learningPlanPage, "#learning-plan");
+  else showPage(smartSystemPage, "#smart-system");
+}));
 document.querySelector("#backFromLearningPlan").addEventListener("click", () => showPage(smartPage, "#smart"));
 learningPlanDays.forEach((button) => button.addEventListener("click", () => {
   const day = button.dataset.planDay;
@@ -1257,7 +1271,6 @@ learningPlanModeButtons.forEach((button) => button.addEventListener("click", () 
   renderLearningPlan();
   showToast(learningPlanMode === "active" ? "学习计划已开启" : "学习计划已暂停");
 }));
-document.querySelector("#openSmartSystemCourse").addEventListener("click", () => showPage(smartSystemPage, "#smart-system"));
 document.querySelector("#backFromSmartSystem").addEventListener("click", () => showPage(smartPage, "#smart"));
 document.querySelectorAll("[data-system-version]").forEach((button) => button.addEventListener("click", () => setSmartSystemVersion(button.dataset.systemVersion)));
 document.querySelector("#openFmFromSmartSystem").addEventListener("click", () => document.querySelector("#openFm")?.click());
