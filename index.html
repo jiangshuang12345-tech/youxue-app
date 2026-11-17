@@ -13,7 +13,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="final-ui.css?v=114" />
+    <link rel="stylesheet" href="final-ui.css?v=115" />
   </head>
   <body>
     <div class="device-stage">
@@ -417,21 +417,11 @@
 
       <main class="page page--smart" id="smartPage" aria-labelledby="smartTitle" hidden>
         <h1 class="sr-only" id="smartTitle">双师智学</h1>
-        <div class="smart-primary-strip" aria-label="双师智学一级功能卡片，可左右滑动">
-          <button class="smart-primary-card smart-primary-card--trial" type="button" aria-label="进入体验课程">
-            <span class="smart-primary-card__level">Level 0</span>
-            <strong>体验课程</strong>
-            <span>奇妙字母派对</span>
-            <em>去学习</em>
-          </button>
-          <button class="smart-primary-card smart-primary-card--plan" id="openLearningPlan" type="button" aria-label="设置学习计划">
-            <img src="assets/learning-plan-card.webp?v=1" alt="学习计划：家长手动选择学习内容与学习时间" draggable="false" />
-          </button>
-          <button class="smart-primary-card smart-primary-card--system" id="openSmartSystemCourse" type="button" aria-label="进入系统课程">
-            <span class="smart-primary-card__level">Level 3</span>
-            <strong>系统课程</strong>
-            <span>故事思维・英语进阶</span>
-            <em>去学习</em>
+        <button class="smart-trial-entry" type="button" aria-label="进入体验课程"></button>
+        <div class="smart-card-slider" aria-label="学习计划与系统课程卡片，可左右滑动">
+          <button class="smart-card-slide smart-card-slide--plan" id="openLearningPlan" type="button" aria-label="查看并设置学习计划"></button>
+          <button class="smart-card-slide smart-card-slide--system" id="openSmartSystemCourse" type="button" aria-label="进入系统课程">
+            <img src="assets/smart-system-card.webp?v=1" alt="系统课程" draggable="false" />
           </button>
         </div>
         <div class="smart-carousel" aria-label="双师智学课程列表">
@@ -738,7 +728,7 @@
       <p class="device-caption"><span></span> iPhone · 横屏交互原型</p>
     </div>
 
-    <script src="script.js?v=32"></script>
+    <script src="script.js?v=33"></script>
     <script src="fm.js?v=10"></script>
     <script src="expert-guide.js?v=3"></script>
     <script src="course-plaza-guide.js?v=4"></script>

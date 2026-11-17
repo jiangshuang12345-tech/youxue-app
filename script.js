@@ -1199,7 +1199,7 @@ function setSmartSystemVersion(version) {
   });
 }
 
-document.querySelector(".smart-primary-card--trial").addEventListener("click", () => showToast("正在进入体验课程…"));
+document.querySelector(".smart-trial-entry").addEventListener("click", () => showToast("正在进入体验课程…"));
 document.querySelector("#openLearningPlan").addEventListener("click", () => showPage(learningPlanPage, "#learning-plan"));
 document.querySelector("#backFromLearningPlan").addEventListener("click", () => showPage(smartPage, "#smart"));
 learningPlanDays.forEach((button) => button.addEventListener("click", () => {
