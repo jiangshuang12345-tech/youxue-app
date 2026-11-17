@@ -13,7 +13,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="final-ui.css?v=120" />
+    <link rel="stylesheet" href="final-ui.css?v=121" />
   </head>
   <body>
     <div class="device-stage">
@@ -463,6 +463,11 @@
           <button type="button" data-plan-day="周日" aria-pressed="false"></button>
         </div>
         <p class="learning-plan-status" id="learningPlanStatus" aria-live="polite"></p>
+        <div class="learning-plan-actions" aria-label="学习计划操作">
+          <button class="learning-plan-action learning-plan-action--modify" id="modifyLearningPlan" type="button">修改计划</button>
+          <button class="learning-plan-action learning-plan-action--cancel" id="cancelLearningPlan" type="button" hidden>取消</button>
+          <button class="learning-plan-action learning-plan-action--save" id="saveLearningPlan" type="button" hidden>保存计划</button>
+        </div>
       </main>
 
       <main class="page page--extension" id="extensionPage" aria-labelledby="extensionTitle" hidden>
@@ -732,7 +737,7 @@
       <p class="device-caption"><span></span> iPhone · 横屏交互原型</p>
     </div>
 
-    <script src="script.js?v=38"></script>
+    <script src="script.js?v=39"></script>
     <script src="fm.js?v=10"></script>
     <script src="expert-guide.js?v=3"></script>
     <script src="course-plaza-guide.js?v=4"></script>

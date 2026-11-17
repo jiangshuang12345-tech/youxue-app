@@ -1295,6 +1295,12 @@
 .learning-plan-days button[aria-pressed="true"] { box-shadow:inset 0 0 0 7px #ff7a22,0 8px 24px rgba(255,112,30,.36); background:rgba(255,247,209,.18); }
 .learning-plan-days button[aria-pressed="true"]::after { content:"✓"; position:absolute; right:8%; top:7%; display:grid; place-items:center; width:25%; aspect-ratio:1; border-radius:50%; background:#ff7624; color:#fff; font-size:clamp(16px,2vw,31px); font-weight:900; }
 .learning-plan-status { position:absolute; left:4.7%; top:43%; z-index:9; width:17%; margin:0; color:#fff; font-size:clamp(14px,1.5vw,24px); font-weight:800; text-align:center; text-shadow:0 2px 5px rgba(0,0,0,.2); }
+.learning-plan-actions { position:absolute; right:3.2%; bottom:4.5%; z-index:12; display:flex; align-items:center; gap:14px; }
+.learning-plan-action { min-width:150px; padding:13px 24px; border:2px solid rgba(255,255,255,.9); border-radius:999px; box-shadow:0 8px 22px rgba(41,82,64,.2); font-size:clamp(16px,1.7vw,27px); font-weight:900; cursor:pointer; }
+.learning-plan-action--modify,.learning-plan-action--save { background:linear-gradient(180deg,#ff9a46,#ff681f); color:#fff; }
+.learning-plan-action--cancel { background:rgba(255,255,255,.92); color:#ff681f; }
+.learning-plan-action:disabled { opacity:.48; cursor:not-allowed; }
+#learningPlanPage:not(.is-editing) .learning-plan-days button,#learningPlanPage:not(.is-editing) .learning-plan-mode button { cursor:default; }
 
 #smartSystemPage { display:block; padding:0; overflow:hidden; background:#67c6cf; }
 #smartSystemPage[hidden] { display:none; }

@@ -1169,9 +1169,15 @@ document.querySelector("#smartPage .smart-zones").addEventListener("click", (eve
 const learningPlanDays = [...document.querySelectorAll("[data-plan-day]")];
 const learningPlanModeButtons = [...document.querySelectorAll("[data-plan-mode]")];
 const learningPlanStatus = document.querySelector("#learningPlanStatus");
+const modifyLearningPlanButton = document.querySelector("#modifyLearningPlan");
+const cancelLearningPlanButton = document.querySelector("#cancelLearningPlan");
+const saveLearningPlanButton = document.querySelector("#saveLearningPlan");
 const initialLearningPlan = readStore("yx_learning_plan", { days: ["周一", "周三", "周五"], mode: "active" });
-let selectedLearningPlanDays = new Set(initialLearningPlan.days || ["周一", "周三", "周五"]);
-let learningPlanMode = initialLearningPlan.mode === "paused" ? "paused" : "active";
+let savedLearningPlanDays = [...(initialLearningPlan.days || ["周一", "周三", "周五"])];
+let savedLearningPlanMode = initialLearningPlan.mode === "paused" ? "paused" : "active";
+let selectedLearningPlanDays = new Set(savedLearningPlanDays);
+let learningPlanMode = savedLearningPlanMode;
+let learningPlanEditMode = false;
 let smartSystemVersion = "legacy";
 
 function renderLearningPlan() {
@@ -1185,7 +1191,25 @@ function renderLearningPlan() {
   });
   const remaining = Math.max(0, 3 - selectedLearningPlanDays.size);
   learningPlanStatus.textContent = remaining ? `还需选择${remaining}个时间` : `已选择：${[...selectedLearningPlanDays].join("、")}`;
-  writeStore("yx_learning_plan", { days: [...selectedLearningPlanDays], mode: learningPlanMode });
+  learningPlanPage.classList.toggle("is-editing", learningPlanEditMode);
+  learningPlanDays.forEach((button) => { button.disabled = !learningPlanEditMode; });
+  learningPlanModeButtons.forEach((button) => { button.disabled = !learningPlanEditMode; });
+  modifyLearningPlanButton.hidden = learningPlanEditMode;
+  cancelLearningPlanButton.hidden = !learningPlanEditMode;
+  saveLearningPlanButton.hidden = !learningPlanEditMode;
+  saveLearningPlanButton.disabled = selectedLearningPlanDays.size !== 3;
+}
+
+function resetLearningPlanDraft() {
+  selectedLearningPlanDays = new Set(savedLearningPlanDays);
+  learningPlanMode = savedLearningPlanMode;
+}
+
+function openLearningPlan() {
+  learningPlanEditMode = false;
+  resetLearningPlanDraft();
+  renderLearningPlan();
+  showPage(learningPlanPage, "#learning-plan");
 }
 
 function setSmartSystemVersion(version) {
@@ -1234,7 +1258,7 @@ function finishSmartSliderDrag(event) {
     smartSliderPressedSlide = null;
     if (slide?.dataset.smartSlide === "assessment") openCourseReport();
     if (slide?.dataset.smartSlide === "trial") showToast("正在进入体验课程…");
-    if (slide?.dataset.smartSlide === "plan") showPage(learningPlanPage, "#learning-plan");
+    if (slide?.dataset.smartSlide === "plan") openLearningPlan();
     if (slide?.dataset.smartSlide === "system") showPage(smartSystemPage, "#smart-system");
     return;
   }
@@ -1255,11 +1279,17 @@ smartCardSlider.querySelectorAll("[data-smart-slide]").forEach((slide) => slide.
   event.preventDefault();
   if (slide.dataset.smartSlide === "assessment") openCourseReport();
   else if (slide.dataset.smartSlide === "trial") showToast("正在进入体验课程…");
-  else if (slide.dataset.smartSlide === "plan") showPage(learningPlanPage, "#learning-plan");
+  else if (slide.dataset.smartSlide === "plan") openLearningPlan();
   else showPage(smartSystemPage, "#smart-system");
 }));
-document.querySelector("#backFromLearningPlan").addEventListener("click", () => showPage(smartPage, "#smart"));
+document.querySelector("#backFromLearningPlan").addEventListener("click", () => {
+  if (learningPlanEditMode) resetLearningPlanDraft();
+  learningPlanEditMode = false;
+  renderLearningPlan();
+  showPage(smartPage, "#smart");
+});
 learningPlanDays.forEach((button) => button.addEventListener("click", () => {
+  if (!learningPlanEditMode) return;
   const day = button.dataset.planDay;
   if (selectedLearningPlanDays.has(day)) selectedLearningPlanDays.delete(day);
   else if (selectedLearningPlanDays.size >= 3) {
@@ -1269,14 +1299,38 @@ learningPlanDays.forEach((button) => button.addEventListener("click", () => {
   renderLearningPlan();
 }));
 learningPlanModeButtons.forEach((button) => button.addEventListener("click", () => {
+  if (!learningPlanEditMode) return;
   if (button.dataset.planMode === "active" && selectedLearningPlanDays.size !== 3) {
     showToast("开启学习计划前，请先选择3个上课时间");
     return;
   }
   learningPlanMode = button.dataset.planMode;
   renderLearningPlan();
-  showToast(learningPlanMode === "active" ? "学习计划已开启" : "学习计划已暂停");
 }));
+modifyLearningPlanButton.addEventListener("click", () => {
+  learningPlanEditMode = true;
+  renderLearningPlan();
+  showToast("已进入修改模式，请选择3个上课时间");
+});
+cancelLearningPlanButton.addEventListener("click", () => {
+  resetLearningPlanDraft();
+  learningPlanEditMode = false;
+  renderLearningPlan();
+  showToast("已取消本次修改");
+});
+saveLearningPlanButton.addEventListener("click", () => {
+  if (selectedLearningPlanDays.size !== 3) {
+    showToast("请先选择3个上课时间");
+    return;
+  }
+  savedLearningPlanDays = [...selectedLearningPlanDays];
+  savedLearningPlanMode = learningPlanMode;
+  writeStore("yx_learning_plan", { days: savedLearningPlanDays, mode: savedLearningPlanMode });
+  learningPlanEditMode = false;
+  renderLearningPlan();
+  setSmartSystemVersion("planned");
+  showToast(savedLearningPlanMode === "active" ? "学习计划已保存并开启" : "学习计划已保存，当前为暂停状态");
+});
 document.querySelector("#backFromSmartSystem").addEventListener("click", () => showPage(smartPage, "#smart"));
 document.querySelectorAll("[data-system-version]").forEach((button) => button.addEventListener("click", () => setSmartSystemVersion(button.dataset.systemVersion)));
 document.querySelector("#openFmFromSmartSystem").addEventListener("click", () => document.querySelector("#openFm")?.click());
