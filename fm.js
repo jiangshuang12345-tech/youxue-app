@@ -6,10 +6,20 @@
   const backFromFm = document.querySelector("#backFromFm");
   const filterPanel = document.querySelector("#fmFilterPanel");
   const categoryPanel = document.querySelector("#fmCategoryPanel");
+  const historyPanel = document.querySelector("#fmHistoryPanel");
+  const historyList = document.querySelector("#fmHistoryList");
+  const historyEmpty = document.querySelector("#fmHistoryEmpty");
   const filterSummary = document.querySelector("#fmFilterSummary");
   const progress = document.querySelector("#fmProgress");
   const liveStatus = document.querySelector("#fmLiveStatus");
-  if (!page || !artwork || !filterPanel || !categoryPanel || !progress) return;
+  if (!page || !artwork || !filterPanel || !categoryPanel || !historyPanel || !progress) return;
+
+  const tracks = [
+    { title: "Brown bear, Brown bear", meta: "L1 · 0-3岁", icon: "🐻" },
+    { title: "The Wheels on the Bus", meta: "L1 · 0-3岁", icon: "🚌" },
+    { title: "The Very Hungry Caterpillar", meta: "L1 · 0-3岁", icon: "🐛" },
+    { title: "Walking in the Jungle", meta: "L1 · 0-3岁", icon: "🌿" },
+  ];
 
   const artworkByState = {
     home: "assets/fm-home.webp",
@@ -29,6 +39,8 @@
   let audioContext = null;
   let oscillator = null;
   let gain = null;
+  let listeningHistory = [];
+  try { listeningHistory = JSON.parse(localStorage.getItem("youxueFmHistory") || "[]"); } catch (_) {}
 
   const showStandalonePage = (target, hash) => {
     document.querySelectorAll(".page").forEach((item) => { item.hidden = item !== target; });
@@ -46,11 +58,29 @@
   const setArtwork = (nextState) => {
     state = nextState;
     page.classList.toggle("is-fm-category-open", nextState === "categories");
-    artwork.src = nextState === "age" || nextState === "level"
+    page.classList.toggle("is-fm-history-open", nextState === "history");
+    artwork.src = nextState === "age" || nextState === "level" || nextState === "history"
       ? (subtitlesVisible ? artworkByState.subtitles : artworkByState.home)
       : artworkByState[nextState];
     filterPanel.hidden = nextState !== "age" && nextState !== "level";
     categoryPanel.hidden = nextState !== "categories";
+    historyPanel.hidden = nextState !== "history";
+  };
+  const renderHistory = () => {
+    historyEmpty.hidden = listeningHistory.length > 0;
+    historyList.innerHTML = listeningHistory.map((item) => `
+      <button class="fm-history-item" type="button" data-fm-history-track="${item.track}">
+        <span class="fm-history-cover" aria-hidden="true">${tracks[item.track].icon}</span>
+        <span class="fm-history-copy"><strong>${tracks[item.track].title}</strong><span>${tracks[item.track].meta} · ${item.time}</span></span>
+        <span class="fm-history-play" aria-hidden="true">▶</span>
+      </button>`).join("");
+  };
+  const recordHistory = (track) => {
+    const now = new Date();
+    const time = `${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")} 刚刚收听`;
+    listeningHistory = [{ track, time }, ...listeningHistory.filter((item) => item.track !== track)].slice(0, 6);
+    localStorage.setItem("youxueFmHistory", JSON.stringify(listeningHistory));
+    renderHistory();
   };
   const showFilterTab = (tab) => {
     activeFilterTab = tab;
@@ -124,6 +154,7 @@
       progress.value = String(elapsed);
     }, 1000);
     updatePlayback();
+    recordHistory(activeTrack);
     announce("音频开始播放");
   };
   const togglePlayback = () => playing ? pause() : play();
@@ -142,6 +173,17 @@
     showFilterTab(activeFilterTab);
   });
   document.querySelector("#fmCategoryTrigger").addEventListener("click", () => setArtwork("categories"));
+  document.querySelector("#fmHistoryTrigger").addEventListener("click", () => { renderHistory(); setArtwork("history"); });
+  document.querySelector("#fmHistoryClose").addEventListener("click", () => setArtwork(subtitlesVisible ? "subtitles" : "home"));
+  historyList.addEventListener("click", (event) => {
+    const item = event.target.closest("[data-fm-history-track]");
+    if (!item) return;
+    activeTrack = Number(item.dataset.fmHistoryTrack);
+    elapsed = 0;
+    progress.value = "0";
+    setArtwork(subtitlesVisible ? "subtitles" : "home");
+    play();
+  });
   document.querySelectorAll("[data-fm-filter-tab]").forEach((button) => button.addEventListener("click", () => showFilterTab(button.dataset.fmFilterTab)));
   document.querySelectorAll("[data-fm-age]").forEach((button) => button.addEventListener("click", () => {
     selectedAge = button.dataset.fmAge;
@@ -175,6 +217,11 @@
   page.addEventListener("click", (event) => {
     const filterTrigger = document.querySelector("#fmFilterTrigger");
     const categoryTrigger = document.querySelector("#fmCategoryTrigger");
+    const historyTrigger = document.querySelector("#fmHistoryTrigger");
+    if (!historyPanel.hidden && !historyPanel.contains(event.target) && !historyTrigger.contains(event.target)) {
+      setArtwork(subtitlesVisible ? "subtitles" : "home");
+      return;
+    }
     if (!filterPanel.hidden) {
       if (!filterPanel.contains(event.target) && !filterTrigger.contains(event.target)) setArtwork(subtitlesVisible ? "subtitles" : "home");
       return;
@@ -186,6 +233,7 @@
     }
   });
   updateFilterSelection();
+  renderHistory();
   openFm.addEventListener("click", () => showStandalonePage(page, "#fm"));
   backFromFm.addEventListener("click", () => {
     pause();

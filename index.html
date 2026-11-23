@@ -13,7 +13,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="final-ui.css?v=123" />
+    <link rel="stylesheet" href="final-ui.css?v=124" />
   </head>
   <body>
     <div class="device-stage">
@@ -52,6 +52,7 @@
         <h1 class="sr-only" id="fmTitle" tabindex="-1">FM</h1>
         <img class="fm-artwork" id="fmArtwork" src="assets/fm-home.webp" alt="FM音频列表" fetchpriority="high" decoding="async" />
         <button class="fm-back" id="backFromFm" type="button" aria-label="返回优学中心"></button>
+        <button class="fm-history-trigger" id="fmHistoryTrigger" type="button" aria-label="查看收听历史"><i aria-hidden="true"></i><span>收听历史</span></button>
         <button class="fm-filter-trigger" id="fmFilterTrigger" type="button" aria-label="按年龄和级别筛选"><span id="fmFilterSummary">全部</span><i aria-hidden="true"></i></button>
         <button class="fm-category-trigger" id="fmCategoryTrigger" type="button" aria-label="切换分类"></button>
         <button class="fm-dino-trigger" id="fmDinoTrigger" type="button" aria-label="显示或隐藏字幕"></button>
@@ -83,6 +84,11 @@
           <button type="button" data-fm-category="哄睡">哄睡</button><button type="button" data-fm-category="磨耳朵">磨耳朵</button>
           <button type="button" data-fm-category="唱儿歌">唱儿歌</button><button type="button" data-fm-category="听故事">听故事</button>
           <button type="button" data-fm-category="学英语">学英语</button><button type="button" data-fm-category="双师智学课内">双师智学课内</button>
+        </section>
+        <section class="fm-history-panel" id="fmHistoryPanel" aria-labelledby="fmHistoryTitle" hidden>
+          <header><div><h2 id="fmHistoryTitle">收听历史</h2><p>最近收听的音频</p></div><button class="fm-history-close" id="fmHistoryClose" type="button" aria-label="关闭收听历史">×</button></header>
+          <div class="fm-history-list" id="fmHistoryList"></div>
+          <p class="fm-history-empty" id="fmHistoryEmpty">暂无收听记录<br><span>播放音频后会自动记录在这里</span></p>
         </section>
         <p class="fm-live-status" id="fmLiveStatus" aria-live="polite"></p>
       </main>
@@ -742,7 +748,7 @@
     </div>
 
     <script src="script.js?v=40"></script>
-    <script src="fm.js?v=10"></script>
+    <script src="fm.js?v=11"></script>
     <script src="expert-guide.js?v=3"></script>
     <script src="course-plaza-guide.js?v=4"></script>
     <script src="course-plaza-controls.js?v=2"></script>
