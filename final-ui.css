@@ -1211,7 +1211,7 @@
 .page--fm-recent::before { content:""; position:absolute; left:0; right:0; top:0; z-index:5; height:15.5%; background:linear-gradient(100deg,#0a0e31,#10153b 52%,#0c1236); pointer-events:none; }
 .page--fm-recent::after { content:""; position:absolute; left:0; top:15%; bottom:0; z-index:6; width:44.5%; background:linear-gradient(100deg,#070b27,#11163d); pointer-events:none; }
 .fm-recent-artwork { position:absolute; inset:0; width:100%; height:100%; max-width:none; object-fit:fill; pointer-events:none; }
-.fm-recent-back { position:absolute; left:2.1%; top:4.8%; z-index:3; width:5.4%; aspect-ratio:1; padding:0; border:2px solid rgba(255,255,255,.5); border-radius:50%; color:#fff; background:rgba(12,18,55,.66); cursor:pointer; }
+.fm-recent-back { position:absolute; left:2.1%; top:4.8%; z-index:8; width:5.4%; aspect-ratio:1; padding:0; border:2px solid rgba(255,255,255,.5); border-radius:50%; color:#fff; background:rgba(12,18,55,.66); cursor:pointer; }
 .fm-recent-back::before { content:""; position:absolute; left:53%; top:50%; width:22%; aspect-ratio:1; border-left:clamp(3px,.3vw,5px) solid currentColor; border-bottom:clamp(3px,.3vw,5px) solid currentColor; transform:translate(-50%,-50%) rotate(45deg); }
 .fm-recent-header { position:absolute; left:50%; top:5.8%; z-index:7; color:#fff; transform:translateX(-50%); }
 .fm-recent-header h1,.fm-recent-header p { margin:0; }
