@@ -11,6 +11,7 @@
   const historyEmpty = document.querySelector("#fmHistoryEmpty");
   const filterSummary = document.querySelector("#fmFilterSummary");
   const progress = document.querySelector("#fmProgress");
+  const recentProgress = document.querySelector("#fmRecentProgress");
   const liveStatus = document.querySelector("#fmLiveStatus");
   if (!page || !artwork || !filterPanel || !categoryPanel || !recentPage || !progress) return;
 
@@ -129,8 +130,11 @@
   };
   const updatePlayback = () => {
     page.classList.toggle("is-fm-playing", playing);
+    recentPage.classList.toggle("is-fm-playing", playing);
+    recentPage.classList.toggle("is-fm-looping", loop);
     document.querySelectorAll("[data-fm-track]").forEach((button, index) => button.classList.toggle("is-active", index === activeTrack && playing));
     document.querySelector("#fmPlayerToggle").setAttribute("aria-label", playing ? "暂停当前音频" : "播放当前音频");
+    document.querySelector("#fmRecentPlayerToggle").setAttribute("aria-label", playing ? "暂停当前音频" : "播放当前音频");
     if (!recentPage.hidden) renderHistory();
   };
   const pause = () => {
@@ -151,6 +155,7 @@
         else { elapsed = 36; pause(); }
       }
       progress.value = String(elapsed);
+      recentProgress.value = String(elapsed);
     }, 1000);
     updatePlayback();
     recordHistory(activeTrack);
@@ -183,6 +188,7 @@
       activeTrack = targetTrack;
       elapsed = 0;
       progress.value = "0";
+      recentProgress.value = "0";
       play();
     }
   });
@@ -210,12 +216,23 @@
     play();
   }));
   document.querySelector("#fmPlayerToggle").addEventListener("click", togglePlayback);
+  document.querySelector("#fmRecentPlayerToggle").addEventListener("click", togglePlayback);
   document.querySelector("#fmLoopToggle").addEventListener("click", () => {
     loop = !loop;
     page.classList.toggle("is-fm-looping", loop);
     announce(loop ? "已开启单曲循环" : "已关闭单曲循环");
   });
+  document.querySelector("#fmRecentLoopToggle").addEventListener("click", () => {
+    loop = !loop;
+    page.classList.toggle("is-fm-looping", loop);
+    recentPage.classList.toggle("is-fm-looping", loop);
+    announce(loop ? "已开启单曲循环" : "已关闭单曲循环");
+  });
   progress.addEventListener("input", () => { elapsed = Number(progress.value); });
+  recentProgress.addEventListener("input", () => {
+    elapsed = Number(recentProgress.value);
+    progress.value = recentProgress.value;
+  });
   page.addEventListener("click", (event) => {
     const filterTrigger = document.querySelector("#fmFilterTrigger");
     const categoryTrigger = document.querySelector("#fmCategoryTrigger");
