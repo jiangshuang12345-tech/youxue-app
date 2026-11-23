@@ -1617,7 +1617,7 @@ renderOrders();
 renderStudyCards();
 renderSmartLessons();
 
-const initialRoutes = { "#study": studyPage, "#courses": courseSelectPage, "#real-world-courses": realWorldCoursesPage, "#expert-courses": expertCoursesPage, "#lessons": lessonsPage, "#orders": ordersPage, "#smart": smartPage, "#learning-plan": learningPlanPage, "#extension": extensionPage, "#smart-system": smartSystemPage, "#course-report": courseReportPage, "#vip": vipPage, "#home": homePage, "#profile-edit": profileEditPage };
+const initialRoutes = { "#study": studyPage, "#courses": courseSelectPage, "#real-world-courses": realWorldCoursesPage, "#expert-courses": expertCoursesPage, "#lessons": lessonsPage, "#orders": ordersPage, "#smart": smartPage, "#learning-plan": learningPlanPage, "#extension": extensionPage, "#smart-system": smartSystemPage, "#course-report": courseReportPage, "#vip": vipPage, "#home": homePage, "#profile-edit": profileEditPage, "#fm-recent": document.querySelector("#fmRecentPage") };
 if (window.location.hash === "#validity") showLessonDetailTab("validity");
 else if (window.location.hash === "#ledger") showLessonDetailTab("ledger");
 else if (initialRoutes[window.location.hash]) showPage(initialRoutes[window.location.hash], window.location.hash);

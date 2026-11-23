@@ -2,17 +2,17 @@
   const page = document.querySelector("#fmPage");
   const artwork = document.querySelector("#fmArtwork");
   const studyPage = document.querySelector("#studyPage");
+  const recentPage = document.querySelector("#fmRecentPage");
   const openFm = document.querySelector("#openFm");
   const backFromFm = document.querySelector("#backFromFm");
   const filterPanel = document.querySelector("#fmFilterPanel");
   const categoryPanel = document.querySelector("#fmCategoryPanel");
-  const historyPanel = document.querySelector("#fmHistoryPanel");
   const historyList = document.querySelector("#fmHistoryList");
   const historyEmpty = document.querySelector("#fmHistoryEmpty");
   const filterSummary = document.querySelector("#fmFilterSummary");
   const progress = document.querySelector("#fmProgress");
   const liveStatus = document.querySelector("#fmLiveStatus");
-  if (!page || !artwork || !filterPanel || !categoryPanel || !historyPanel || !progress) return;
+  if (!page || !artwork || !filterPanel || !categoryPanel || !recentPage || !progress) return;
 
   const tracks = [
     { title: "Brown bear, Brown bear", meta: "L1 · 0-3岁", icon: "🐻" },
@@ -58,19 +58,17 @@
   const setArtwork = (nextState) => {
     state = nextState;
     page.classList.toggle("is-fm-category-open", nextState === "categories");
-    page.classList.toggle("is-fm-history-open", nextState === "history");
-    artwork.src = nextState === "age" || nextState === "level" || nextState === "history"
+    artwork.src = nextState === "age" || nextState === "level"
       ? (subtitlesVisible ? artworkByState.subtitles : artworkByState.home)
       : artworkByState[nextState];
     filterPanel.hidden = nextState !== "age" && nextState !== "level";
     categoryPanel.hidden = nextState !== "categories";
-    historyPanel.hidden = nextState !== "history";
   };
   const renderHistory = () => {
     historyEmpty.hidden = listeningHistory.length > 0;
     historyList.innerHTML = listeningHistory.map((item) => `
-      <button class="fm-history-item" type="button" data-fm-history-track="${item.track}">
-        <span class="fm-history-cover" aria-hidden="true">${tracks[item.track].icon}</span>
+      <button class="fm-history-item${playing && activeTrack === item.track ? " is-playing" : ""}" type="button" data-fm-history-track="${item.track}">
+        <span class="fm-history-cover" data-track="${item.track}" aria-hidden="true"></span>
         <span class="fm-history-copy"><strong>${tracks[item.track].title}</strong><span>${tracks[item.track].meta} · ${item.time}</span></span>
         <span class="fm-history-play" aria-hidden="true">▶</span>
       </button>`).join("");
@@ -133,6 +131,7 @@
     page.classList.toggle("is-fm-playing", playing);
     document.querySelectorAll("[data-fm-track]").forEach((button, index) => button.classList.toggle("is-active", index === activeTrack && playing));
     document.querySelector("#fmPlayerToggle").setAttribute("aria-label", playing ? "暂停当前音频" : "播放当前音频");
+    if (!recentPage.hidden) renderHistory();
   };
   const pause = () => {
     playing = false;
@@ -173,16 +172,19 @@
     showFilterTab(activeFilterTab);
   });
   document.querySelector("#fmCategoryTrigger").addEventListener("click", () => setArtwork("categories"));
-  document.querySelector("#fmHistoryTrigger").addEventListener("click", () => { renderHistory(); setArtwork("history"); });
-  document.querySelector("#fmHistoryClose").addEventListener("click", () => setArtwork(subtitlesVisible ? "subtitles" : "home"));
+  document.querySelector("#fmHistoryTrigger").addEventListener("click", () => { renderHistory(); showStandalonePage(recentPage, "#fm-recent"); });
+  document.querySelector("#backFromFmRecent").addEventListener("click", () => showStandalonePage(page, "#fm"));
   historyList.addEventListener("click", (event) => {
     const item = event.target.closest("[data-fm-history-track]");
     if (!item) return;
-    activeTrack = Number(item.dataset.fmHistoryTrack);
-    elapsed = 0;
-    progress.value = "0";
-    setArtwork(subtitlesVisible ? "subtitles" : "home");
-    play();
+    const targetTrack = Number(item.dataset.fmHistoryTrack);
+    if (playing && activeTrack === targetTrack) pause();
+    else {
+      activeTrack = targetTrack;
+      elapsed = 0;
+      progress.value = "0";
+      play();
+    }
   });
   document.querySelectorAll("[data-fm-filter-tab]").forEach((button) => button.addEventListener("click", () => showFilterTab(button.dataset.fmFilterTab)));
   document.querySelectorAll("[data-fm-age]").forEach((button) => button.addEventListener("click", () => {
@@ -217,11 +219,6 @@
   page.addEventListener("click", (event) => {
     const filterTrigger = document.querySelector("#fmFilterTrigger");
     const categoryTrigger = document.querySelector("#fmCategoryTrigger");
-    const historyTrigger = document.querySelector("#fmHistoryTrigger");
-    if (!historyPanel.hidden && !historyPanel.contains(event.target) && !historyTrigger.contains(event.target)) {
-      setArtwork(subtitlesVisible ? "subtitles" : "home");
-      return;
-    }
     if (!filterPanel.hidden) {
       if (!filterPanel.contains(event.target) && !filterTrigger.contains(event.target)) setArtwork(subtitlesVisible ? "subtitles" : "home");
       return;
@@ -240,4 +237,5 @@
     showStandalonePage(studyPage, "#study");
   });
   if (window.location.hash === "#fm") showStandalonePage(page, "#fm");
+  if (window.location.hash === "#fm-recent") { renderHistory(); showStandalonePage(recentPage, "#fm-recent"); }
 })();
