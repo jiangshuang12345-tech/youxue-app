@@ -13,7 +13,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="final-ui.css?v=125" />
+    <link rel="stylesheet" href="final-ui.css?v=126" />
   </head>
   <body>
     <div class="device-stage">
@@ -89,14 +89,16 @@
       </main>
 
       <main class="page page--fm-recent" id="fmRecentPage" aria-labelledby="fmRecentTitle" hidden>
-        <div class="fm-recent-shade" aria-hidden="true"></div>
+        <img class="fm-recent-artwork" src="assets/fm-home.webp" alt="" aria-hidden="true" />
         <button class="fm-recent-back" id="backFromFmRecent" type="button" aria-label="返回FM"></button>
         <header class="fm-recent-header">
           <h1 id="fmRecentTitle">最近</h1>
-          <p>最近收听的音频</p>
         </header>
         <section class="fm-recent-list" id="fmHistoryList" aria-label="最近收听列表"></section>
         <p class="fm-recent-empty" id="fmHistoryEmpty">暂无收听记录<br><span>播放音频后会自动记录在这里</span></p>
+        <button class="fm-recent-player-toggle" id="fmRecentPlayerToggle" type="button" aria-label="播放或暂停当前音频"></button>
+        <button class="fm-recent-loop-toggle" id="fmRecentLoopToggle" type="button" aria-label="切换单曲循环"></button>
+        <input class="fm-recent-progress" id="fmRecentProgress" type="range" min="0" max="36" step="1" value="0" aria-label="播放进度" />
       </main>
 
       <main class="page page--parent-expert" id="parentExpertPage" aria-labelledby="parentExpertTitle" hidden>
@@ -754,7 +756,7 @@
     </div>
 
     <script src="script.js?v=41"></script>
-    <script src="fm.js?v=12"></script>
+    <script src="fm.js?v=13"></script>
     <script src="expert-guide.js?v=3"></script>
     <script src="course-plaza-guide.js?v=4"></script>
     <script src="course-plaza-controls.js?v=2"></script>
