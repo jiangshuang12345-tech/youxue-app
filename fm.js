@@ -16,10 +16,10 @@
   if (!page || !artwork || !filterPanel || !categoryPanel || !recentPage || !progress) return;
 
   const tracks = [
-    { title: "Brown bear, Brown bear", meta: "L1 · 0-3岁", icon: "🐻" },
-    { title: "The Wheels on the Bus", meta: "L1 · 0-3岁", icon: "🚌" },
-    { title: "The Very Hungry Caterpillar", meta: "L1 · 0-3岁", icon: "🐛" },
-    { title: "Walking in the Jungle", meta: "L1 · 0-3岁", icon: "🌿" },
+    { title: "Brown bear, Brown bear", meta: "L1 · 0-3岁", listeners: "3413", icon: "🐻" },
+    { title: "The Wheels on the Bus", meta: "L1 · 0-3岁", listeners: "3413", icon: "🚌" },
+    { title: "The Very Hungry Caterpillar", meta: "L1 · 0-3岁", listeners: "3413", icon: "🐛" },
+    { title: "Walking in the Jungle", meta: "L1 · 0-3岁", listeners: "3413", icon: "🌿" },
   ];
 
   const artworkByState = {
@@ -70,7 +70,7 @@
     historyList.innerHTML = listeningHistory.map((item) => `
       <button class="fm-history-item${playing && activeTrack === item.track ? " is-playing" : ""}" type="button" data-fm-history-track="${item.track}">
         <span class="fm-history-cover" data-track="${item.track}" aria-hidden="true"></span>
-        <span class="fm-history-copy"><strong>${tracks[item.track].title}</strong><span>${tracks[item.track].meta} · ${item.time}</span></span>
+        <span class="fm-history-copy"><strong>${tracks[item.track].title}</strong><span>${tracks[item.track].meta} · 🎧 ${tracks[item.track].listeners}</span></span>
         <span class="fm-history-play" aria-hidden="true">▶</span>
       </button>`).join("");
   };
